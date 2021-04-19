@@ -1,0 +1,33 @@
+{
+  "name": "to-the-rescue-api",
+  "version": "1.0.0",
+  "description": "An API for the \"Al Rescate\" website that aims to be a centralized report system for endangered animals across Cuba",
+  "main": "app.js",
+  "repository": "https://github.com/josejorgers/to-the-rescue",
+  "author": "Jose Jorge Rodriguez Salgado <josejorgexl@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.4"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2"
+  },
+  "scripts": {
+    "test": "mocha --recursive",
+    "start": "node app.js"
+  },
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "es2015",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true
+  }
+}
