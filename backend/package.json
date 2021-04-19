@@ -18,7 +18,8 @@
   "devDependencies": {
     "axios": "^0.21.1",
     "chai": "^4.3.4",
-    "mocha": "^8.3.2"
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7"
   },
   "scripts": {
     "test": "mocha --recursive",
