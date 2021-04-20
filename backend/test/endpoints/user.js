@@ -1,7 +1,13 @@
 import { URL } from "../../config/constant.js"
 
-import axios from 'axios'
-import { expect } from 'chai'
+import chai from 'chai'
+import chaiHttp from 'chai-http'
+import app from "../../app.js"
+
+const should = chai.should();
+
+
+chai.use(chaiHttp)
 
 context('Test the user endpoints of the api', () => {
 
@@ -14,42 +20,66 @@ context('Test the user endpoints of the api', () => {
     
         var userId = null
         
-        it('Should store the user without errors', async () => {
+        it('Should store the user without errors', (done) => {
 
-            const user = (await axios.post(URL + "/user", dummyUser)).json()
-
-            userId = user._id
-
-            console.log("USER ID:", userId);
-
-            expect(user).to.have.property('firstName').equal('John')
+            chai.request(app)
+                .post("/user")
+                .send(dummyUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.a('object')
+                    res.body.firstName.should.be.equal(dummyUser.firstName)
+                    userId = res.body._id
+                    done()
+                })
         })
 
-        it('Should retrieve the user', async () => {
+        it('Should retrieve the user', (done) => {
 
-            var user = (await axios.get(URL + "/user/" + userId)).json()
+            chai.request(app)
+                .get('/user/' + userId)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.a('object')
+                    res.body.firstName.should.be.equal(dummyUser.firstName)
+                    done()
+                })
+        })
+
+        it('Should update the user', (done) => {
+
+            chai.request(app)
+                .put('/user/' + userId)
+                .send({
+                    lastName: 'Wall'
+                })
+                .end(() => {
+                    chai.request(app)
+                        .get('/user/' + userId)
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.body.should.be.a('object')
+                            res.body.lastName.should.be.equal('Wall')
+                            done()
+                    })
+                })
+        })
+
+        it('Should delete the user', (done) => {
+
             
-            expect(user).to.have.property('lastName').equal(dummyUser.lastName)
-        })
-
-        it('Should update the user', async () => {
-
-            const user = (await axios.put(URL + "/user/" + userId, {
-                ...dummyUser,
-                lastName: 'Wall'
-            })).json()
-
-            expect(user.lastName).to.be.equal('Wall')
-        })
-
-        it('Should delete the user', async () => {
-
-            
-            await axios.delete(URL + "/user/" + userId)
-
-            const user = await userManager.find({_id: userId})
-
-            expect(user.length).to.be.eq(0)
+            chai.request(app)
+                .delete('/user/' + userId)
+                .end(() => {
+                    chai.request(app)
+                        .get('/user/' + userId)
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.body.should.be.a('string')
+                            res.body.length.should.be.equal(0)
+                            done()
+                        })
+                })
         })
     })
 

@@ -1,4 +1,6 @@
 import express from 'express'
+import bodyParser from 'body-parser'
+
 import MongooseConnection from './config/mongoose.js'
 import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
@@ -11,6 +13,12 @@ connector.getConnection()
 const userManager = new UserManager()
 const alertManager = new AlertManager()
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: 'application/json'}));
+
+// USERS
 app.get('/user/:id', async (req, res) => {
 
     var id = req.params.id
@@ -31,7 +39,7 @@ app.post('/user', async (req, res) => {
 
 app.put('/user/:id', async (req, res) => {
 
-    const body = req.body   
+    const body = req.body
     const id = req.params.id
 
     const user = (await userManager.update({_id: id}, body))[0]
@@ -66,7 +74,7 @@ app.get('/alert/:id', async (req, res) => {
 
 app.post('/alert', async (req, res) => {
 
-    var alert = req.body
+    var alert = JSON.parse(req.body)
 
     alert = await alertManager.insert(alert)
 
@@ -75,7 +83,7 @@ app.post('/alert', async (req, res) => {
 
 app.put('/alert/:id', async (req, res) => {
 
-    const body = req.body   
+    const body = JSON.parse(req.body)
     const id = req.params.id
 
     const user = (await alertManager.update({_id: id}, body))[0]
@@ -95,3 +103,5 @@ app.delete('/alert/:id', async (req, res) => {
 
 
 app.listen(process.env.PORT || 8080)
+
+export default app
