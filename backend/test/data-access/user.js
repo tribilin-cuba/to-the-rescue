@@ -1,6 +1,8 @@
-import { expect } from "chai"
+import chai from "chai"
 import UserManager from "../../managers/user-manager.js"
 import { dummyUser } from "../data/data.js"
+
+const should = chai.should()
 
 context('Testing Data access for Users', () => {
 
@@ -16,7 +18,7 @@ context('Testing Data access for Users', () => {
         it('Should retrieve the user', async () => {
 
             var user = (await userManager.find({firstName: 'John'}))[0]
-            expect(user).to.have.property('lastName').equal(dummyUser.lastName)
+            user.should.have.property('lastName').equal(dummyUser.lastName)
         })
 
         it('Should update the user', async () => {
@@ -25,7 +27,7 @@ context('Testing Data access for Users', () => {
 
             const user = (await userManager.find({firstName: 'John'}))[0]
 
-            expect(user.lastName).to.be.equal('Wall')
+            user.lastName.should.be.equal('Wall')
         })
 
         it('Should delete the user', async () => {
@@ -34,7 +36,7 @@ context('Testing Data access for Users', () => {
 
             const user = await userManager.find({firstName: 'John'})
 
-            expect(user.length).to.be.eq(0)
+            user.length.should.be.eq(0)
         })
     })
 })
