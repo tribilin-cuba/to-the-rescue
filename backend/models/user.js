@@ -22,7 +22,7 @@ var UserSchema = new mongoose.Schema({
     email: {
         type: String,
         maxLength: 30,
-        required: false,        
+        required: true,        
     },
 
     phone: {

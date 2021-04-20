@@ -1,8 +1,8 @@
-import { URL } from "../../config/constant.js"
-
 import chai from 'chai'
 import chaiHttp from 'chai-http'
+
 import app from "../../app.js"
+import { dummyUser } from "../data/data.js";
 
 const should = chai.should();
 
@@ -12,12 +12,6 @@ chai.use(chaiHttp)
 context('Test the user endpoints of the api', () => {
 
     describe('Basic CRUD endpoints', () => {
-
-        const dummyUser = {
-            firstName: 'John',
-            lastName: 'Doe'
-        }
-    
         var userId = null
         
         it('Should store the user without errors', (done) => {

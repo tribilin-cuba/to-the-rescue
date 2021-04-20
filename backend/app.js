@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/json'}));
 
-// USERS
+
+// * USERS
 app.get('/user/:id', async (req, res) => {
 
     var id = req.params.id
@@ -57,6 +58,8 @@ app.delete('/user/:id', async (req, res) => {
 })
 
 
+
+// * ALERTS
 app.get('/alert/all', async (req, res) => {
 
     var alerts = await alertManager.find({})
@@ -74,7 +77,7 @@ app.get('/alert/:id', async (req, res) => {
 
 app.post('/alert', async (req, res) => {
 
-    var alert = JSON.parse(req.body)
+    var alert = req.body
 
     alert = await alertManager.insert(alert)
 
@@ -83,7 +86,7 @@ app.post('/alert', async (req, res) => {
 
 app.put('/alert/:id', async (req, res) => {
 
-    const body = JSON.parse(req.body)
+    const body = req.body
     const id = req.params.id
 
     const user = (await alertManager.update({_id: id}, body))[0]

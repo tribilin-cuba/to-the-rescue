@@ -2,8 +2,9 @@ import mongoose from "mongoose"
 
 var AlertSchema = new mongoose.Schema({
 
-    author : {
-        type: String
+    author_id : {
+        type: String,
+        required: true
     },
 
     date: {
@@ -12,24 +13,29 @@ var AlertSchema = new mongoose.Schema({
     },
 
     picture_path: {
-        type: String
+        type: String,
+        required: false
     },
 
     province: {
-        type: String
+        type: String,
+        required: true
     },
 
     municipality: {
-        type: String
+        type: String,
+        required: true
     },
 
     address: {
-        type: String
+        type: String,
+        required: false
     },
 
     alert_type: {
         type: String,
-        enum: ['Lost', 'Abandoned', 'Seek Adoption', 'Critical Condition']
+        enum: ['Lost', 'Abandoned', 'Seek Adoption', 'Critical Condition'],
+        required: true
     }
 })
 

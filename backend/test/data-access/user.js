@@ -1,14 +1,10 @@
 import { expect } from "chai"
 import UserManager from "../../managers/user-manager.js"
+import { dummyUser } from "../data/data.js"
 
 context('Testing Data access for Users', () => {
 
     describe('CRUD for Users', () => {
-
-        const dummyUser = {
-            firstName: 'John',
-            lastName: 'Doe'
-        }
 
         const userManager = new UserManager()
         
