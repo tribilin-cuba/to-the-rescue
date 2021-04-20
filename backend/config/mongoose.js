@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { MONGODB_URL } from "./constant.js"
+import dotenv from 'dotenv'
 
-
+dotenv.config()
 class MongooseConnection{
 
     connection = null
@@ -13,7 +13,7 @@ class MongooseConnection{
 
         mongoose.Promise = global.Promise
 
-        mongoose.connect(MONGODB_URL, {
+        mongoose.connect(process.env.MONGODB_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
