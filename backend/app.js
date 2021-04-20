@@ -10,6 +10,8 @@ const app = express()
 const connector = new MongooseConnection()
 connector.getConnection()
 
+export const connection = connector.connection
+
 const userManager = new UserManager()
 const alertManager = new AlertManager()
 

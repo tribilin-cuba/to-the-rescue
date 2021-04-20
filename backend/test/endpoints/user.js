@@ -1,7 +1,7 @@
 import chai from 'chai'
 import chaiHttp from 'chai-http'
 
-import app from "../../app.js"
+import app, { connection } from "../../app.js"
 import { dummyUser } from "../data/data.js";
 
 const should = chai.should();
@@ -71,6 +71,7 @@ context('Test the user endpoints of the api', () => {
                             res.should.have.status(200)
                             res.body.should.be.a('string')
                             res.body.length.should.be.equal(0)
+                            connection.close()
                             done()
                         })
                 })
