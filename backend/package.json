@@ -23,7 +23,7 @@
     "mocha": "^8.3.2"
   },
   "scripts": {
-    "test": "mocha --recursive --timeout 5000",
+    "test": "mocha --recursive --exit",
     "start": "node app.js"
   },
   "compilerOptions": {

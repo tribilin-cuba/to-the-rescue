@@ -1,17 +1,24 @@
+import mongoose from "mongoose"
+import { connection } from "../app.js"
 import MongooseConnection from "../config/mongoose.js"
 
-var connection = null
+var connector = new MongooseConnection()
+connector.getConnection()
+var conn = connector.connection
 
 before((done) => {
-    var connector = new MongooseConnection()
-    connector.getConnection()
-    connection = connector.connection
-    connector.connection.collections.users.drop(() => {
+    conn.collections.users.drop(() => {
         done()
     })
 })
 
 after((done) => {
-    process.exit(0)
-    done()
+    // connection.close(() => {
+    //     conn.close(() => {
+    //         console.log("CONNECTION CLOSED");
+    //         done()
+    //     })
+    // })
+
+    mongoose.disconnect(done)
 })

@@ -20,6 +20,7 @@ class MongooseConnection{
 
         mongoose.connection
                 .on('error', (error)=>console.error('CONNECTION ERROR:', error))
+                .on('close', () => console.log('CLOSING CONNECTION'))
 
         this.connection = mongoose.connection
     }
