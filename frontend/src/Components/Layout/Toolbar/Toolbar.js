@@ -1,6 +1,6 @@
 import React from "react"
 import "./Toolbar.css"
-import Logo from "../Logo/Logo"
+// import Logo from "../Logo/Logo"
 import NavigationItems from "../NavigationItems/Navigationitems"
 
 const toolbar = (props) => (
@@ -8,7 +8,7 @@ const toolbar = (props) => (
         {/* <div className="Logo">
             <Logo toggleClick={props.toggleClick} />
         </div> */}
-        <nav className="DesktopOnly">
+        <nav>
             <NavigationItems menuClicked={props.toggleClick} />
         </nav>
     </header>
