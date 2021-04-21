@@ -5,7 +5,6 @@ import "./NavigationItem.css"
 const navigationItem = (props) => (
     <li className="NavigationItem">
         <Link to={{ pathname: props.link }}>{props.children}</Link>
-        {/* <a href={props.link} >{props.children}</a> */}
     </li>
 )
 
