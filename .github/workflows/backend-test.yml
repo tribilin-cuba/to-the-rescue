@@ -19,7 +19,7 @@ jobs:
         run: docker run -d -p 27017:27017 mongo
       - name: yarn install and test
         run: |
-          yarn
-          yarn test
+          sudo yarn
+          sudo yarn test
         env:
           CI: true
