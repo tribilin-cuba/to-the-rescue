@@ -1,11 +1,18 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import MongooseConnection from './config/mongoose.js'
 import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
 
+const corsOptions = {
+    origin: false
+}
+
 const app = express()
+
+app.use(cors(corsOptions))
 
 const connector = new MongooseConnection()
 connector.getConnection()
