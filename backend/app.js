@@ -28,6 +28,11 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/json'}));
 
 
+app.get("/", (req, res) => {
+
+    res.send('BIENVENIDO A LA API DE AL RESCATE')
+})
+
 // * USERS
 app.get('/user/:id', async (req, res) => {
 
