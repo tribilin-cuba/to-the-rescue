@@ -31,5 +31,9 @@
     "module": "es2015",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true
+  },
+
+  "engines": {
+    "node": "14.x"
   }
 }
