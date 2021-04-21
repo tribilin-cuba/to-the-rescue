@@ -113,6 +113,7 @@ app.delete('/alert/:id', async (req, res) => {
     res.json(user)
 })
 
+console.log('PORT:', process.env.PORT);
 
 app.listen(process.env.PORT || 8080)
 
