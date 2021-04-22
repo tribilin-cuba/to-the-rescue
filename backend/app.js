@@ -17,6 +17,9 @@ app.use(cors(corsOptions))
 const connector = new MongooseConnection()
 connector.getConnection()
 
+while(connector.connection == null)
+    continue
+
 export const connection = connector.connection
 
 const userManager = new UserManager()
