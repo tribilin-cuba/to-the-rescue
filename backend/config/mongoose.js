@@ -13,7 +13,7 @@ class MongooseConnection{
 
         mongoose.Promise = global.Promise
 
-        mongoose.connect(process.env.MONGODB_URL, {
+        mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/to-the-rescue-dev', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
