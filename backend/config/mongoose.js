@@ -13,8 +13,9 @@ class MongooseConnection{
 
         mongoose.Promise = global.Promise
 
-        const DB_URL = "mongodb+srv://co-founder:RingoTribi1002@to-the-rescue-cluster.8gyom.mongodb.net/staging?retryWrites=true&w=majority"
+        const DB_URL = process.env.MONGODB_URL || "http://localhost:27017/to-the-rescue-dev"
         console.log(DB_URL)
+        
         mongoose.connect(DB_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true
