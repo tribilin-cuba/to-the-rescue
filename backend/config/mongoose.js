@@ -13,7 +13,7 @@ class MongooseConnection{
 
         mongoose.Promise = global.Promise
 
-        const DB_URL = process.env.MONGODB_URL || "http://localhost:27017/to-the-rescue-dev"
+        const DB_URL = process.env.MONGODB_URL || "mongodb://localhost:27017/to-the-rescue-dev"
         console.log(DB_URL)
         
         mongoose.connect(DB_URL, {
