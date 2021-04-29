@@ -1,0 +1,78 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-messaging.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyCOl76atKnpcjHsrK6MknUXRBekDK_dJl8",
+    authDomain: "to-the-rescue-4c250.firebaseapp.com",
+    projectId: "to-the-rescue-4c250",
+    storageBucket: "to-the-rescue-4c250.appspot.com",
+    messagingSenderId: "88808042476",
+    appId: "1:88808042476:web:b3d36e2fff4b43c5c05ac9",
+    measurementId: "G-SE04L5SX65"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const messaging = firebase.messaging();
+</script>
+<script>
+  async function registerWorker() {
+    console.log('Registering service worker');
+    
+    const registration = await navigator.serviceWorker.
+                              register('/firebase-messaging-sw.js', {scope: '/'});
+    
+    console.log('Registered service worker');
+    
+    const subscription = await registration.pushManager.subscribe({
+                                                          userVisibleOnly: true,
+                                                          applicationServerKey: 'BAq83TbJIFswfdiiTny27GwlEr6SJF-CMUvF2iuK8V7_wOqMXpT8k5TgtQkXLFWhwjMDf81Ez9ks1kGANUdJ0AU'
+                                                        });
+  }
+
+  if ('serviceWorker' in navigator) {
+    console.log('Registering service worker'); 
+    regiserWorker().catch(error => console.error(error));
+  }
+</script>
+
+<script>
+  messaging.getToken( { 
+    vapidKey: 'BAq83TbJIFswfdiiTny27GwlEr6SJF-CMUvF2iuK8V7_wOqMXpT8k5TgtQkXLFWhwjMDf81Ez9ks1kGANUdJ0AU'
+  }).then((currentToken) => {
+
+    // Send the token to the server to store it
+    console.log("TOKEN:", currentToken)
+    if (currentToken) {
+      console.log('success')
+    } else {
+      // Show permission request UI
+      console.log('No registration token available. Request permission to generate one.');
+      // ...
+    }
+  }).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+    // ...
+  });
+</script>
+
+<script>
+  // Handle incoming messages. Called when:
+  // - a message is received while the app has focus
+  // - the user clicks on an app notification created by a service worker
+  //   `messaging.onBackgroundMessage` handler.
+  messaging.onMessage((payload) => {
+    console.log('Message received. ', payload);
+    // ...
+  });
+
+</script>

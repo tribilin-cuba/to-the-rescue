@@ -1,0 +1,32 @@
+https://fcm.googleapis.com//v1/projects/<YOUR-PROJECT-ID>/messages:send
+Content-Type: application/json
+Authorization: bearer AAAAFK1fL-w:APA91bHZgYm-eIXt95rBvIuoWCOGX3W6DqudtmskiW2KDnVHOZMExApFBDf7N-U2mibj76zNFjISy1FHLtCdW91cAnghozk0UBYZnBvV7HUwVTHg_EJMP2pEuR1V_MujVuTzpqx5RIof
+
+{
+  "message": {
+    "token": <user_token>,
+    "notification": {
+      "title": "Background Message Title",
+      "body": "Background message body"
+    },
+    "webpush": {
+      "fcm_options": {
+        "link": "https://dummypage.com"
+      }
+    }
+  }
+}
+
+
+
+
+
+curl -X POST -H "Authorization: key=YOUR_SERVER_KEY" -H "Content-Type: application/json" -d '{
+"notification": {
+"title": "First notif",
+"body": "Hello world",
+"icon": "firebase-logo.png",
+"click_action": "http://localhost:8081"
+},
+"to": "CLIENT_TOKEN"
+}' "https://fcm.googleapis.com/fcm/send"
