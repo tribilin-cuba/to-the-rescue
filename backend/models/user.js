@@ -4,13 +4,13 @@ var UserSchema = new mongoose.Schema({
     firstName: {
         type: String,
         maxLength: 30,
-        required: true,        
+        required: false,        
     },
 
     lastName: {
         type: String,
         maxLength: 30,
-        required: true,        
+        required: false,        
     },
 
     secondLastName: {
