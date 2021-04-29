@@ -7,6 +7,19 @@ var AlertSchema = new mongoose.Schema({
         required: true
     },
 
+    animal : {
+        type: String,
+    },
+
+    gender : {
+        type: String,
+        enum:['Male', 'Female']
+    },
+
+    age: {
+        type: Number
+    },
+
     date: {
         type: Date,
         default: Date.now()
@@ -14,7 +27,6 @@ var AlertSchema = new mongoose.Schema({
 
     picture_path: {
         type: String,
-        required: false
     },
 
     province: {
@@ -29,13 +41,20 @@ var AlertSchema = new mongoose.Schema({
 
     address: {
         type: String,
-        required: false
     },
 
     alert_type: {
         type: String,
-        enum: ['Lost', 'Abandoned', 'Seek Adoption', 'Critical Condition'],
+        enum: ['Lost', 'Abandoned', 'Seek Adoption', 'Critical'],
         required: true
+    },
+
+    email: {
+        type: String
+    },
+
+    phone: {
+        type: String
     }
 })
 
