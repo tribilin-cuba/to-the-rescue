@@ -5,6 +5,7 @@ import cors from 'cors'
 import MongooseConnection from './config/mongoose.js'
 import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
+import TokenManager from './managers/token-manager.js'
 
 const corsOptions = {
     origin: false
@@ -24,6 +25,7 @@ export const connection = connector.connection
 
 const userManager = new UserManager()
 const alertManager = new AlertManager()
+const tokenManager = new TokenManager()
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -48,9 +50,15 @@ app.get('/user/:id', async (req, res) => {
 
 app.post('/user', async (req, res) => {
 
-    var user = req.body
+    const body = req.body
 
-    user = await userManager.insert(user)
+    const user = await userManager.insert(body)
+
+    if(body.token)
+        await tokenManager.insert({
+            token: body.token,
+            user_id: user['_id']
+        })
 
     res.json(user)
 })
@@ -119,6 +127,27 @@ app.delete('/alert/:id', async (req, res) => {
     const user = await alertManager.delete({_id: id})
 
     res.json(user)
+})
+
+
+// * TOKENS
+
+app.post('/token', async (req, res) => {
+
+    const body = req.body
+
+    const token = await tokenManager.insert(body)
+
+    res.json(token)
+})
+
+app.put('/token', async (req, res) => {
+
+    const body = req.body
+    
+    const token = (await tokenManager.update({token: body.token},
+                                                {user_id: body.user_id}))
+    res.json(token)
 })
 
 console.log('PORT:', process.env.PORT);

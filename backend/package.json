@@ -32,7 +32,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true
   },
-
   "engines": {
     "node": "14.x"
   }

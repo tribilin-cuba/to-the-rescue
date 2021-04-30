@@ -6,9 +6,9 @@ const should = chai.should()
 
 context('Testing Data access for Users', () => {
 
+    const userManager = new UserManager()
+    
     describe('CRUD for Users', () => {
-
-        const userManager = new UserManager()
         
         it('Should store the user without errors', async () => {
 
@@ -37,6 +37,19 @@ context('Testing Data access for Users', () => {
             const user = await userManager.find({firstName: 'John'})
 
             user.length.should.be.eq(0)
+        })
+    })
+
+    describe('Testing if the effect of an extra token parameter', () => {
+
+        it('Should insert the new user with the extra parameter without errors', async () => {
+
+            userManager.insert({
+                ...dummyUser,
+                secondLastName: 'WithToken',
+                token: 'qwerty'
+            })
+
         })
     })
 })
