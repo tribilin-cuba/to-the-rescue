@@ -9,7 +9,17 @@ before((done) => {
         continue
         
     if (connector.connection.collections.users)
-        connector.connection.collections.users.drop(() => { done() })
+        connector.connection.collections.users.drop(() => {
+            if (connector.connection.collections.alerts)
+                connector.connection.collections.alerts.drop(() => {
+                    if (connector.connection.collections.tokens)
+                        connector.connection.collections.tokens.drop(done)
+                    else
+                        done()
+            })
+            else
+                done()
+        })
     else
         done()
 })

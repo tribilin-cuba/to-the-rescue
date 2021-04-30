@@ -1,7 +1,7 @@
 import chai from 'chai'
 import chaiHttp from 'chai-http'
 
-import app, { connection } from "../../app.js"
+import app from "../../app.js"
 import { dummyUser } from "../data/data.js";
 
 const should = chai.should();
