@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import Card from "../Layout/Card/Card"
-
+import { connect } from "react-redux"
+import { POPULATE_SELECTED_POST } from "../../store/actions"
 
 class PostDetails extends Component {
-    state = {
-        post: {}
-    }
+
     componentDidMount() {
         fetch("https://jsonplaceholder.typicode.com/todos/" + this.props.match.params.id)
             .then(response => response.json())
-            .then(data => { this.setState({ post: data }) })
+            .then(data => this.props.populateSelectedPost(data))
             .catch(error => console.log(error))
     }
     render() {
-        const post = { ...this.state.post }
+        const post = { ...this.props.post }
         return (
             <Card color="lightblue">
                 <div className="d-flex flex-column flex-lg-row align-items-center">
@@ -30,4 +29,16 @@ class PostDetails extends Component {
     }
 }
 
-export default PostDetails
+const mapStateToProps = state => {
+    return {
+        post: state.selectedPost
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        populateSelectedPost: (data) => dispatch({ type: POPULATE_SELECTED_POST, newPost: data })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetails)
