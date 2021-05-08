@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import Post from "./Post/Post"
 import { connect } from "react-redux"
 import { POPULATE_POSTS } from "../../store/actions"
+import TopHeader from "../TopHeader/TopHeader"
+import "./Posts.css"
 
 class Posts extends Component {
 
@@ -23,9 +25,9 @@ class Posts extends Component {
             )
         return (
             <div>
-                <div className='d-flex'>
-                    <Link className="ml-auto mr-5" type="button" to="/new-post">Nuevo Anuncio</Link>
-                </div>
+                <TopHeader />
+                <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png"></img></Link>
+
                 {posts}
             </div>
         );

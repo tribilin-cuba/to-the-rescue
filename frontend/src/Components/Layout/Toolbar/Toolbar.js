@@ -1,16 +1,11 @@
 import React from "react"
 import "./Toolbar.css"
 // import Logo from "../Logo/Logo"
-import NavigationItems from "../NavigationItems/Navigationitems"
+// import NavigationItems from "../NavigationItems/Navigationitems"
 
 const toolbar = (props) => (
-    <header className="Toolbar">
-        {/* <div className="Logo">
-            <Logo toggleClick={props.toggleClick} />
-        </div> */}
-        <nav>
-            <NavigationItems menuClicked={props.toggleClick} />
-        </nav>
+    <header className="Toolbar flex align-items-end justify-content-center">
+        <img alt="logo" src="./logo.png"></img>
     </header>
 )
 

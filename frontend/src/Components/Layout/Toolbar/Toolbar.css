@@ -1,16 +1,19 @@
 .Toolbar {
-  height: 56;
+  height: 7%;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: lightseagreen;
+  background-color: white;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 90;
+  border-bottom: solid 3px #cccccc;
+}
+.Toolbar img {
+  height: 40px;
 }
 
 .Toolbar nav {
