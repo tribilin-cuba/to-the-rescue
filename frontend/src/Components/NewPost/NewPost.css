@@ -1,0 +1,31 @@
+.NewPostImage {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 25px;
+}
+
+.NewPostDropdown {
+  width: 200px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+.NewPostDropdownItems {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: small;
+}
+
+.NewPostInput {
+  width: 200px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: white;
+  margin-bottom: 15px;
+  border: solid 1px gray;
+}
+
+.NewPostTextArea {
+}

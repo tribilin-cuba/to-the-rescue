@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Card from "../../Layout/Card/Card"
 import "./Post.css"
 

@@ -1,13 +1,22 @@
 import React, { Component } from "react"
-import Input from "../Layout/Input/Input"
-import Card from "../Layout/Card/Card"
+import "./NewPost.css"
+import { Form, Button } from "react-bootstrap"
+// import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
     state = {
         postForm: {
-            id: "",
-            title: "",
-            body: ""
+            author_id: "piti",
+            animal: "",
+            gender: "",
+            age: 0,
+            picture_path: "",
+            province: "",
+            municipality: "",
+            address: "",
+            alert_type: "Lost",
+            email: "",
+            phone: "",
         }
     }
     submitHandler = (event) => {
@@ -17,7 +26,8 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        fetch("https://jsonplaceholder.typicode.com/posts", request)
+        console.log(this.state.postForm)
+        fetch("https://to-the-rescue-api-staging.herokuapp.com/alert", request)
             .then(response => {
                 console.log(response)
                 this.props.history.push('/')
@@ -33,21 +43,73 @@ class NewPost extends Component {
     }
     render() {
         return (
-            <Card color="white">
-                <form onSubmit={(event) => this.submitHandler(event)}>
-                    <h5 className="card-header" style={{ backgroundColor: "white" }}>Nuevo Anuncio</h5>
-                    {/* <Input placeholder="Animal" />
-                    <Input placeholder="Sexo" />
-                    <Input placeholder="Edad" />
-                    <Input placeholder="Direccion" />
-                    <Input placeholder="Provincia" />
-                    <Input placeholder="Municipio" />
-                    <Input placeholder="Descripcion" type="textarea" /> */}
-                    <Input config={{ placeholder: "Title", type: "textarea" }} changed={(event) => this.inputChangedHandler(event, "title")} />
-                    <Input config={{ placeholder: "Body", type: "textarea" }} changed={(event) => this.inputChangedHandler(event, "body")} />
-                    <button type="submit">Publicar</button>
-                </form>
-            </Card>
+            <Form onSubmit={this.submitHandler}>
+                <Form.Group>
+                    <div className="d-flex justify-content-center">
+                        <img className="NewPostImage" src="./default.png" alt='' />
+                    </div>
+                    <div className="d-flex flex-column">
+                        <Form.Group>
+                            <Form.Control as="select" placeholder="Condicion del animal" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }}>
+                                <option value="Lost">Perdido</option>
+                                <option value="Abandoned">Abandonado</option>
+                                <option value="Seek Adoption">Adopcion</option>
+                                <option value="Critical">Critico</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Control as="select" placeholder="Animal" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
+                                <option>Perro</option>
+                                <option>Gato</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Control as="select" placeholder="Sexo (opcional)" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
+                                <option value="Female">Hembra</option>
+                                <option value="Male"> Macho</option>
+                                {/* <option>Desconocido</option> */}
+                            </Form.Control >
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Control placeholder="Edad" onChange={(event) => { this.inputChangedHandler(event, "age") }} />
+                        </Form.Group>
+                        {/* ############################### */}
+                        <Form.Group>
+                            <Form.Control as="select" placeholder="Provincia" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
+                                <option>La Habana</option>
+                                <option>Areas Verdes :)</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control as="select" placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }}>
+                                <option>Habana Vieja</option>
+                                <option>Playa</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control as="textarea" placeholder="Direccion" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
+                        </Form.Group>
+                        <div>
+
+                            <Form.Group>
+                                <Form.Control placeholder="Telefono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Control placeholder="Correo electronico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Control placeholder="Descripcion" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} />
+                            </Form.Group>
+                        </div>
+                        <Form.Group>
+                            <Button type="submit">Publicar</Button>
+                        </Form.Group>
+                    </div>
+                </Form.Group>
+            </Form>
         )
     }
 }
