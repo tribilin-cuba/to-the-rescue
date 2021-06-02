@@ -19,9 +19,12 @@ class Posts extends Component {
         const posts = this.props.posts
             .map(post => <Post
                 key={post._id}
+                id={post._id}
+                animal={post.animal}
                 alert_type={post.alert_type}
                 municipality={post.municipality}
                 date={post.date}
+                description={post.description}
             />
             )
         return (

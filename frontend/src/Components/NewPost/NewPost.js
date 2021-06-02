@@ -9,7 +9,7 @@ class NewPost extends Component {
             author_id: "piti",
             animal: "",
             gender: undefined,
-            age: 0,
+            age: "",
             picture_path: "",
             province: "",
             municipality: "",
@@ -17,6 +17,7 @@ class NewPost extends Component {
             alert_type: "Lost",
             email: "",
             phone: "",
+            description: ""
         }
     }
     submitHandler = (event) => {
