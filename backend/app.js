@@ -7,13 +7,10 @@ import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
 import TokenManager from './managers/token-manager.js'
 
-const corsOptions = {
-    origin: false
-}
 
 const app = express()
 
-app.use(cors(corsOptions))
+app.use(cors({origin: 'http://localhost:3000'}))
 
 const connector = new MongooseConnection()
 connector.getConnection()
