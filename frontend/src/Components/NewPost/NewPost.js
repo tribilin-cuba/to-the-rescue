@@ -8,7 +8,7 @@ class NewPost extends Component {
         postForm: {
             author_id: "piti",
             animal: "",
-            gender: "",
+            gender: undefined,
             age: 0,
             picture_path: "",
             province: "",
@@ -50,7 +50,8 @@ class NewPost extends Component {
                     </div>
                     <div className="d-flex flex-column">
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Condicion del animal" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }}>
+                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }}>
+                                <option value="default" disabled selected>Condicion del animal</option>
                                 <option value="Lost">Perdido</option>
                                 <option value="Abandoned">Abandonado</option>
                                 <option value="Seek Adoption">Adopcion</option>
@@ -59,17 +60,19 @@ class NewPost extends Component {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Animal" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
+                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
+                                <option value="default" disabled selected>Animal</option>
                                 <option>Perro</option>
                                 <option>Gato</option>
                             </Form.Control>
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Sexo (opcional)" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
+                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
+                                <option value="default" disabled selected>Sexo</option>
                                 <option value="Female">Hembra</option>
                                 <option value="Male"> Macho</option>
-                                {/* <option>Desconocido</option> */}
+                                <option value={undefined}>Desconocido</option>
                             </Form.Control >
                         </Form.Group>
 
@@ -78,13 +81,15 @@ class NewPost extends Component {
                         </Form.Group>
                         {/* ############################### */}
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Provincia" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
+                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
+                                <option value="default" disabled selected>Provincia</option>
                                 <option>La Habana</option>
                                 <option>Areas Verdes :)</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }}>
+                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "municipality") }}>
+                                <option value="default" disabled selected>Municipio</option>
                                 <option>Habana Vieja</option>
                                 <option>Playa</option>
                             </Form.Control>
