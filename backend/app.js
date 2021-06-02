@@ -10,7 +10,7 @@ import TokenManager from './managers/token-manager.js'
 
 const app = express()
 
-app.use(cors({origin: false}))
+app.use(cors({origin: 'http://localhost:3000'}))
 
 const connector = new MongooseConnection()
 connector.getConnection()
