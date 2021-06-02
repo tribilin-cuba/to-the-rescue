@@ -9,18 +9,19 @@ import "./Posts.css"
 class Posts extends Component {
 
     componentDidMount() {
-        fetch("https://jsonplaceholder.typicode.com/todos")
+        fetch("http://localhost:8080/alert/all")
             .then(response => response.json())
-            .then(data => this.props.populatePosts(data))
+            .then(data => { this.props.populatePosts(data); console.log(data) })
             .catch(error => console.log(error))
     }
 
     render() {
         const posts = this.props.posts
             .map(post => <Post
-                key={post.id}
-                id={post.id}
-                title={post.title}
+                key={post._id}
+                alert_type={post.alert_type}
+                municipality={post.municipality}
+                date={post.date}
             />
             )
         return (

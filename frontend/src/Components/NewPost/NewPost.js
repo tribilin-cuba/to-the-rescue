@@ -51,17 +51,17 @@ class NewPost extends Component {
                     <div className="d-flex flex-column">
                         <Form.Group>
                             <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }}>
-                                <option value="default" disabled selected>Condicion del animal</option>
-                                <option value="Lost">Perdido</option>
-                                <option value="Abandoned">Abandonado</option>
-                                <option value="Seek Adoption">Adopcion</option>
-                                <option value="Critical">Critico</option>
+                                <option disabled selected>Condicion del animal</option>
+                                <option>Perdido</option>
+                                <option>Abandonado</option>
+                                <option>Adopción</option>
+                                <option>Crítico</option>
                             </Form.Control>
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
-                                <option value="default" disabled selected>Animal</option>
+                                <option disabled selected>Animal</option>
                                 <option>Perro</option>
                                 <option>Gato</option>
                             </Form.Control>
@@ -70,9 +70,9 @@ class NewPost extends Component {
                         <Form.Group>
                             <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
                                 <option value="default" disabled selected>Sexo</option>
-                                <option value="Female">Hembra</option>
-                                <option value="Male"> Macho</option>
-                                <option value={undefined}>Desconocido</option>
+                                <option>Hembra</option>
+                                <option> Macho</option>
+                                <option>Desconocido</option>
                             </Form.Control >
                         </Form.Group>
 
@@ -95,7 +95,7 @@ class NewPost extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control as="textarea" placeholder="Direccion" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
+                            <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
                         </Form.Group>
                         <div>
 
@@ -103,10 +103,10 @@ class NewPost extends Component {
                                 <Form.Control placeholder="Telefono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Control placeholder="Correo electronico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} />
+                                <Form.Control placeholder="Correo electrónico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Control placeholder="Descripcion" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} />
+                                <Form.Control placeholder="Descripción" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} />
                             </Form.Group>
                         </div>
                         <Form.Group>

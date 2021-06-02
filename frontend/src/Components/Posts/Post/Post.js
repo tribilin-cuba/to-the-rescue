@@ -2,8 +2,7 @@ import React from "react";
 import Card from "../../Layout/Card/Card"
 import "./Post.css"
 
-function Post(props) {
-    const states = ["PostAdoption", "PostLost", "PostAbandon", "PostCritical"]
+function Post({ alert_type, municipality, date }) { //TODO: Add description
     return (
         <Card>
             <div className="Post d-flex">
@@ -12,11 +11,11 @@ function Post(props) {
                 </div>
                 <div className="d-flex flex-column align-items-start m-2 PostWidth justify-content-between PostHeight">
                     <div className='d-flex justify-content-between PostWidth'>
-                        <h6 className={states[props.id % 4]}>Estado</h6>
-                        <div className="PostXSmall">Vedado</div>
+                        <h6 className="">{alert_type}</h6>
+                        <div className="PostXSmall">{municipality}</div>
                     </div>
                     <div className="PostSmall PostBold">Descripcion</div>
-                    <div className="PostSmall justify-self-end">6/5/2021</div>
+                    <div className="PostSmall justify-self-end">{date}</div>
                     {/* <div className="d-flex flex-row mt-5">
                         <Link to={"/post-details/" + props.id} className="ml-auto" type="button">Detalles</Link>
                     </div> */}
