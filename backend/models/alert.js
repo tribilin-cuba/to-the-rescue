@@ -13,8 +13,7 @@ var AlertSchema = new mongoose.Schema({
 
     gender : {
         type: String,
-        enum:['Male', 'Female'],
-        required: false
+        enum:['Male', 'Female', undefined]
     },
 
     age: {
