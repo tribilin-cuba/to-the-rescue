@@ -45,7 +45,7 @@ context('Test the alert endpoints of the api', () => {
             chai.request(app)
                 .put('/alert/' + alertId)
                 .send({
-                    alert_type: 'Abandoned'
+                    alert_type: 'Abandonado'
                 })
                 .end(() => {
                     chai.request(app)
@@ -53,7 +53,7 @@ context('Test the alert endpoints of the api', () => {
                         .end((err, res) => {
                             res.should.have.status(200)
                             res.body.should.be.a('object')
-                            res.body.alert_type.should.be.equal('Abandoned')
+                            res.body.alert_type.should.be.equal('Abandonado')
                             done()
                     })
                 })

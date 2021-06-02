@@ -8,5 +8,6 @@ export const dummyAlert = {
     author_id: '1',
     province: 'La Habana',
     municipality: 'Playa',
-    alert_type: 'Lost'
+    alert_type: 'Perdido',
+    description: 'Perrito en la esquina de 31 y 10'
 }
