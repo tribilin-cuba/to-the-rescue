@@ -26,8 +26,8 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        console.log(this.state.postForm)
-        fetch("https://to-the-rescue-api-staging.herokuapp.com/alert", request)
+        // console.log(this.state.postForm)
+        fetch("http://localhost:8080/alert", request)
             .then(response => {
                 console.log(response)
                 this.props.history.push('/')

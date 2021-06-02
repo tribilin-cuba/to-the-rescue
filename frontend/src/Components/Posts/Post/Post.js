@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../../Layout/Card/Card"
 import "./Post.css"
 
-const post = (props) => {
+function Post(props) {
     const states = ["PostAdoption", "PostLost", "PostAbandon", "PostCritical"]
     return (
         <Card>
@@ -26,4 +26,4 @@ const post = (props) => {
     );
 }
 
-export default post;
+export default Post;
