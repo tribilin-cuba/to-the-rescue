@@ -1,0 +1,17 @@
+.TopHeader {
+  width: 100%;
+}
+
+.TopHeaderDiv {
+  width: 100%;
+}
+
+.TopHeaderText {
+  color: #e27e22;
+  margin-bottom: 7px !important;
+  font-weight: bold;
+}
+
+.TopHeaderIcon {
+  margin-left: 5px;
+}

@@ -1,0 +1,50 @@
+.Post {
+  width: 100%;
+  height: 80px;
+}
+
+.Post img {
+  height: 89px;
+}
+.PostImageDiv {
+  width: 36%;
+}
+
+.PostWidth {
+  width: 100%;
+}
+
+.PostHeight {
+  height: 100%;
+}
+.PostXSmall {
+  font-size: x-small;
+}
+
+.PostSmall {
+  font-size: small;
+}
+.PostBold {
+  font-weight: bold;
+}
+
+.PostAdoption {
+  color: #2ec871;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.PostLost {
+  color: #edc00f;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.PostAbandon {
+  color: #e27e22;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.PostCritical {
+  color: #e34c3c;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
