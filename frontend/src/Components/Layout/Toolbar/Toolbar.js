@@ -5,7 +5,7 @@ import "./Toolbar.css"
 
 const toolbar = (props) => (
     <header className="Toolbar flex align-items-end justify-content-center">
-        <img alt="logo" src="./logo.png"></img>
+        <img alt="logo" src="/logo.png"></img>
     </header>
 )
 

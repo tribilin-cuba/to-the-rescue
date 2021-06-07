@@ -3,7 +3,9 @@ import "./Card.css"
 
 const card = (props) => (
     <div className="Card">
-        {props.children}
+        <div className="card-body">
+            {props.children}
+        </div>
     </div>
 )
 

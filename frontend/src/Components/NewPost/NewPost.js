@@ -111,7 +111,7 @@ class NewPost extends Component {
                             </Form.Group>
                         </div>
                         <Form.Group>
-                            <Button type="submit">Publicar</Button>
+                            <Button type="submit" variant="warning">Publicar</Button>
                         </Form.Group>
                     </div>
                 </Form.Group>

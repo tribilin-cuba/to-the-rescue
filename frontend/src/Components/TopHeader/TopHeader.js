@@ -7,8 +7,8 @@ const topHeader = () => {
             <div className="d-flex justify-content-between TopHeaderDiv">
                 <h4 className="TopHeaderText">Alertas</h4>
                 <div className="d-flex ">
-                    <div className="TopHeaderIcon">test</div>
-                    <div className="TopHeaderIcon">test</div>
+                    <div className="TopHeaderIcon"><img src="/user.png" style={{ width: "25px" }} /></div>
+                    <div className="TopHeaderIcon ml-3"><img src="/menu.png" style={{ width: "25px" }} /></div>
                 </div>
             </div>
 

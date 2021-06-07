@@ -1,7 +1,9 @@
 import React from "react";
-import Card from "../../Layout/Card/Card"
+// import Card from "../../Layout/Card/Card"
 import "./Post.css"
 import { Date } from "core-js";
+import { Redirect } from "react-router";
+import { Card } from "react-bootstrap";
 
 function Post({ id, animal, alert_type, municipality, date, description }) { //TODO: Add description
     if (description === "")
@@ -9,25 +11,26 @@ function Post({ id, animal, alert_type, municipality, date, description }) { //T
 
     let d = new Date(date)
     const formattedDate = `${d.getDay()}/${d.getMonth()}/${d.getFullYear()}`
+    const preview = description.substring(0, 35) + "..."
+
 
     return (
-        <Card>
-            <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "black" }}> {/* TODO: Set color right*/}
-                <div className="PostImageDiv">
-                    <img src="/default.png" className="img-fluid" alt="" />
-                </div>
-                <div className="d-flex flex-column align-items-start m-2 PostWidth justify-content-between PostHeight">
-                    <div className='d-flex justify-content-between PostWidth'>
-                        <h6 className={alert_type}>{alert_type}</h6>
-                        <div className="PostXSmall">{municipality}</div>
+        <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
+            <Card.Body style={{ padding: "0px" }}>
+                <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "black" }}> {/* TODO: Set color right*/}
+                    <div>
+                        <img src="/default.png" className="img-fluid" alt="" style={{ height: "80px", width: "95px" }} />
                     </div>
-                    <div className="PostSmall PostBold">{description}</div>
-                    <div className="PostSmall justify-self-end">{formattedDate}</div>
-                    {/* <div className="d-flex flex-row mt-5">
-                        <Link to={"/post-details/" + props.id} className="ml-auto" type="button">Detalles</Link>
-                    </div> */}
-                </div>
-            </a>
+                    <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">
+                        <div className='d-flex justify-content-between PostWidth'>
+                            <h6 className={alert_type}>{alert_type}</h6>
+                            <div className="PostXSmall">{municipality}</div>
+                        </div>
+                        <div className="PostSmall PostBold">{preview}</div>
+                        <div className="PostSmall justify-self-end">{formattedDate}</div>
+                    </div>
+                </a>
+            </Card.Body>
         </Card >
     );
 }
