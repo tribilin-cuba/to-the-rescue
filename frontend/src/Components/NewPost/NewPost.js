@@ -8,7 +8,7 @@ class NewPost extends Component {
         postForm: {
             author_id: "piti",
             animal: "",
-            gender: "Undefined",
+            gender: "Desconocido",
             age: "",
             picture_path: "",
             province: "",
@@ -20,15 +20,23 @@ class NewPost extends Component {
             description: ""
         },
         imgUrl: "/default.png",
-        imgString: undefined
+        imgString: undefined,
+        validated: false
     }
     submitHandler = (event) => {
         event.preventDefault();
+        const form = event.target
+        if (form.checkValidity() === false) {
+            this.setState({ validated: true })
+            return
+        }
+
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
+        console.log()
         fetch("http://localhost:8080/alert", request)
             .then(response => {
                 console.log(response)
@@ -58,7 +66,7 @@ class NewPost extends Component {
     }
     render() {
         return (
-            <Form onSubmit={this.submitHandler}>
+            <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex justify-content-center customContainer">
                         <img className="NewPostImage img-fluid" src={this.state.imgUrl} alt='' />
@@ -69,26 +77,32 @@ class NewPost extends Component {
                     </div>
                     <div className="d-flex flex-column">
                         <Form.Group>
-                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }}>
-                                <option disabled selected>Condicion del animal</option>
-                                <option>Perdido</option>
-                                <option>Abandonado</option>
-                                <option>Adopción</option>
-                                <option>Crítico</option>
+                            <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }} >
+                                <option value="" disabled selected>Condicion del animal</option>
+                                <option value="Perdido">Perdido</option>
+                                <option value="Abandonado">Abandonado</option>
+                                <option value="Adopción">Adopción</option>
+                                <option value="Crítico">Crítico</option>
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Seleccione un elemento de la lista
+                            </Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
-                                <option disabled selected>Animal</option>
+                            <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
+                                <option value="" disabled selected>Animal</option>
                                 <option>Perro</option>
                                 <option>Gato</option>
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Seleccione un elemento de la lista
+                            </Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
-                                <option value="default" disabled selected>Sexo</option>
+                                <option value="" disabled selected>Sexo</option>
                                 <option>Hembra</option>
                                 <option> Macho</option>
                                 <option>Desconocido</option>
@@ -100,18 +114,20 @@ class NewPost extends Component {
                         </Form.Group>
                         {/* ############################### */}
                         <Form.Group>
-                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
-                                <option value="default" disabled selected>Provincia</option>
-                                <option>La Habana</option>
-                                <option>Areas Verdes :)</option>
+                            <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
+                                <option value="" disabled selected>Provincia</option>
+                                <option value="La Habana">La Habana</option>
+                                <option value="Matanzas">Matanzas</option>
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Seleccione un elemento de la lista
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "municipality") }}>
-                                <option value="default" disabled selected>Municipio</option>
-                                <option>Habana Vieja</option>
-                                <option>Playa</option>
-                            </Form.Control>
+                            <Form.Control required placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }} />
+                            <Form.Control.Feedback type="invalid">
+                                Ingrese municipio
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
                             <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />

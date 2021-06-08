@@ -17,7 +17,7 @@ function Post({ id, animal, alert_type, municipality, date, description }) { //T
     return (
         <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
             <Card.Body style={{ padding: "0px" }}>
-                <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "black" }}> {/* TODO: Set color right*/}
+                <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "#464646" }}>
                     <div>
                         <img src="/default.png" className="img-fluid" alt="" style={{ height: "80px", width: "95px" }} />
                     </div>
