@@ -8,17 +8,19 @@ class NewPost extends Component {
         postForm: {
             author_id: "piti",
             animal: "",
-            gender: undefined,
+            gender: "Undefined",
             age: "",
             picture_path: "",
             province: "",
             municipality: "",
             address: "",
-            alert_type: "Lost",
+            alert_type: "Perdido",
             email: "",
             phone: "",
             description: ""
-        }
+        },
+        imgUrl: "/default.png",
+        imgString: undefined
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -27,7 +29,6 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        // console.log(this.state.postForm)
         fetch("http://localhost:8080/alert", request)
             .then(response => {
                 console.log(response)
@@ -42,12 +43,29 @@ class NewPost extends Component {
 
         this.setState({ postForm: updatedPostForm })
     }
+    changeImageHandler = (event) => {
+        if (event.target.files[0]) {
+            let reader = new FileReader()
+            reader.readAsDataURL(event.target.files[0])
+            reader.onload = () => {
+                this.setState({
+                    imgUrl: URL.createObjectURL(event.target.files[0]),
+                    imgString: reader.result
+                });
+                console.log(reader.result)
+            }
+        }
+    }
     render() {
         return (
             <Form onSubmit={this.submitHandler}>
                 <Form.Group>
-                    <div className="d-flex justify-content-center">
-                        <img className="NewPostImage" src="./default.png" alt='' />
+                    <div className="d-flex justify-content-center customContainer">
+                        <img className="NewPostImage img-fluid" src={this.state.imgUrl} alt='' />
+                        <label>
+                            <img src="/camera.png" style={{ width: "50px" }} />
+                            <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />
+                        </label>
                     </div>
                     <div className="d-flex flex-column">
                         <Form.Group>
