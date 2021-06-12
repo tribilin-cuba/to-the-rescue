@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import "./NewPost.css"
 import { Form, Button } from "react-bootstrap"
+import { SERVER_URL } from "../../Constants/constants"
 // import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
@@ -37,7 +38,7 @@ class NewPost extends Component {
             body: JSON.stringify(this.state.postForm)
         }
         console.log()
-        fetch("http://localhost:8080/alert", request)
+        fetch(SERVER_URL + "alert", request)
             .then(response => {
                 console.log(response)
                 this.props.history.push('/')
@@ -69,7 +70,7 @@ class NewPost extends Component {
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex justify-content-center customContainer">
-                        <img className="NewPostImage img-fluid" src={this.state.imgUrl} alt='' />
+                        <img className="NewPostImage" src={this.state.imgUrl} alt='' />
                         <label>
                             <img src="/camera.png" style={{ width: "50px" }} alt="add" />
                             <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />

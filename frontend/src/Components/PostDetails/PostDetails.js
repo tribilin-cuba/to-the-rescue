@@ -3,11 +3,12 @@ import { connect } from "react-redux"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
 import { Badge, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { SERVER_URL } from '../../Constants/constants'
 
 class PostDetails extends Component {
 
     componentDidMount() {
-        fetch("http://localhost:8080/alert/" + this.props.match.params.id)
+        fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
             .then(data => { this.props.populateSelectedPost(data); console.log(data) })
             .catch(error => console.log(error))
