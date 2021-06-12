@@ -71,7 +71,7 @@ class NewPost extends Component {
                     <div className="d-flex justify-content-center customContainer">
                         <img className="NewPostImage img-fluid" src={this.state.imgUrl} alt='' />
                         <label>
-                            <img src="/camera.png" style={{ width: "50px" }} />
+                            <img src="/camera.png" style={{ width: "50px" }} alt="add" />
                             <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />
                         </label>
                     </div>

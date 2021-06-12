@@ -1,11 +1,9 @@
 import React from "react";
-// import Card from "../../Layout/Card/Card"
 import "./Post.css"
 import { Date } from "core-js";
-import { Redirect } from "react-router";
 import { Card } from "react-bootstrap";
 
-function Post({ id, animal, alert_type, municipality, date, description }) { //TODO: Add description
+function Post({ id, animal, alert_type, municipality, date, description }) {
     if (description === "")
         description = `${animal}:${alert_type}`
 

@@ -18,12 +18,12 @@ class PostDetails extends Component {
         return (
             <Fragment>
                 <div className="d-flex">
-                    <Link to="/" className="ml-auto" ><img src="/close.png" style={{ width: "15px", heigth: "15px" }} /></Link>
+                    <Link to="/" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
                 </div>
                 <div className="d-flex flex-column align-content-center">
                     <h3 className={post.alert_type}>{post.alert_type}</h3>
                     <div>
-                        <img src="/default.png" style={{ width: "200px" }} />
+                        <img src="/default.png" alt="post" style={{ width: "200px" }} />
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
                         <div>{post.municipality}, {post.province}</div>
