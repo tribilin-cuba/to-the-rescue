@@ -5,11 +5,12 @@ import { connect } from "react-redux"
 import { POPULATE_POSTS } from "../../store/actions"
 import TopHeader from "../TopHeader/TopHeader"
 import "./Posts.css"
+import { SERVER_URL } from "../../Constants/constants"
 
 class Posts extends Component {
 
     componentDidMount() {
-        fetch("http://localhost:8080/alert/all")
+        fetch(SERVER_URL + "alert/all")
             .then(response => response.json())
             .then(data => { this.props.populatePosts(data); console.log(data) })
             .catch(error => console.log(error))

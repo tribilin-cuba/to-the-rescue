@@ -35,10 +35,10 @@
 }
 
 /* Make the image responsive */
-.customContainer img {
-  /* width: 100%; */
+/* .customContainer img {
+  width: 100%;
   height: auto;
-}
+} */
 
 /* Style the button and place it in the middle of the customContainer/image */
 .customContainer label {
