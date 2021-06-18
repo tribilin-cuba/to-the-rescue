@@ -2,6 +2,7 @@ import React from "react"
 import "./TopHeader.css"
 import { Dropdown } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
+import { LOG_OUT } from "../../store/actions";
 
 const CustomToggle = React.forwardRef(({ onClick }, ref) => (
     <img alt="user-icon" src="/user.png" style={{ width: "25px" }} ref={ref}
@@ -24,9 +25,22 @@ function TopHeader() {
                         <Dropdown drop="left">
                             <Dropdown.Toggle as={CustomToggle} id="user-options" >Custom Toggle</Dropdown.Toggle>
                             <Dropdown.Menu  >
-                                <Dropdown.Item>Hola {userName} </Dropdown.Item>
-                                <Dropdown.Item>Log out</Dropdown.Item>
-                                <Dropdown.Item>Hola @user </Dropdown.Item>
+                                {userName ?
+                                    <div>
+                                        <Dropdown.Item>Hola {userName}</Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={() => dispatch({ type: LOG_OUT })}
+                                        >
+                                            Cerrar sesion
+                                        </Dropdown.Item>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Dropdown.Item href="/log-in">Iniciar sesion</Dropdown.Item>
+                                        <Dropdown.Item href="/register">Registrarse</Dropdown.Item>
+                                    </div>
+                                }
+
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>

@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
             }
         case actionTypes.LOG_OUT:
             return {
-                posts: [],
+                ...state,
                 selectedPost: {},
                 newPost: {
                     id: "",

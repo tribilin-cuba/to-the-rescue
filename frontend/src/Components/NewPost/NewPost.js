@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import "./NewPost.css"
 import { Form, Button } from "react-bootstrap"
 import { SERVER_URL } from "../../Constants/constants"
+import { Link } from "react-router-dom"
 // import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
@@ -69,6 +70,9 @@ class NewPost extends Component {
         return (
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
+                    <div className="d-flex">
+                        <Link to="/" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
+                    </div>
                     <div className="d-flex justify-content-center customContainer">
                         <img className="NewPostImage" src={this.state.imgUrl} alt='' />
                         <label>

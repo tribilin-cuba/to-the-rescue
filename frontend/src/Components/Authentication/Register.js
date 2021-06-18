@@ -2,7 +2,7 @@ import { Card, Form, Button } from "react-bootstrap"
 import { useState } from "react"
 import { SERVER_URL } from "../../Constants/constants"
 import { Redirect } from "react-router"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { SET_USER_ID } from "../../store/actions"
 
 function Register() {
@@ -11,12 +11,6 @@ function Register() {
     const [validated, setValidated] = useState(false)
     const [redirect, setRedirect] = useState(false)
     const dispatch = useDispatch()
-    const id = useSelector((state) => state.userId)
-    const name = useSelector((state) => state.userName)
-    const userEmail = useSelector((state) => state.userEmail)
-    console.log(id)
-    console.log(name)
-    console.log(userEmail)
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -59,7 +53,10 @@ function Register() {
                         <Form.Control required as="input" type="email" placeholder="Correo Electronico" onChange={(event) => setEmail(event.target.value)} />
                         <Form.Control.Feedback type="invalid">Ingrese Correo Electronico</Form.Control.Feedback>
                     </Form.Group>
-                    <Button type="submit" variant="warning">Registrar</Button>
+                    <div className="d-flex justify-content-center">
+                        <Button type="submit" variant="warning" className="mr-1">Registrar</Button>
+                        <Button type="button" variant="secondary" href="/">Cancelar</Button>
+                    </div>
                 </Form>
             </Card.Body>
         </Card>
