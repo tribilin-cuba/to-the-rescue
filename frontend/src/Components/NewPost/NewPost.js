@@ -38,7 +38,6 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        console.log()
         fetch(SERVER_URL + "alert", request)
             .then(response => {
                 console.log(response)

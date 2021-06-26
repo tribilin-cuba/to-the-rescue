@@ -6,13 +6,20 @@ import { POPULATE_POSTS } from "../../store/actions"
 import TopHeader from "../TopHeader/TopHeader"
 import "./Posts.css"
 import { SERVER_URL } from "../../Constants/constants"
+import Spinner from "../Layout/Spinner/Spinner"
 
 class Posts extends Component {
-
+    state = {
+        loading: true
+    }
     componentDidMount() {
         fetch(SERVER_URL + "alert/all")
             .then(response => response.json())
-            .then(data => { this.props.populatePosts(data); console.log(data) })
+            .then(data => {
+                console.log(data)
+                this.props.populatePosts(data);
+                this.setState({ loading: false })
+            })
             .catch(error => console.log(error))
     }
 
@@ -29,12 +36,13 @@ class Posts extends Component {
             />
             )
         return (
-            <div>
-                <TopHeader />
-                <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
-
-                {posts}
-            </div>
+            this.state.loading ? <Spinner />
+                :
+                <div>
+                    <TopHeader />
+                    <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
+                    {posts}
+                </div>
         );
     }
 }
