@@ -3,6 +3,7 @@ import "./NewPost.css"
 import { Form, Button } from "react-bootstrap"
 import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
+import Error from "../Layout/Error/Error"
 // import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
@@ -23,7 +24,9 @@ class NewPost extends Component {
         },
         imgUrl: "/default.png",
         imgString: undefined,
-        validated: false
+        validated: false,
+        error: false,
+        errorLog: ""
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -38,13 +41,17 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        console.log()
         fetch(SERVER_URL + "alert", request)
             .then(response => {
                 console.log(response)
                 this.props.history.push('/')
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                this.setState({
+                    error: true,
+                    errorLog: error.message
+                })
+            })
 
     }
     inputChangedHandler = (event, inputId) => {
@@ -67,6 +74,8 @@ class NewPost extends Component {
         }
     }
     render() {
+        if (this.state.error)
+            return <Error message={this.state.errorLog} />
         return (
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>

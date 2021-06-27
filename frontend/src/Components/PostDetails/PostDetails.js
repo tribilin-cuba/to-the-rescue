@@ -4,18 +4,41 @@ import { POPULATE_SELECTED_POST } from "../../store/actions"
 import { Badge, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { SERVER_URL } from '../../Constants/constants'
+import Spinner from '../Layout/Spinner/Spinner'
+import Error from '../Layout/Error/Error'
 
 class PostDetails extends Component {
+    state = {
+        loading: true,
+        error: false,
+        errorLog: ""
+    }
 
     componentDidMount() {
         fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
-            .then(data => { this.props.populateSelectedPost(data); console.log(data) })
-            .catch(error => console.log(error))
+            .then(data => {
+                console.log(data)
+                this.props.populateSelectedPost(data)
+                this.setState({ loading: false })
+            })
+            .catch(error => {
+                this.setState({
+                    error: true,
+                    errorLog: error.message
+                })
+            })
     }
     render() {
         const post = { ...this.props.post }
         const date = new Date(post.date)
+
+        if (this.state.error)
+            return <Error message={this.state.errorLog} />
+
+        if (this.state.loading)
+            return <Spinner />
+
         return (
             <Fragment>
                 <div className="d-flex">
