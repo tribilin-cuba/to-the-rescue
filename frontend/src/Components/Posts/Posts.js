@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Post from "./Post/Post"
 import { connect } from "react-redux"
 import { POPULATE_POSTS } from "../../store/actions"
