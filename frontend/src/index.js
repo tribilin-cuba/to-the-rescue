@@ -8,16 +8,29 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from "redux"
 import reducer from "./store/reducer"
 import { Provider } from "react-redux"
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react';
 
-const store = createStore(reducer)
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  whitelist: ['userId', 'userEmail', 'userName'] // only navigation will be persisted
+};
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+let store = createStore(persistedReducer)
+let persistor = persistStore(store)
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <Layout>
-          <App />
-        </Layout>
+        <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+          <Layout>
+            <App />
+          </Layout>
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

@@ -15,9 +15,9 @@ function Post({ id, animal, alert_type, municipality, date, description }) {
     return (
         <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
             <Card.Body style={{ padding: "0px" }}>
-                <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "#464646" }}>
+                <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "#464646", textDecoration: "none", boxShadow: "1 1 1 1 blue" }}>
                     <div>
-                        <img src="/default.png" className="img-fluid" alt="" style={{ height: "80px", width: "95px" }} />
+                        <img src="/default.png" className="img-fluid" alt="" style={{ height: "80px", width: "105px" }} />
                     </div>
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">
                         <div className='d-flex justify-content-between PostWidth'>

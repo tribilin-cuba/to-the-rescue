@@ -8,7 +8,10 @@ const initialState = {
         title: "",
         body: ""
     },
-    showSideDrawer: false
+    showSideDrawer: false,
+    userId: null,
+    userEmail: null,
+    userName: null
 }
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -21,6 +24,28 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedPost: action.newPost
+            }
+        case actionTypes.SET_USER_ID:
+            console.log(action.userId)
+            return {
+                ...state,
+                userId: action.userId,
+                userEmail: action.userEmail,
+                userName: action.userName
+            }
+        case actionTypes.LOG_OUT:
+            return {
+                ...state,
+                selectedPost: {},
+                newPost: {
+                    id: "",
+                    title: "",
+                    body: ""
+                },
+                showSideDrawer: false,
+                userId: null,
+                userEmail: null,
+                userName: null
             }
         default:
             return state
