@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
-import { Badge, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Badge, Card, Button } from 'react-bootstrap'
+import { Link, Redirect } from 'react-router-dom'
 import { SERVER_URL } from '../../Constants/constants'
 import Spinner from '../Layout/Spinner/Spinner'
 import Error from '../Layout/Error/Error'
@@ -11,7 +11,8 @@ class PostDetails extends Component {
     state = {
         loading: true,
         error: false,
-        errorLog: ""
+        errorLog: "",
+        redirect: false
     }
 
     componentDidMount() {
@@ -29,12 +30,38 @@ class PostDetails extends Component {
                 })
             })
     }
+
+
     render() {
+        const deleteHandler = () => {
+            const postId = this.props.post._id
+            fetch(SERVER_URL + "alert/" + postId, { method: "DELETE" })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    this.setState({ redirect: true })
+                })
+                .catch(error => {
+                    this.setState({
+                        error: true,
+                        errorLog: error.message
+                    })
+                })
+        }
+
+        const editHandler = () => {
+
+        }
+
         const post = { ...this.props.post }
         const date = new Date(post.date)
 
+
         if (this.state.error)
             return <Error message={this.state.errorLog} />
+
+        if (this.state.redirect)
+            return <Redirect to="/" />
 
         if (this.state.loading)
             return <Spinner />
@@ -79,6 +106,10 @@ class PostDetails extends Component {
                     <div className="d-flex mt-2">
                         <div className="ml-auto" style={{ fontSize: "small" }}>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</div>
                     </div>
+                </div>
+                <div className="mt-5">
+                    <Button className="mr-2">Editar</Button>
+                    <Button variant="danger" onClick={deleteHandler}>Eliminar</Button>
                 </div>
             </Fragment>
         )
