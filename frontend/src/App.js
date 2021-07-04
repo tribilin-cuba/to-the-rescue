@@ -6,6 +6,7 @@ import PostDetails from "./Components/PostDetails/PostDetails"
 import { Route } from "react-router-dom"
 import Register from './Components/Authentication/Register';
 import Login from './Components/Authentication/Login';
+import MyPosts from './Components/MyPosts/MyPosts';
 
 class App extends Component {
   state = {
@@ -15,6 +16,7 @@ class App extends Component {
     return (
       <div className="App" >
         <Route path="/" exact component={Posts} />
+        <Route path="/my-posts" component={MyPosts} />
         <Route path="/log-in" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/new-post" component={NewPost} />
