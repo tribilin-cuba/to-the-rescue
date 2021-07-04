@@ -1,6 +1,9 @@
 import React, { Component } from "react"
 import "./NewPost.css"
 import { Form, Button } from "react-bootstrap"
+import { SERVER_URL } from "../../Constants/constants"
+import { Link } from "react-router-dom"
+import Error from "../Layout/Error/Error"
 // import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
@@ -8,31 +11,47 @@ class NewPost extends Component {
         postForm: {
             author_id: "piti",
             animal: "",
-            gender: "",
-            age: 0,
+            gender: "Desconocido",
+            age: "",
             picture_path: "",
             province: "",
             municipality: "",
             address: "",
-            alert_type: "Lost",
+            alert_type: "Perdido",
             email: "",
             phone: "",
-        }
+            description: ""
+        },
+        imgUrl: "/default.png",
+        imgString: undefined,
+        validated: false,
+        error: false,
+        errorLog: ""
     }
     submitHandler = (event) => {
         event.preventDefault();
+        const form = event.target
+        if (form.checkValidity() === false) {
+            this.setState({ validated: true })
+            return
+        }
+
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        console.log(this.state.postForm)
-        fetch("https://to-the-rescue-api-staging.herokuapp.com/alert", request)
+        fetch(SERVER_URL + "alert", request)
             .then(response => {
                 console.log(response)
                 this.props.history.push('/')
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                this.setState({
+                    error: true,
+                    errorLog: error.message
+                })
+            })
 
     }
     inputChangedHandler = (event, inputId) => {
@@ -41,35 +60,66 @@ class NewPost extends Component {
 
         this.setState({ postForm: updatedPostForm })
     }
+    changeImageHandler = (event) => {
+        if (event.target.files[0]) {
+            let reader = new FileReader()
+            reader.readAsDataURL(event.target.files[0])
+            reader.onload = () => {
+                this.setState({
+                    imgUrl: URL.createObjectURL(event.target.files[0]),
+                    imgString: reader.result
+                });
+                console.log(reader.result)
+            }
+        }
+    }
     render() {
+        if (this.state.error)
+            return <Error message={this.state.errorLog} />
         return (
-            <Form onSubmit={this.submitHandler}>
+            <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
-                    <div className="d-flex justify-content-center">
-                        <img className="NewPostImage" src="./default.png" alt='' />
+                    <div className="d-flex">
+                        <Link to="/" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
+                    </div>
+                    <div className="d-flex justify-content-center customContainer">
+                        <img className="NewPostImage" src={this.state.imgUrl} alt='' />
+                        <label>
+                            <img src="/camera.png" style={{ width: "50px" }} alt="add" />
+                            <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />
+                        </label>
                     </div>
                     <div className="d-flex flex-column">
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Condicion del animal" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }}>
-                                <option value="Lost">Perdido</option>
-                                <option value="Abandoned">Abandonado</option>
-                                <option value="Seek Adoption">Adopcion</option>
-                                <option value="Critical">Critico</option>
+                            <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }} >
+                                <option value="" disabled selected>Condicion del animal</option>
+                                <option value="Perdido">Perdido</option>
+                                <option value="Abandonado">Abandonado</option>
+                                <option value="Adopción">Adopción</option>
+                                <option value="Crítico">Crítico</option>
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Seleccione un elemento de la lista
+                            </Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Animal" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
+                            <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "animal") }}>
+                                <option value="" disabled selected>Animal</option>
                                 <option>Perro</option>
                                 <option>Gato</option>
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Seleccione un elemento de la lista
+                            </Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Sexo (opcional)" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
-                                <option value="Female">Hembra</option>
-                                <option value="Male"> Macho</option>
-                                {/* <option>Desconocido</option> */}
+                            <Form.Control as="select" onChange={(event) => { this.inputChangedHandler(event, "gender") }}>
+                                <option value="" disabled selected>Sexo</option>
+                                <option>Hembra</option>
+                                <option> Macho</option>
+                                <option>Desconocido</option>
                             </Form.Control >
                         </Form.Group>
 
@@ -78,19 +128,23 @@ class NewPost extends Component {
                         </Form.Group>
                         {/* ############################### */}
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Provincia" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
-                                <option>La Habana</option>
-                                <option>Areas Verdes :)</option>
+                            <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
+                                <option value="" disabled selected>Provincia</option>
+                                <option value="La Habana">La Habana</option>
+                                <option value="Matanzas">Matanzas</option>
                             </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                                Seleccione un elemento de la lista
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control as="select" placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }}>
-                                <option>Habana Vieja</option>
-                                <option>Playa</option>
-                            </Form.Control>
+                            <Form.Control required placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }} />
+                            <Form.Control.Feedback type="invalid">
+                                Ingrese municipio
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control as="textarea" placeholder="Direccion" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
+                            <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
                         </Form.Group>
                         <div>
 
@@ -98,14 +152,14 @@ class NewPost extends Component {
                                 <Form.Control placeholder="Telefono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Control placeholder="Correo electronico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} />
+                                <Form.Control placeholder="Correo electrónico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Control placeholder="Descripcion" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} />
+                                <Form.Control placeholder="Descripción" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} />
                             </Form.Group>
                         </div>
                         <Form.Group>
-                            <Button type="submit">Publicar</Button>
+                            <Button type="submit" variant="warning">Publicar</Button>
                         </Form.Group>
                     </div>
                 </Form.Group>

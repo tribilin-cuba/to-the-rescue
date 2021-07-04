@@ -8,3 +8,7 @@ export const UPDATE_NEW_POST_INPUT = "UPDATE_NEW_POST_INPUT"
 export const OPEN_SIDE_DRAWER = "OPEN_SIDE_DRAWER"
 
 export const CLOSE_SIDE_DRAWER = "CLOSE_SIDE_DRAWER"
+
+export const SET_USER_ID = "SET_USER_ID"
+
+export const LOG_OUT = "LOG_OUT"

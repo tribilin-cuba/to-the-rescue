@@ -2,7 +2,6 @@
   width: 100%;
   height: 80px;
 }
-
 .Post img {
   height: 89px;
 }
@@ -28,22 +27,22 @@
   font-weight: bold;
 }
 
-.PostAdoption {
+.Adopción {
   color: #2ec871;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.PostLost {
+.Perdido {
   color: #edc00f;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.PostAbandon {
+.Abandonado {
   color: #e27e22;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.PostCritical {
+.Crítico {
   color: #e34c3c;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;

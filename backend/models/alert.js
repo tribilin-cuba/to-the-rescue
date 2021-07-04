@@ -13,11 +13,11 @@ var AlertSchema = new mongoose.Schema({
 
     gender : {
         type: String,
-        enum:['Male', 'Female']
+        enum:['Macho', 'Hembra', 'Desconocido']
     },
 
     age: {
-        type: Number
+        type: String
     },
 
     date: {
@@ -45,7 +45,7 @@ var AlertSchema = new mongoose.Schema({
 
     alert_type: {
         type: String,
-        enum: ['Lost', 'Abandoned', 'Seek Adoption', 'Critical'],
+        enum: ['Perdido', 'Abandonado', 'Adopción', 'Crítico'],
         required: true
     },
 
@@ -54,6 +54,10 @@ var AlertSchema = new mongoose.Schema({
     },
 
     phone: {
+        type: String
+    },
+
+    description: {
         type: String
     }
 })
