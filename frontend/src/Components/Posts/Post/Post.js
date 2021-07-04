@@ -3,7 +3,7 @@ import "./Post.css"
 import { Date } from "core-js";
 import { Card } from "react-bootstrap";
 
-function Post({ id, animal, alert_type, municipality, date, description }) {
+function Post({ id, animal, alert_type, municipality, date, description, fromHome }) {
     if (description === "")
         description = `${animal}:${alert_type}`
 
@@ -15,7 +15,7 @@ function Post({ id, animal, alert_type, municipality, date, description }) {
     return (
         <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
             <Card.Body style={{ padding: "0px" }}>
-                <a className="Post d-flex" href={"/post-details/" + id} style={{ color: "#464646", textDecoration: "none", boxShadow: "1 1 1 1 blue" }}>
+                <a className="Post d-flex" href={`/post-details/${id}/${fromHome}`} style={{ color: "#464646", textDecoration: "none", boxShadow: "1 1 1 1 blue" }}>
                     <div>
                         <img src="/default.png" className="img-fluid" alt="" style={{ height: "80px", width: "105px" }} />
                     </div>

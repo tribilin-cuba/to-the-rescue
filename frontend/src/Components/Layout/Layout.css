@@ -5,4 +5,5 @@
   margin-bottom: 15px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #464646;
+  overflow-y: scroll;
 }
