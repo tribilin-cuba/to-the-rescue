@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
-import { Badge, Card } from 'react-bootstrap'
+import { Badge, Card, Modal, Button } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
 import { SERVER_URL } from '../../Constants/constants'
 import Spinner from '../Layout/Spinner/Spinner'
@@ -13,16 +13,20 @@ class PostDetails extends Component {
         loading: true,
         error: false,
         errorLog: "",
-        redirect: false
+        redirect: false,
+        show: false,
+        editRedirect: false,
+        fromHome: "true"
     }
 
     componentDidMount() {
+        const fromHome = this.props.match.params.fromHome
         fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
                 this.props.populateSelectedPost(data)
-                this.setState({ loading: false })
+                this.setState({ loading: false, fromHome: fromHome })
             })
             .catch(error => {
                 this.setState({
@@ -58,7 +62,9 @@ class PostDetails extends Component {
             return <Error message={this.state.errorLog} />
 
         if (this.state.redirect)
-            return <Redirect to="/" />
+            return <Redirect to="/my-posts" />
+        if (this.state.editRedirect)
+            return <Redirect to={`/edit-post/${this.props.post._id}`} />
 
         if (this.state.loading)
             return <Spinner />
@@ -66,7 +72,7 @@ class PostDetails extends Component {
         return (
             <Fragment>
                 <div className="d-flex">
-                    <Link to="/" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
+                    <Link to={this.state.fromHome === "true" ? "/" : "/my-posts"} className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
                 </div>
                 <div className="d-flex flex-column align-content-center">
                     <h3 className={post.alert_type}>{post.alert_type}</h3>
@@ -107,14 +113,27 @@ class PostDetails extends Component {
                     </div>
                 </div>
                 <div className="d-flex flex-column posts-details-actions-div">
-                    <div className="posts-details-edit-button">
-                        <MdEdit color="white" style={{ width: "40px", height: "40px" }} />
+                    <div className="posts-details-edit-button" onClick={() => this.setState({ editRedirect: true })}>
+                        <MdEdit color="white" style={{ width: "30px", height: "30px" }} />
                     </div>
 
-                    <div className="posts-details-delete-button">
-                        <MdDelete color="white" style={{ width: "40px", height: "40px" }} onClick={deleteHandler} />
+                    <div className="posts-details-delete-button" onClick={() => this.setState({ show: true })} >
+                        <MdDelete color="white" style={{ width: "30px", height: "30px" }} />
                     </div>
                 </div>
+                <Modal show={this.state.show} onHide={() => this.setState({ show: false })} centered>
+                    <Modal.Body>
+                        <div className="d-flex flex-column">
+                            <div>
+                                <b style={{ color: "#e27e22" }}>Esta seguro que desea borrar esta alerta?</b>
+                            </div>
+                            <div className="d-flex justify-content-center mt-3">
+                                <Button style={{ backgroundColor: "#e34c3c", borderColor: "white" }} onClick={deleteHandler}>Aceptar</Button>
+                                <Button style={{ backgroundColor: "#edc00f", borderColor: "white" }} className="ml-2" onClick={() => this.setState({ show: false })}>Cancelar</Button>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </Fragment >
         )
     }

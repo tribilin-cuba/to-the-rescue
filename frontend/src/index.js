@@ -15,7 +15,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['userId', 'userEmail', 'userName'] // only navigation will be persisted
+  whitelist: ['userId', 'userEmail', 'userName'] // only these props will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer)

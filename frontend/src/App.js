@@ -7,11 +7,9 @@ import { Route } from "react-router-dom"
 import Register from './Components/Authentication/Register';
 import Login from './Components/Authentication/Login';
 import MyPosts from './Components/MyPosts/MyPosts';
+import EditPost from './Components/EditPost/EditPost';
 
 class App extends Component {
-  state = {
-
-  }
   render() {
     return (
       <div className="App" >
@@ -20,7 +18,8 @@ class App extends Component {
         <Route path="/log-in" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/new-post" component={NewPost} />
-        <Route path="/post-details/:id" component={PostDetails} />
+        <Route path="/edit-post/:id" component={EditPost} />
+        <Route path="/post-details/:id/:fromHome" component={PostDetails} />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import { Dropdown } from "react-bootstrap"
 import React from "react"
+import { IoLogInOutline, IoPersonAddOutline, IoLogOutOutline } from "react-icons/io5";
 
 
 function UserIcon({ userName, logOutHandler }) {
@@ -12,7 +13,7 @@ function UserIcon({ userName, logOutHandler }) {
     ));
     return (
         <div className="TopHeaderIcon">
-            <Dropdown drop="left">
+            <Dropdown drop="down">
                 <Dropdown.Toggle as={CustomToggle} id="user-options" >Custom Toggle</Dropdown.Toggle>
                 <Dropdown.Menu  >
                     {userName ?
@@ -21,13 +22,17 @@ function UserIcon({ userName, logOutHandler }) {
                             <Dropdown.Item
                                 onClick={logOutHandler}
                             >
-                                Cerrar sesion
-                                        </Dropdown.Item>
+                                <IoLogOutOutline size="20" /> <b>Cerrar sesion</b>
+                            </Dropdown.Item>
                         </div>
                         :
                         <div>
-                            <Dropdown.Item href="/log-in">Iniciar sesion</Dropdown.Item>
-                            <Dropdown.Item href="/register">Registrarse</Dropdown.Item>
+                            <Dropdown.Item href="/log-in" style={{ color: "#e27e22" }}>
+                                <IoLogInOutline size="20" /> <b>Iniciar sesion</b>
+                            </Dropdown.Item>
+                            <Dropdown.Item href="/register" style={{ color: "#e27e22" }}>
+                                <IoPersonAddOutline size="20" /><b> Registrarse</b>
+                            </Dropdown.Item>
                         </div>
                     }
 

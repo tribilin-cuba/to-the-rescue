@@ -40,6 +40,7 @@ class MyPosts extends Component {
                 municipality={post.municipality}
                 date={post.date}
                 description={post.description}
+                fromHome={false}
             />
             )
         if (this.state.error)
@@ -49,7 +50,7 @@ class MyPosts extends Component {
             return <Spinner />
         return (
             <div>
-                <TopHeader />
+                <TopHeader title="Mis Alertas" smallTitle="Ultimas alertas publicadas" />
                 <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
                 {posts}
             </div>
