@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
-import { Badge, Card, Button } from 'react-bootstrap'
+import { Badge, Card } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
 import { SERVER_URL } from '../../Constants/constants'
 import Spinner from '../Layout/Spinner/Spinner'
 import Error from '../Layout/Error/Error'
-
+import "./PostDetails.css"
+import { MdEdit, MdDelete } from "react-icons/md"
 class PostDetails extends Component {
     state = {
         loading: true,
@@ -49,10 +50,6 @@ class PostDetails extends Component {
                 })
         }
 
-        const editHandler = () => {
-
-        }
-
         const post = { ...this.props.post }
         const date = new Date(post.date)
 
@@ -88,30 +85,37 @@ class PostDetails extends Component {
                         </Card.Text>
                     </div>
                     <div className="d-flex mt-2">
-                        <div style={{ fontWeight: "bold" }}>Animal</div>: {post.animal}
+                        <b> Animal</b>: {post.animal}
                     </div>
                     <div className="d-flex mt-2">
-                        <div style={{ fontWeight: "bold" }}>Sexo</div>: {post.gender}
+                        <b> Sexo</b>: {post.gender}
                     </div>
                     <div className="d-flex mt-2">
-                        <div style={{ fontWeight: "bold" }}>Edad</div>: {post.age}
+                        <b> Edad</b>: {post.age}
                     </div>
-                    <div className="d-flex mt-2" style={{ textAlign: "start" }}>
-                        <p style={{ fontWeight: "bold" }}>Direccion</p>: {post.address}
-                    </div>
-                    <div className="d-flex mt-2">
-                        <div style={{ fontWeight: "bold" }}>{post.email}test</div>
-                        <div className="ml-auto">{post.phone}</div>
+                    <div className="mt-2" style={{ textAlign: "start", overflowX: "scroll" }}>
+                        <b>Direccion</b>: {post.address}
                     </div>
                     <div className="d-flex mt-2">
-                        <div className="ml-auto" style={{ fontSize: "small" }}>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</div>
+                        <b> {post.email}</b>
+                    </div >
+                    <div className="d-flex mt-2">
+                        <b>Telefono</b>: {post.phone}
+                    </div>
+                    <div className="mr-auto mt-2">
+                        <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
                     </div>
                 </div>
-                <div className="mt-5">
-                    <Button className="mr-2">Editar</Button>
-                    <Button variant="danger" onClick={deleteHandler}>Eliminar</Button>
+                <div className="d-flex flex-column posts-details-actions-div">
+                    <div className="posts-details-edit-button">
+                        <MdEdit color="white" style={{ width: "40px", height: "40px" }} />
+                    </div>
+
+                    <div className="posts-details-delete-button">
+                        <MdDelete color="white" style={{ width: "40px", height: "40px" }} onClick={deleteHandler} />
+                    </div>
                 </div>
-            </Fragment>
+            </Fragment >
         )
     }
 }

@@ -4,7 +4,7 @@ import Backdrop from "../Backdrop/Backdrop"
 import Logo from "../Logo/Logo"
 // import NavigationItems from "../NavigationItems/Navigationitems"
 
-const sideDrawer = (props) => {
+const SideDrawer = (props) => {
 
     let attachedClasses = ["SideDrawer", "Close"]
     if (props.open) {
@@ -17,12 +17,8 @@ const sideDrawer = (props) => {
                 <div className="Logo">
                     <Logo />
                 </div>
-                {/* <nav>
-                    <NavigationItems />
-                </nav> */}
             </div>
         </div>
     )
 }
-
-export default sideDrawer
+export default SideDrawer

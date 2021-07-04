@@ -1,0 +1,26 @@
+.posts-details-edit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2ec871;
+  border-radius: 50% 50% 50% 50%;
+  height: 80px;
+  width: 80px;
+  margin-bottom: 5px;
+}
+.posts-details-delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #edc00f;
+  border-radius: 50% 50% 50% 50%;
+  height: 80px;
+  width: 80px;
+}
+
+.posts-details-actions-div {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+  z-index: 10;
+}

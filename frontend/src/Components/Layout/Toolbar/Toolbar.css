@@ -10,7 +10,8 @@
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 90;
-  border-bottom: solid 3px #cccccc;
+  /* border-bottom: solid 3px #cccccc; */
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
 }
 .Toolbar img {
   height: 40px;

@@ -12,18 +12,12 @@
   transition: transform 0.3s ease-out;
 }
 
-/* @media (min-width: 500px) {
-  .SideDrawer {
-    display: none;
-  }
-} */
-
 .Open {
-  transform: translateX(0);
+  transform: translateX(45%);
 }
 
 .Close {
-  transform: translateX(-100%);
+  transform: translateX(+500%);
 }
 
 .Logo {
