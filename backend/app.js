@@ -39,8 +39,10 @@ app.get('/user/:id', async (req, res) => {
 
     var id = req.params.id
 
-    const user = (await userManager.find({ _id: id }))[0]
+    const users = await userManager.find({ _id: id })
 
+    const user = users.length > 0 ? user[0] : null
+    
     res.json(user)
 })
 
@@ -94,6 +96,14 @@ app.get('/alert/:id', async (req, res) => {
     var alert = (await alertManager.find({ _id: id }))[0]
 
     res.json(alert)
+})
+
+app.get('/alert-by-user/:id', async (req, res) => {
+
+    const id = req.params.id
+    const alerts = await alertManager.find({author_id: id})
+
+    res.json(alerts)
 })
 
 app.post('/alert', async (req, res) => {
