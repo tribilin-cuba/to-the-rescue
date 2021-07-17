@@ -15,12 +15,13 @@ function UserIcon({ userName, logOutHandler }) {
         <div className="TopHeaderIcon">
             <Dropdown drop="down">
                 <Dropdown.Toggle as={CustomToggle} id="user-options" >Custom Toggle</Dropdown.Toggle>
-                <Dropdown.Menu  >
+                <Dropdown.Menu >
                     {userName ?
                         <div>
-                            <Dropdown.Item>Hola {userName}</Dropdown.Item>
+                            <Dropdown.Item style={{ color: "#e27e22" }}>Hola {userName}</Dropdown.Item>
                             <Dropdown.Item
                                 onClick={logOutHandler}
+                                style={{ color: "#e27e22" }}
                             >
                                 <IoLogOutOutline size="20" /> <b>Cerrar sesion</b>
                             </Dropdown.Item>
