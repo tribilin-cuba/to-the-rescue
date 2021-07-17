@@ -1,15 +1,20 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
 import MongooseConnection from './config/mongoose.js'
 import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
 import TokenManager from './managers/token-manager.js'
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const app = express()
 
-app.use(cors({ origin: "https://tribilin-staging.netlify.app" }))
+app.use(cors({origin: 'https://tribilin-staging.netlify.app'}))
+app.use('/static', express.static(__dirname + "/static"))
 
 const connector = new MongooseConnection()
 connector.getConnection()
@@ -23,6 +28,7 @@ const userManager = new UserManager()
 const alertManager = new AlertManager()
 const tokenManager = new TokenManager()
 
+app.use(bodyParser({limit: '50mb'}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
@@ -41,7 +47,7 @@ app.get('/user/:id', async (req, res) => {
 
     const users = await userManager.find({ _id: id })
 
-    const user = users.length > 0 ? user[0] : null
+    const user = users.length > 0 ? users[0] : null
     
     res.json(user)
 })

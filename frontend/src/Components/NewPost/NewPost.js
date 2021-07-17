@@ -20,10 +20,11 @@ class NewPost extends Component {
             alert_type: "Perdido",
             email: "",
             phone: "",
-            description: ""
+            description: "",
+            imgString: null,
+
         },
         imgUrl: "/default.png",
-        imgString: undefined,
         validated: false,
         error: false,
         errorLog: ""
@@ -67,7 +68,7 @@ class NewPost extends Component {
             reader.onload = () => {
                 this.setState({
                     imgUrl: URL.createObjectURL(event.target.files[0]),
-                    imgString: reader.result
+                    postForm: {...this.state.postForm, imgString: reader.result}
                 });
                 console.log(reader.result)
             }

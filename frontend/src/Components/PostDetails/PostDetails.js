@@ -77,7 +77,7 @@ class PostDetails extends Component {
                 <div className="d-flex flex-column align-content-center">
                     <h3 className={post.alert_type}>{post.alert_type}</h3>
                     <div>
-                        <img src="/default.png" alt="post" style={{ width: "200px" }} />
+                        <img src={SERVER_URL + post.picture_path} alt="post" style={{ width: "200px" }} />
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
                         <div>{post.municipality}, {post.province}</div>
