@@ -125,6 +125,14 @@ app.delete('/alert/:id', async (req, res) => {
     res.json(user)
 })
 
+app.delete('/alert', async (req, res) => {
+
+    const filter = req.body
+
+    const user = await alertManager.delete(filter)
+
+    res.json(user)
+})
 
 // * TOKENS
 
