@@ -69,8 +69,7 @@ context('Test the user endpoints of the api', () => {
                         .get('/user/' + userId)
                         .end((err, res) => {
                             res.should.have.status(200)
-                            res.body.should.be.a('string')
-                            res.body.length.should.be.equal(0)
+                            should.equal(res.body, null)
                             done()
                         })
                 })
