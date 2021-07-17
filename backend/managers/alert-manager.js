@@ -24,7 +24,7 @@ class AlertManager extends Manager{
 
         const picName = date + middle + random
 
-        const picPath = path.join(PICTURES_DIR, picName)
+        const picPath = path.join("static","pictures", picName)
 
         const alertToStore = {
             ...alert,
@@ -33,7 +33,7 @@ class AlertManager extends Manager{
 
         const imageToStore = alert.imgString.split(';base64,').pop()
 
-        fs.writeFileSync(picPath, imageToStore)
+        fs.writeFileSync(picPath, imageToStore, {encoding: "base64"})
         
         return Manager.prototype.insert.call(this, alertToStore)
     }

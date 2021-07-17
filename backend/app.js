@@ -1,25 +1,26 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import serveStatic from 'serve-static'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
 import MongooseConnection from './config/mongoose.js'
 import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
 import TokenManager from './managers/token-manager.js'
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express()
 
 app.use(cors({origin: 'http://localhost:3000'}))
-
-app.use("/static/pictures", serveStatic("/static/pictures"))
+app.use('/static', express.static(__dirname + "/static"))
 
 const connector = new MongooseConnection()
 connector.getConnection()
 
 while(connector.connection == null)
-    continue
+continue
 
 export const connection = connector.connection
 
@@ -27,6 +28,7 @@ const userManager = new UserManager()
 const alertManager = new AlertManager()
 const tokenManager = new TokenManager()
 
+app.use(bodyParser({limit: '50mb'}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
