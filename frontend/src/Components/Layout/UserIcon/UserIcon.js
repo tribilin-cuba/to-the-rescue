@@ -15,7 +15,7 @@ function UserIcon({ userName, logOutHandler }) {
         <div className="TopHeaderIcon">
             <Dropdown drop="down">
                 <Dropdown.Toggle as={CustomToggle} id="user-options" >Custom Toggle</Dropdown.Toggle>
-                <Dropdown.Menu >
+                <Dropdown.Menu>
                     {userName ?
                         <div>
                             <Dropdown.Item style={{ color: "#e27e22" }}>Hola {userName}</Dropdown.Item>
@@ -28,11 +28,11 @@ function UserIcon({ userName, logOutHandler }) {
                         </div>
                         :
                         <div>
-                            <Dropdown.Item href="/log-in" style={{ color: "#e27e22" }}>
-                                <IoLogInOutline size="20" /> <b>Iniciar sesion</b>
+                            <Dropdown.Item className="mt-2 d-flex align-content-end" href="/log-in" style={{ color: "#e27e22" }}>
+                                <IoLogInOutline size="20" />  <b className="ml-2">Iniciar sesion</b>
                             </Dropdown.Item>
-                            <Dropdown.Item href="/register" style={{ color: "#e27e22" }}>
-                                <IoPersonAddOutline size="20" /><b> Registrarse</b>
+                            <Dropdown.Item className="mt-3 d-flex align-content-end" href="/register" style={{ color: "#e27e22" }}>
+                                <IoPersonAddOutline size="20" /><b className="ml-2"> Registrarse</b>
                             </Dropdown.Item>
                         </div>
                     }

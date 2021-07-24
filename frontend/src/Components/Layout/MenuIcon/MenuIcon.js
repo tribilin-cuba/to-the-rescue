@@ -17,9 +17,15 @@ function MenuIcon() {
             <Dropdown drop="down">
                 <Dropdown.Toggle as={CustomToggle} id="user-options" >Custom Toggle</Dropdown.Toggle>
                 <Dropdown.Menu >
-                    <Dropdown.Item href="/my-posts" style={{ color: "#e27e22" }} ><MdFavoriteBorder size="20" /> <b>Mis Alertas</b></Dropdown.Item>
-                    <Dropdown.Item style={{ color: "#e27e22" }}><IoSettingsOutline size="20" /> <b>Ajustes</b></Dropdown.Item>
-                    <Dropdown.Item style={{ color: "#e27e22" }}><IoInformationCircleOutline size="20" /> <b>Sobre nosotros</b></Dropdown.Item>
+                    <Dropdown.Item className="mt-3  d-flex align-content-end" href="/my-posts" style={{ color: "#e27e22" }} >
+                        <MdFavoriteBorder size="20" /> <b className="ml-2">Mis Alertas</b>
+                    </Dropdown.Item>
+                    <Dropdown.Item className="mt-3 d-flex align-content-end" style={{ color: "#e27e22" }}>
+                        <IoSettingsOutline size="20" /> <b className="ml-2">Ajustes</b>
+                    </Dropdown.Item>
+                    <Dropdown.Item className="mt-3 d-flex align-content-end" style={{ color: "#e27e22" }}>
+                        <IoInformationCircleOutline size="20" /> <b className="ml-2">Sobre nosotros</b>
+                    </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </Fragment>
