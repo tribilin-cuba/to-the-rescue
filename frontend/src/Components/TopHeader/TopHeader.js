@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT } from "../../store/actions";
 import UserIcon from "../Layout/UserIcon/UserIcon";
 import MenuIcon from "../Layout/MenuIcon/MenuIcon";
-// import SideDrawer from "../Layout/SideDrawer/SideDrawer"
 
 function TopHeader({ title, smallTitle }) {
     const dispatch = useDispatch()
     const userName = useSelector((state) => state.userName)
-    // const [showSideDrawer, setShowSideDrawer] = useState(false)
 
     return (
         <div className='d-flex flex-column TopHeader align-items-start'>
@@ -17,10 +15,9 @@ function TopHeader({ title, smallTitle }) {
                 <h4 className="TopHeaderText">{title}</h4>
                 <div className="d-flex ">
                     <UserIcon userName={userName} logOutHandler={() => { dispatch({ type: LOG_OUT }) }} />
-                    <MenuIcon />
+                    <MenuIcon authenticated={userName !== null} />
                 </div>
             </div>
-            {/* <SideDrawer open={showSideDrawer} closed={() => setShowSideDrawer(false)} /> */}
 
             <div className="PostBold PostSmall">{smallTitle}</div>
         </div >

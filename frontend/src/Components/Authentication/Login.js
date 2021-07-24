@@ -24,20 +24,19 @@ function Login() {
         const request = {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                firstName: firstName,
-                email: email
-            })
         }
-        fetch(SERVER_URL + "user", request)
-            .then(response => response.json())``
+        fetch(SERVER_URL + "user/" + firstName + "/" + email, request)
+            .then(response => response.json())
             .then(response => {
-                dispatch({ type: SET_USER_ID, userId: response._id, userName: response.firstName, userEmail: response.email })
+                dispatch({
+                    type: SET_USER_ID,
+                    userId: response._id,
+                    userName: response.firstName,
+                    userEmail: response.email
+                })
                 setRedirect(true)
             })
             .catch(error => console.log(error))
-
-
     }
     if (redirect)
         return <Redirect to="/" />
@@ -54,7 +53,7 @@ function Login() {
                         <Form.Control.Feedback type="invalid">Ingrese Correo Electronico</Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button type="submit" variant="warning" className="mr-1">Registrar</Button>
+                        <Button type="submit" variant="warning" className="mr-1">Iniciar Sesion</Button>
                         <Button type="button" variant="secondary" href="/">Cancelar</Button>
                     </div>
                 </Form>

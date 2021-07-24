@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import Post from "./Post/Post"
 import { connect } from "react-redux"
 import { POPULATE_POSTS } from "../../store/actions"
@@ -8,12 +8,15 @@ import "./Posts.css"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
 import Error from "../Layout/Error/Error"
+import { Toast } from "react-bootstrap"
 
 class Posts extends Component {
     state = {
         loading: true,
         error: false,
-        errorLog: ""
+        errorLog: "",
+        redirect: false,
+        showToast: false
     }
     componentDidMount() {
         fetch(SERVER_URL + "alert/all")
@@ -44,6 +47,29 @@ class Posts extends Component {
                 fromHome={true}
             />
             )
+        const toast = (
+            <div className="d-flex justify-content-center">
+                <Toast
+                    style={{ zIndex: "50", position: "fixed" }}
+                    onClose={() => this.setState({ showToast: false })}
+                    show={this.state.showToast}
+                    delay={3000}
+                    autohide
+                >
+                    <Toast.Body>Debe iniciar sesion para publicar una alerta</Toast.Body>
+                </Toast>
+            </div>
+        )
+        const newPostHandler = (event) => {
+            event.preventDefault()
+            if (this.props.userId)
+                this.setState({ redirect: true })
+            else
+                this.setState({ showToast: true })
+        }
+        if (this.state.redirect)
+            return <Redirect to="/new-post" />
+
         if (this.state.error)
             return <Error message={this.state.errorLog} />
 
@@ -52,7 +78,10 @@ class Posts extends Component {
         return (
             <div>
                 <TopHeader title="Alertas" smallTitle="Ultimas alertas recibidas" />
-                <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
+                {toast}
+                <Link className="ml-auto mr-5" type="button" to="/new-post" onClick={(e) => newPostHandler(e)}>
+                    <img className="PostsAddButton" src="./add_button.png" alt=""></img>
+                </Link>
                 {posts}
             </div>
         );
@@ -60,7 +89,8 @@ class Posts extends Component {
 }
 const mapStateToProps = state => {
     return {
-        posts: state.posts
+        posts: state.posts,
+        userId: state.userId
     }
 }
 const mapDispatchToProps = dispatch => {
