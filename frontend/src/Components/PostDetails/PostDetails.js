@@ -115,7 +115,7 @@ class PostDetails extends Component {
                         <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
                     </div>
                 </div>
-                {this.state.userId && this.state.fromHome === "false" ?
+                {this.state.userId !== null && this.state.fromHome === "false" ?
                     <div className="d-flex flex-column posts-details-actions-div">
                         <div className="posts-details-edit-button" onClick={() => this.setState({ editRedirect: true })}>
                             <MdEdit color="white" style={{ width: "30px", height: "30px" }} />
