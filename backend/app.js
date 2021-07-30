@@ -28,7 +28,7 @@ const userManager = new UserManager()
 const alertManager = new AlertManager()
 const tokenManager = new TokenManager()
 
-app.use(bodyParser({limit: '50mb'}))
+app.use(bodyParser({limit: '80mb'}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
