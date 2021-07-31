@@ -45,6 +45,7 @@ class PostDetails extends Component {
                 .then(data => {
                     console.log(data)
                     this.setState({ redirect: true })
+                    window.flash("Alerta borrada con exito", "success")
                 })
                 .catch(error => {
                     this.setState({
@@ -77,7 +78,10 @@ class PostDetails extends Component {
                 <div className="d-flex flex-column align-content-center">
                     <h3 className={post.alert_type}>{post.alert_type}</h3>
                     <div>
-                        <img src="/default.png" alt="post" style={{ width: "200px" }} />
+                        <img src={post.picture_path === "" ? "/default.png" : SERVER_URL + post.picture_path}
+                            alt="post"
+                            style={{ width: "200px" }}
+                        />
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
                         <div>{post.municipality}, {post.province}</div>
@@ -112,15 +116,18 @@ class PostDetails extends Component {
                         <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
                     </div>
                 </div>
-                <div className="d-flex flex-column posts-details-actions-div">
-                    <div className="posts-details-edit-button" onClick={() => this.setState({ editRedirect: true })}>
-                        <MdEdit color="white" style={{ width: "30px", height: "30px" }} />
-                    </div>
+                {this.state.userId !== null && this.state.fromHome === "false" ?
+                    <div className="d-flex flex-column posts-details-actions-div">
+                        <div className="posts-details-edit-button" onClick={() => this.setState({ editRedirect: true })}>
+                            <MdEdit color="white" style={{ width: "30px", height: "30px" }} />
+                        </div>
 
-                    <div className="posts-details-delete-button" onClick={() => this.setState({ show: true })} >
-                        <MdDelete color="white" style={{ width: "30px", height: "30px" }} />
-                    </div>
-                </div>
+                        <div className="posts-details-delete-button" onClick={() => this.setState({ show: true })} >
+                            <MdDelete color="white" style={{ width: "30px", height: "30px" }} />
+                        </div>
+                    </div> :
+                    null
+                }
                 <Modal show={this.state.show} onHide={() => this.setState({ show: false })} centered>
                     <Modal.Body>
                         <div className="d-flex flex-column">
@@ -141,7 +148,8 @@ class PostDetails extends Component {
 
 const mapStateToProps = state => {
     return {
-        post: state.selectedPost
+        post: state.selectedPost,
+        userId: state.userId
     }
 }
 

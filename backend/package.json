@@ -13,8 +13,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.6",
-    "mongoose": "^5.12.4"
+    "mongoose": "^5.12.4",
+    "random-token": "^0.0.8",
+    "serve-static": "^1.14.1"
   },
   "devDependencies": {
     "axios": "^0.21.1",

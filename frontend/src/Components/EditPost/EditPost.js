@@ -10,7 +10,7 @@ import { POPULATE_SELECTED_POST } from "../../store/actions"
 class EditPost extends Component {
     state = {
         postForm: {
-            author_id: this.props.post._id,
+            author_id: this.props.post.author_id,
             animal: this.props.post.animal,
             gender: this.props.post.gender,
             age: this.props.post.age,
@@ -21,10 +21,11 @@ class EditPost extends Component {
             alert_type: this.props.post.alert_type,
             email: this.props.post.email,
             phone: this.props.post.phone,
-            description: this.props.post.description
+            description: this.props.post.description,
+            imgString: undefined,
+
         },
         imgUrl: "/default.png",
-        imgString: undefined,
         validated: false,
         error: false,
         errorLog: ""
@@ -45,7 +46,8 @@ class EditPost extends Component {
         fetch(SERVER_URL + "alert/" + this.props.post._id, request)
             .then(response => {
                 console.log(response)
-                this.props.history.push(`/post-details/${this.props.post._id}`)
+                this.props.history.push(`/post-details/${this.props.post._id}/false`)
+                this.props.populatePosts(this.state.postForm)
             })
             .catch(error => {
                 this.setState({
@@ -68,9 +70,11 @@ class EditPost extends Component {
             reader.onload = () => {
                 this.setState({
                     imgUrl: URL.createObjectURL(event.target.files[0]),
-                    imgString: reader.result
+                    postForm: {
+                        ...this.state.postForm,
+                        imgString: reader.result
+                    }
                 });
-                console.log(reader.result)
             }
         }
     }
@@ -85,7 +89,11 @@ class EditPost extends Component {
                         <Link to="/" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
                     </div>
                     <div className="d-flex justify-content-center customContainer">
-                        <img className="NewPostImage" src={this.state.imgUrl} alt='' />
+                        <img
+                            className="NewPostImage"
+                            src={this.state.imgUrl}
+                            alt=''
+                        />
                         <label>
                             <img src="/camera.png" style={{ width: "50px" }} alt="add" />
                             <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />

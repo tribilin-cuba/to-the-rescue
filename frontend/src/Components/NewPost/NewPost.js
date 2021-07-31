@@ -4,12 +4,13 @@ import { Form, Button } from "react-bootstrap"
 import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
 import Error from "../Layout/Error/Error"
+import { connect } from "react-redux"
 // import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
     state = {
         postForm: {
-            author_id: "piti",
+            author_id: this.props.userId,
             animal: "",
             gender: "Desconocido",
             age: "",
@@ -20,10 +21,11 @@ class NewPost extends Component {
             alert_type: "Perdido",
             email: "",
             phone: "",
-            description: ""
+            description: "",
+            imgString: null,
+
         },
         imgUrl: "/default.png",
-        imgString: undefined,
         validated: false,
         error: false,
         errorLog: ""
@@ -41,6 +43,7 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
+        console.log("SENDING FORM", this.state.postForm)
         fetch(SERVER_URL + "alert", request)
             .then(response => {
                 console.log(response)
@@ -67,7 +70,7 @@ class NewPost extends Component {
             reader.onload = () => {
                 this.setState({
                     imgUrl: URL.createObjectURL(event.target.files[0]),
-                    imgString: reader.result
+                    postForm: { ...this.state.postForm, imgString: reader.result }
                 });
                 console.log(reader.result)
             }
@@ -167,5 +170,9 @@ class NewPost extends Component {
         )
     }
 }
-
-export default NewPost
+const mapStateToProps = (state) => {
+    return {
+        userId: state.userId
+    }
+}
+export default connect(mapStateToProps)(NewPost)

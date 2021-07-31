@@ -1,15 +1,20 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
 import MongooseConnection from './config/mongoose.js'
 import AlertManager from './managers/alert-manager.js'
 import UserManager from './managers/user-manager.js'
 import TokenManager from './managers/token-manager.js'
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const app = express()
 
 app.use(cors({ origin: "https://tribilin-staging.netlify.app" }))
+app.use('/static', express.static(__dirname + "/static"))
 
 const connector = new MongooseConnection()
 connector.getConnection()
@@ -23,6 +28,7 @@ const userManager = new UserManager()
 const alertManager = new AlertManager()
 const tokenManager = new TokenManager()
 
+app.use(bodyParser({ limit: '80mb' }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
@@ -39,7 +45,9 @@ app.get('/user/:id', async (req, res) => {
 
     var id = req.params.id
 
-    const user = (await userManager.find({ _id: id }))[0]
+    const users = await userManager.find({ _id: id })
+
+    const user = users.length > 0 ? users[0] : null
 
     res.json(user)
 })
@@ -48,6 +56,10 @@ app.post('/user', async (req, res) => {
 
     const body = req.body
 
+    const existingUser = await userManager.find(body)
+    if (existingUser && existingUser.length)
+        res.status(400).send({ message: "User already exists" })
+
     const user = await userManager.insert(body)
 
     if (body.token)
@@ -55,6 +67,15 @@ app.post('/user', async (req, res) => {
             token: body.token,
             user_id: user['_id']
         })
+
+    res.json(user)
+})
+
+app.post('/user-login', async (req, res) => {
+
+    const body = req.body
+
+    const user = (await userManager.find({ email: body.email, firstName: body.firstName }))[0]
 
     res.json(user)
 })
@@ -94,6 +115,14 @@ app.get('/alert/:id', async (req, res) => {
     var alert = (await alertManager.find({ _id: id }))[0]
 
     res.json(alert)
+})
+
+app.get('/alert-by-user/:id', async (req, res) => {
+
+    const id = req.params.id
+    const alerts = await alertManager.find({ author_id: id })
+
+    res.json(alerts)
 })
 
 app.post('/alert', async (req, res) => {

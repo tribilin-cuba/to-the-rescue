@@ -32,8 +32,14 @@ function Register() {
         fetch(SERVER_URL + "user", request)
             .then(response => response.json())
             .then(response => {
+                if (response.message) {
+                    window.flash("Ya existe un usuario con este nombre de usuario y correo", "error")
+                    return
+                }
+
                 dispatch({ type: SET_USER_ID, userId: response._id, userName: response.firstName, userEmail: response.email })
                 setRedirect(true)
+                window.flash("Se ha registrado correctamente", "success")
             })
             .catch(error => console.log(error))
 

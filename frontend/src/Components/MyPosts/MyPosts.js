@@ -15,7 +15,7 @@ class MyPosts extends Component {
         errorLog: ""
     }
     componentDidMount() {
-        fetch(SERVER_URL + "alert/all")
+        fetch(SERVER_URL + "alert-by-user/" + this.props.userId)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -23,15 +23,17 @@ class MyPosts extends Component {
                 this.setState({ loading: false })
             })
             .catch(error => {
-                this.setState({
-                    error: true,
-                    errorLog: error.message
-                })
+                // this.setState({
+                //     error: true,
+                //     errorLog: error.message
+                // })
+                console.log(error)
+                this.setState({ loading: false })
             })
     }
 
     render() {
-        const posts = this.props.posts
+        const posts = (this.props.posts || [])
             .map(post => <Post
                 key={post._id}
                 id={post._id}
@@ -41,6 +43,7 @@ class MyPosts extends Component {
                 date={post.date}
                 description={post.description}
                 fromHome={false}
+                picture_path={post.picture_path}
             />
             )
         if (this.state.error)
@@ -52,14 +55,19 @@ class MyPosts extends Component {
             <div>
                 <TopHeader title="Mis Alertas" smallTitle="Ultimas alertas publicadas" />
                 <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
-                {posts}
+                {
+                    posts.length > 0 ?
+                        posts :
+                        <div style={{ fontStyle: "italic" }}>No ha publicado alertas</div>
+                }
             </div>
         );
     }
 }
 const mapStateToProps = state => {
     return {
-        posts: state.posts
+        posts: state.posts,
+        userId: state.userId
     }
 }
 const mapDispatchToProps = dispatch => {

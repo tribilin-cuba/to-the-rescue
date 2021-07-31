@@ -1,0 +1,21 @@
+.alert {
+  top: 50px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+}
+.alert-success {
+  background-color: #2ec871;
+  color: white;
+  font-weight: bold;
+}
+.alert-error {
+  background-color: #e34c3c;
+  color: white;
+  font-weight: bold;
+}
+.alert-info {
+  background-color: #e27e22;
+  color: white;
+  font-weight: bold;
+}
