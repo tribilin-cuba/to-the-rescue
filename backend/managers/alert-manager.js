@@ -21,8 +21,9 @@ class AlertManager extends Manager{
         const date = moment().format('YYYYMMDD')
         const middle = `${alert.alert_type}-${alert.province}-${alert.municipality}-`
         const random = randomToken(5)
+        const extension = '.jpg'
 
-        const picName = date + middle + random
+        const picName = date + middle + random + extension
 
         const picPath = path.join("static","pictures", picName)
 
