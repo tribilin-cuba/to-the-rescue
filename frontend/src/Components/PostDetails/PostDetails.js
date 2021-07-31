@@ -45,6 +45,7 @@ class PostDetails extends Component {
                 .then(data => {
                     console.log(data)
                     this.setState({ redirect: true })
+                    window.flash("Alerta borrada con exito", "success")
                 })
                 .catch(error => {
                     this.setState({

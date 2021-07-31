@@ -8,7 +8,7 @@ import "./Posts.css"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
 import Error from "../Layout/Error/Error"
-import { Toast } from "react-bootstrap"
+// import { Toast } from "react-bootstrap"
 
 class Posts extends Component {
     state = {
@@ -16,7 +16,7 @@ class Posts extends Component {
         error: false,
         errorLog: "",
         redirect: false,
-        showToast: false
+        // showToast: false
     }
     componentDidMount() {
         fetch(SERVER_URL + "alert/all")
@@ -45,27 +45,16 @@ class Posts extends Component {
                 date={post.date}
                 description={post.description}
                 fromHome={true}
+                picture_path={post.picture_path}
             />
             )
-        const toast = (
-            <div className="d-flex justify-content-center">
-                <Toast
-                    style={{ zIndex: "50", position: "fixed" }}
-                    onClose={() => this.setState({ showToast: false })}
-                    show={this.state.showToast}
-                    delay={3000}
-                    autohide
-                >
-                    <Toast.Body>Debe iniciar sesion para publicar una alerta</Toast.Body>
-                </Toast>
-            </div>
-        )
+
         const newPostHandler = (event) => {
             event.preventDefault()
             if (this.props.userId)
                 this.setState({ redirect: true })
             else
-                this.setState({ showToast: true })
+                window.flash("Debe iniciar sesion para publicar una alerta", "error")
         }
         if (this.state.redirect)
             return <Redirect to="/new-post" />
@@ -78,7 +67,7 @@ class Posts extends Component {
         return (
             <div>
                 <TopHeader title="Alertas" smallTitle="Ultimas alertas recibidas" />
-                {toast}
+                {/* {toast} */}
                 <Link className="ml-auto mr-5" type="button" to="/new-post" onClick={(e) => newPostHandler(e)}>
                     <img className="PostsAddButton" src="./add_button.png" alt=""></img>
                 </Link>

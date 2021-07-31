@@ -14,7 +14,10 @@ function TopHeader({ title, smallTitle }) {
             <div className="d-flex justify-content-between TopHeaderDiv">
                 <h4 className="TopHeaderText">{title}</h4>
                 <div className="d-flex ">
-                    <UserIcon userName={userName} logOutHandler={() => { dispatch({ type: LOG_OUT }) }} />
+                    <UserIcon userName={userName} logOutHandler={() => {
+                        dispatch({ type: LOG_OUT })
+                        window.flash("Ha cerrado sesion correctamente", "success")
+                    }} />
                     <MenuIcon authenticated={userName !== null} />
                 </div>
             </div>

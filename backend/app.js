@@ -56,6 +56,10 @@ app.post('/user', async (req, res) => {
 
     const body = req.body
 
+    const existingUser = await userManager.find(body)
+    if (existingUser && existingUser.length)
+        res.status(400).send({ message: "User already exists" })
+
     const user = await userManager.insert(body)
 
     if (body.token)
@@ -63,6 +67,15 @@ app.post('/user', async (req, res) => {
             token: body.token,
             user_id: user['_id']
         })
+
+    res.json(user)
+})
+
+app.post('/user-login', async (req, res) => {
+
+    const body = req.body
+
+    const user = (await userManager.find({ email: body.email, firstName: body.firstName }))[0]
 
     res.json(user)
 })

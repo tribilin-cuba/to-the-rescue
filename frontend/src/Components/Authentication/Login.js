@@ -22,10 +22,14 @@ function Login() {
             return
         }
         const request = {
-            method: "GET",
+            method: "POST",
             headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: email,
+                firstName: firstName
+            })
         }
-        fetch(SERVER_URL + "user/" + firstName + "/" + email, request)
+        fetch(SERVER_URL + "user-login", request)
             .then(response => response.json())
             .then(response => {
                 dispatch({
@@ -35,8 +39,9 @@ function Login() {
                     userEmail: response.email
                 })
                 setRedirect(true)
+                window.flash("Ha iniciado sesion correctamente", "success")
             })
-            .catch(error => console.log(error))
+            .catch(error => window.flash("Nombre de usuario o email incorrectos", "error"))
     }
     if (redirect)
         return <Redirect to="/" />

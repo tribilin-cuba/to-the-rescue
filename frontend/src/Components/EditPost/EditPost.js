@@ -47,6 +47,7 @@ class EditPost extends Component {
             .then(response => {
                 console.log(response)
                 this.props.history.push(`/post-details/${this.props.post._id}/false`)
+                this.props.populatePosts(this.state.postForm)
             })
             .catch(error => {
                 this.setState({

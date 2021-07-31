@@ -43,6 +43,7 @@ class MyPosts extends Component {
                 date={post.date}
                 description={post.description}
                 fromHome={false}
+                picture_path={post.picture_path}
             />
             )
         if (this.state.error)
