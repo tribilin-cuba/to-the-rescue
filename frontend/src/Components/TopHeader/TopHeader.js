@@ -5,7 +5,7 @@ import { LOG_OUT } from "../../store/actions";
 import UserIcon from "../Layout/UserIcon/UserIcon";
 import MenuIcon from "../Layout/MenuIcon/MenuIcon";
 
-function TopHeader({ title, smallTitle }) {
+function TopHeader({ title, smallTitle, goHome }) {
     const dispatch = useDispatch()
     const userName = useSelector((state) => state.userName)
 
@@ -18,7 +18,7 @@ function TopHeader({ title, smallTitle }) {
                         dispatch({ type: LOG_OUT })
                         window.flash("Ha cerrado sesion correctamente", "success")
                     }} />
-                    <MenuIcon authenticated={userName !== null} />
+                    <MenuIcon authenticated={userName !== null} goHome={goHome} />
                 </div>
             </div>
 
