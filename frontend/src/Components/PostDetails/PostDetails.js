@@ -8,7 +8,7 @@ import Spinner from '../Layout/Spinner/Spinner'
 import Error from '../Layout/Error/Error'
 import "./PostDetails.css"
 import { MdEdit, MdDelete } from "react-icons/md"
-import { FiShare2 } from "react-icons/fi"
+import { ImWhatsapp } from "react-icons/im"
 class PostDetails extends Component {
     state = {
         loading: true,
@@ -58,6 +58,18 @@ class PostDetails extends Component {
 
         const post = { ...this.props.post }
         const date = new Date(post.date)
+        const linkStatus = {
+            "Perdido": "perdido ",
+            "Adopción": "en adopción ",
+            "Crítico": "en estado crítico ",
+            "Abandonado": "abandonado "
+        }
+        const linkAnimal = {
+            "Perro": "Perrito ",
+            "Gato": "Gatico "
+        }
+        const linkText = linkAnimal[post.animal] + linkStatus[post.alert_type] + "en el municipio " + post.municipality + ". Toca el link para mas detalles \n"
+
 
 
         if (this.state.error)
@@ -73,17 +85,13 @@ class PostDetails extends Component {
 
         return (
             <Fragment>
-                <head>
-                    <title>your keyword rich title of the website and/or webpage</title>
-                    <meta name="description" content="description of your website/webpage, make sure you use keywords!"></meta>
-                    <meta property="og:title" content="short title of your website/webpage" />
-                    <meta property="og:url" content="https://tribilin-staging.netlify.app/" />
-                    <meta property="og:description" content="description of your website/webpage"></meta>
-                    <meta property="og:image" content={post.picture_path === "" ? "/default.png" : SERVER_URL + post.picture_path}></meta>
-                    <meta property="og:type" content="article" />
-                </head>
                 <div className="d-flex">
-                    <Link to={this.state.fromHome === "true" ? "/" : "/my-posts"} className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
+                    <Link
+                        to={this.state.fromHome === "true" ? "/" : "/my-posts"}
+                        className="ml-auto"
+                    >
+                        <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
+                    </Link>
                 </div>
                 <div className="d-flex flex-column align-content-center">
                     <h3 className={post.alert_type}>{post.alert_type}</h3>
@@ -126,9 +134,26 @@ class PostDetails extends Component {
                         <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
                     </div>
                     <div className="mr-auto mt-2">
-                        <a href={`whatsapp://send?text=${window.location.href}`} data-action="share/whatsapp/share">
-                            <FiShare2 /> Compartir por Whatsapp
-                    </a>
+                        <a
+                            style=
+                            {{
+                                color: "#2ec871",
+                                fontStyle: "italic",
+                            }}
+                            href={`whatsapp://send?text=${linkText}${window.location.href}`}
+                            data-action="share/whatsapp/share"
+                        >
+                            <ImWhatsapp
+                                size="20"
+                                style={{ verticalAlign: "top" }}
+                            />
+                            <b
+                                className="ml-1"
+                                style={{ verticalAlign: "bottom" }}
+                            >
+                                Compartir por Whatsapp
+                            </b>
+                        </a>
                     </div>
 
 
