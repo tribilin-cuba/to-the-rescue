@@ -42,10 +42,9 @@ class NewPost extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(this.state.postForm)
         }
-        console.log("SENDING FORM", this.state.postForm)
         fetch(SERVER_URL + "alert", request)
             .then(response => {
-                console.log(response)
+                window.flash("Alerta publicada con exito", "success")
                 this.props.history.push('/')
             })
             .catch(error => {
