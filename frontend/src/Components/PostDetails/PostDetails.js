@@ -79,7 +79,7 @@ class PostDetails extends Component {
                     <meta property="og:title" content="short title of your website/webpage" />
                     <meta property="og:url" content="https://tribilin-staging.netlify.app/" />
                     <meta property="og:description" content="description of your website/webpage"></meta>
-                    <meta property="og:image" content="/default.png"></meta>
+                    <meta property="og:image" content={post.picture_path === "" ? "/default.png" : SERVER_URL + post.picture_path}></meta>
                     <meta property="og:type" content="article" />
                 </head>
                 <div className="d-flex">
@@ -126,7 +126,7 @@ class PostDetails extends Component {
                         <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
                     </div>
                     <div className="mr-auto mt-2">
-                        <a href="whatsapp://send?text=Probando compartir!" data-action="share/whatsapp/share">
+                        <a href={`whatsapp://send?text=${window.location.href}`} data-action="share/whatsapp/share">
                             <FiShare2 /> Compartir por Whatsapp
                     </a>
                     </div>
