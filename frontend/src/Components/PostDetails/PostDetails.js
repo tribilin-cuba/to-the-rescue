@@ -135,7 +135,7 @@ class PostDetails extends Component {
                                 <b style={{ color: "#e27e22" }}>Esta seguro que desea borrar esta alerta?</b>
                             </div>
                             <div className="d-flex justify-content-center mt-3">
-                                <Button style={{ backgroundColor: "#e34c3c", borderColor: "white" }} onClick={deleteHandler}>Aceptar</Button>
+                                <Button style={{ backgroundColor: "#e34c3c", borderColor: "white" }} onClick={deleteHandler}>Borrar</Button>
                                 <Button style={{ backgroundColor: "#edc00f", borderColor: "white" }} className="ml-2" onClick={() => this.setState({ show: false })}>Cancelar</Button>
                             </div>
                         </div>

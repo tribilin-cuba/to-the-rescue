@@ -140,8 +140,22 @@ class EditPost extends Component {
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }} value={this.state.postForm.province}>
                                 <option value="" disabled selected>Provincia</option>
+                                <option value="Pinar del rio">Pinar del rio</option>
+                                <option value="Artemisa">Artemisa</option>
                                 <option value="La Habana">La Habana</option>
+                                <option value="Mayabeque">Mayabeque</option>
                                 <option value="Matanzas">Matanzas</option>
+                                <option value="Cienfuegos">Cienfuegos</option>
+                                <option value="Villa Clara">Villa Clara</option>
+                                <option value="Sancti Spiritus">Sancti Spiritus</option>
+                                <option value="Ciego de Avila">Ciego de Avila</option>
+                                <option value="Camaguey">Camaguey</option>
+                                <option value="Las Tunas">Las Tunas</option>
+                                <option value="Granma">Granma</option>
+                                <option value="Holguin">Holguin</option>
+                                <option value="Santiago de Cuba">Santiago de Cuba</option>
+                                <option value="Guantanamo">Guantanamo</option>
+                                <option value="Isla de la Juventud">Isla de la Juventud</option>
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
                                 Seleccione un elemento de la lista

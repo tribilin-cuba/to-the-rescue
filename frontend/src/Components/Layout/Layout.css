@@ -6,5 +6,6 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #464646;
   overflow-x: hidden;
+  overflow: hidden;
   max-width: 100%;
 }
