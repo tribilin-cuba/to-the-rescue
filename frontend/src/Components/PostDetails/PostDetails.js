@@ -73,6 +73,15 @@ class PostDetails extends Component {
 
         return (
             <Fragment>
+                <head>
+                    <title>your keyword rich title of the website and/or webpage</title>
+                    <meta name="description" content="description of your website/webpage, make sure you use keywords!"></meta>
+                    <meta property="og:title" content="short title of your website/webpage" />
+                    <meta property="og:url" content="https://tribilin-staging.netlify.app/" />
+                    <meta property="og:description" content="description of your website/webpage"></meta>
+                    <meta property="og:image" content="/default.png"></meta>
+                    <meta property="og:type" content="article" />
+                </head>
                 <div className="d-flex">
                     <Link to={this.state.fromHome === "true" ? "/" : "/my-posts"} className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
                 </div>
