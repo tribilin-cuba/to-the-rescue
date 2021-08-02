@@ -8,6 +8,7 @@ import Spinner from '../Layout/Spinner/Spinner'
 import Error from '../Layout/Error/Error'
 import "./PostDetails.css"
 import { MdEdit, MdDelete } from "react-icons/md"
+import { FiShare2 } from "react-icons/fi"
 class PostDetails extends Component {
     state = {
         loading: true,
@@ -115,6 +116,13 @@ class PostDetails extends Component {
                     <div className="mr-auto mt-2">
                         <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
                     </div>
+                    <div className="mr-auto mt-2">
+                        <a href="whatsapp://send?text=Probando compartir!" data-action="share/whatsapp/share">
+                            <FiShare2 /> Compartir por Whatsapp
+                    </a>
+                    </div>
+
+
                 </div>
                 {this.state.userId !== null && this.state.fromHome === "false" ?
                     <div className="d-flex flex-column posts-details-actions-div">
