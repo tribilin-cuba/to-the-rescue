@@ -5,7 +5,6 @@ import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
 import Error from "../Layout/Error/Error"
 import { connect } from "react-redux"
-// import Card from "../Layout/Card/Card"
 
 class NewPost extends Component {
     state = {
@@ -83,13 +82,20 @@ class NewPost extends Component {
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex">
-                        <Link to="/" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
+                        <Link to="/" className="ml-auto" >
+                            <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
+                        </Link>
                     </div>
                     <div className="d-flex justify-content-center customContainer">
                         <img className="NewPostImage" src={this.state.imgUrl} alt='' />
                         <label>
                             <img src="/camera.png" style={{ width: "50px" }} alt="add" />
-                            <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={this.changeImageHandler}
+                                className="fileInput"
+                                style={{ visibility: "hidden", width: "0px" }} />
                         </label>
                     </div>
                     <div className="d-flex flex-column">
@@ -133,8 +139,22 @@ class NewPost extends Component {
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }}>
                                 <option value="" disabled selected>Provincia</option>
+                                <option value="Pinar del rio">Pinar del rio</option>
+                                <option value="Artemisa">Artemisa</option>
                                 <option value="La Habana">La Habana</option>
+                                <option value="Mayabeque">Mayabeque</option>
                                 <option value="Matanzas">Matanzas</option>
+                                <option value="Cienfuegos">Cienfuegos</option>
+                                <option value="Villa Clara">Villa Clara</option>
+                                <option value="Sancti Spiritus">Sancti Spiritus</option>
+                                <option value="Ciego de Avila">Ciego de Avila</option>
+                                <option value="Camaguey">Camaguey</option>
+                                <option value="Las Tunas">Las Tunas</option>
+                                <option value="Granma">Granma</option>
+                                <option value="Holguin">Holguin</option>
+                                <option value="Santiago de Cuba">Santiago de Cuba</option>
+                                <option value="Guantanamo">Guantanamo</option>
+                                <option value="Isla de la Juventud">Isla de la Juventud</option>
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
                                 Seleccione un elemento de la lista
