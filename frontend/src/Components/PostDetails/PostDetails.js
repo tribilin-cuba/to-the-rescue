@@ -57,7 +57,7 @@ class PostDetails extends Component {
         }
 
         const post = { ...this.props.post }
-        const date = new Date(post.date)
+        const date = new Date(`${post.date}`)
         const linkStatus = {
             "Perdido": "perdido ",
             "Adopción": "en adopción ",
@@ -98,7 +98,10 @@ class PostDetails extends Component {
                     <div>
                         <img src={post.picture_path === "" ? "/default.png" : SERVER_URL + post.picture_path}
                             alt="post"
-                            style={{ width: "200px" }}
+                            style={{
+                                width: "200px",
+                                borderRadius: "10px 10px 10px 10px"
+                            }}
                         />
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
@@ -107,31 +110,42 @@ class PostDetails extends Component {
                     <Badge pill variant="warning"> </Badge>
                 </div>
                 <div className="d-flex flex-column">
-                    <div className="d-flex" style={{ textAlign: "start" }}>
-                        <Card.Text className="mt-2">
-                            {post.description}
-                        </Card.Text>
-                    </div>
+                    {post.description &&
+                        <div className="d-flex" style={{ textAlign: "start" }}>
+                            <Card.Text className="mt-2">
+                                {post.description}
+                            </Card.Text>
+                        </div>
+                    }
                     <div className="d-flex mt-2">
                         <b> Animal</b>: {post.animal}
                     </div>
-                    <div className="d-flex mt-2">
-                        <b> Sexo</b>: {post.gender}
-                    </div>
-                    <div className="d-flex mt-2">
-                        <b> Edad</b>: {post.age}
-                    </div>
-                    <div className="mt-2" style={{ textAlign: "start", overflowX: "scroll" }}>
-                        <b>Direccion</b>: {post.address}
-                    </div>
+                    {post.gender &&
+                        <div className="d-flex mt-2">
+                            <b> Sexo</b>: {post.gender}
+                        </div>
+                    }
+                    {post.age &&
+                        <div className="d-flex mt-2">
+                            <b> Edad</b>: {post.age}
+                        </div>
+                    }
+                    {post.address &&
+                        <div className="mt-2" style={{ textAlign: "start", overflowX: "scroll" }}>
+                            <b>Direccion</b>: {post.address}
+                        </div>
+                    }
                     <div className="d-flex mt-2">
                         <b> {post.email}</b>
                     </div >
-                    <div className="d-flex mt-2">
-                        <b>Telefono</b>: {post.phone}
-                    </div>
+                    {post.phone &&
+                        <div className="d-flex mt-2">
+                            <b>Telefono</b>:{post.phone}
+                        </div>
+
+                    }
                     <div className="mr-auto mt-2">
-                        <small>Publicado el dia:{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</small>
+                        <small>Publicado el dia: {date.toLocaleDateString("es-ES")}</small>
                     </div>
                     <div className="mr-auto mt-2">
                         <a

@@ -9,7 +9,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
         description = `${animal}:${alert_type}`
 
     let d = new Date(date)
-    const formattedDate = `${d.getDay()}/${d.getMonth()}/${d.getFullYear()}`
+    const formattedDate = d.toLocaleDateString("es-ES")
     const preview = description.substring(0, 35) + "..."
     const imgUrl = picture_path === "" ? "/default.png" : SERVER_URL + picture_path
 
