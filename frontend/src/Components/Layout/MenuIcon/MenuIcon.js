@@ -1,9 +1,10 @@
 import { Fragment } from "react"
 import { Dropdown } from "react-bootstrap";
 import React from "react"
-import { IoInformationCircleOutline } from "react-icons/io5"
-import { MdFavoriteBorder } from "react-icons/md"
-import { VscHome } from "react-icons/vsc"
+import { IoInformationCircle } from "react-icons/io5"
+import { MdFavorite } from "react-icons/md"
+import { GiDogHouse } from "react-icons/gi"
+import { Link } from "react-router-dom";
 
 function MenuIcon({ authenticated, goHome }) {
     const CustomToggle = React.forwardRef(({ onClick }, ref) => (
@@ -20,18 +21,27 @@ function MenuIcon({ authenticated, goHome }) {
                 <Dropdown.Menu >
                     {
                         authenticated && !goHome ?
-                            <Dropdown.Item className="mt-3  d-flex align-content-end" href="/my-posts" style={{ color: "#e27e22" }} >
-                                <MdFavoriteBorder size="20" /> <b className="ml-2">Mis Alertas</b>
+                            <Dropdown.Item className="mt-3  d-flex align-content-end"  >
+                                <Link to="/my-posts">
+                                    <MdFavorite style={{ color: "#e27e22" }} size="20" />
+                                    <b style={{ color: "#464646" }} className="ml-2">Mis Alertas</b>
+                                </Link>
                             </Dropdown.Item> :
                             null
                     }
                     {goHome &&
-                        <Dropdown.Item className="mt-3 d-flex align-content-end" href="/" style={{ color: "#e27e22" }}>
-                            <VscHome size="20" /> <b className="ml-2">Volver al inicio</b>
+                        <Dropdown.Item className="mt-3 d-flex align-content-end" >
+                            <Link to="/">
+                                <GiDogHouse style={{ color: "#e27e22" }} size="20" />
+                                <b style={{ color: "#464646" }} className="ml-2">Volver al inicio</b>
+                            </Link>
                         </Dropdown.Item>
                     }
-                    <Dropdown.Item className="mt-3 d-flex align-content-end" style={{ color: "#e27e22" }}>
-                        <IoInformationCircleOutline size="20" /> <b className="ml-2">Sobre nosotros</b>
+                    <Dropdown.Item className="mt-3 d-flex align-content-end" >
+                        <Link to="/about-us">
+                            <IoInformationCircle size="20" style={{ color: "#e27e22" }} />
+                            <b style={{ color: "#464646 " }} className="ml-2">Sobre nosotros</b>
+                        </Link>
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

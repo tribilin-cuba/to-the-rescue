@@ -10,6 +10,7 @@ import MyPosts from './Components/MyPosts/MyPosts';
 import EditPost from './Components/EditPost/EditPost';
 import Flash from './Components/Flash/Flash';
 import Bus from './Utils/Bus';
+import AboutUs from './Components/AboutUs/AboutUs';
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
         <Route path="/new-post" component={NewPost} />
         <Route path="/edit-post/:id" component={EditPost} />
         <Route path="/post-details/:id/:fromHome" component={PostDetails} />
+        <Route path="/about-us" component={AboutUs} />
       </div>
     );
   }

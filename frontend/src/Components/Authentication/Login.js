@@ -4,6 +4,7 @@ import { SERVER_URL } from "../../Constants/constants"
 import { Redirect } from "react-router"
 import { useDispatch } from "react-redux"
 import { SET_USER_ID } from "../../store/actions"
+import { Link } from "react-router-dom"
 
 function Login() {
     const [firstName, setName] = useState("")
@@ -58,8 +59,9 @@ function Login() {
                         <Form.Control.Feedback type="invalid">Ingrese Correo Electronico</Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button type="submit" variant="warning" className="mr-1">Iniciar Sesion</Button>
-                        <Button type="button" variant="secondary" href="/">Cancelar</Button>
+                        <Link to="/"><Button type="button" variant="secondary" className="mr-1">Cancelar</Button></Link>
+                        <Button type="submit" variant="warning" >Iniciar Sesion</Button>
+
                     </div>
                 </Form>
             </Card.Body>

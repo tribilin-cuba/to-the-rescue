@@ -3,6 +3,7 @@ import "./Post.css"
 import { Date } from "core-js";
 import { Card } from "react-bootstrap";
 import { SERVER_URL } from "../../../Constants/constants";
+import { Link } from "react-router-dom";
 
 function Post({ id, animal, alert_type, municipality, date, description, fromHome, picture_path }) {
     if (description === "")
@@ -16,8 +17,8 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
     return (
         <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
             <Card.Body style={{ padding: "0px" }}>
-                <a className="Post d-flex"
-                    href={`/post-details/${id}/${fromHome}`}
+                <Link className="Post d-flex"
+                    to={`/post-details/${id}/${fromHome}`}
                     style={{
                         color: "#464646",
                         textDecoration: "none",
@@ -30,7 +31,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                             className="img-fluid"
                             alt=""
                             style={{
-                                height: "80px",
+                                height: "75px",
                                 width: "105px",
                                 borderRadius: "10px 0px 0px 10px"
                             }}
@@ -44,7 +45,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                         <div className="PostSmall PostBold">{preview}</div>
                         <div className="PostSmall justify-self-end">{formattedDate}</div>
                     </div>
-                </a>
+                </Link>
             </Card.Body>
         </Card >
     );

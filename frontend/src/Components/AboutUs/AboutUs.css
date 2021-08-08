@@ -1,0 +1,8 @@
+.about-us-div {
+  display: flex;
+  justify-content: flex-start;
+}
+.about-us-div h5 {
+  color: #edc00f;
+  font-weight: bold;
+}

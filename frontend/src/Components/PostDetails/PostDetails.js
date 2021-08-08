@@ -162,7 +162,7 @@ class PostDetails extends Component {
                                 style={{ verticalAlign: "top" }}
                             />
                             <b
-                                className="ml-1"
+                                className="ml-2"
                                 style={{ verticalAlign: "bottom" }}
                             >
                                 Compartir por Whatsapp

@@ -4,6 +4,7 @@ import { SERVER_URL } from "../../Constants/constants"
 import { Redirect } from "react-router"
 import { useDispatch } from "react-redux"
 import { SET_USER_ID } from "../../store/actions"
+import { Link } from "react-router-dom"
 
 function Register() {
     const [firstName, setName] = useState("")
@@ -33,7 +34,7 @@ function Register() {
             .then(response => response.json())
             .then(response => {
                 if (response.message) {
-                    window.flash("Ya existe un usuario con este nombre de usuario y correo", "error")
+                    window.flash("Ya este nombre de usuario y correo existen", "error")
                     return
                 }
 
@@ -60,8 +61,10 @@ function Register() {
                         <Form.Control.Feedback type="invalid">Ingrese Correo Electronico</Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button type="submit" variant="warning" className="mr-1">Registrar</Button>
-                        <Button type="button" variant="secondary" href="/">Cancelar</Button>
+                        <Link to="/">
+                            <Button type="button" variant="secondary" className="mr-1">Cancelar</Button>
+                        </Link>
+                        <Button type="submit" variant="warning" >Registrar</Button>
                     </div>
                 </Form>
             </Card.Body>
