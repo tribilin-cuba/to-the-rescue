@@ -7,8 +7,9 @@ import { SERVER_URL } from '../../Constants/constants'
 import Spinner from '../Layout/Spinner/Spinner'
 import Error from '../Layout/Error/Error'
 import "./PostDetails.css"
-import { MdEdit, MdDelete } from "react-icons/md"
+import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
+import { IoCall } from 'react-icons/io5'
 class PostDetails extends Component {
     state = {
         loading: true,
@@ -141,6 +142,10 @@ class PostDetails extends Component {
                     {post.phone &&
                         <div className="d-flex mt-2">
                             <b>Telefono</b>:{post.phone}
+                            <div className="ml-auto">
+                                <a href={`tel:${post.phone}`}><IoCall size="20" color="gray" /></a>
+                                <a href={`sms:${post.phone}`}><MdMessage size="20" color="gray" className="ml-2" /></a>
+                            </div>
                         </div>
 
                     }

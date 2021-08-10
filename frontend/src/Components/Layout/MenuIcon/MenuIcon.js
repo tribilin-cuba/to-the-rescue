@@ -23,8 +23,8 @@ function MenuIcon({ authenticated, goHome }) {
                         authenticated && !goHome ?
                             <Dropdown.Item className="mt-3  d-flex align-content-end"  >
                                 <Link to="/my-posts">
-                                    <MdFavorite style={{ color: "#e27e22" }} size="20" />
-                                    <b style={{ color: "#464646" }} className="ml-2">Mis Alertas</b>
+                                    <MdFavorite style={{ color: "#e27e22", verticalAlign: "top" }} size="20" />
+                                    <b style={{ color: "#464646", verticalAlign: "bottom" }} className="ml-2">Mis Alertas</b>
                                 </Link>
                             </Dropdown.Item> :
                             null

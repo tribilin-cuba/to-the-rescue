@@ -86,7 +86,9 @@ class EditPost extends Component {
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex">
-                        <Link to="/my-posts" className="ml-auto" ><img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} /></Link>
+                        <Link to="/my-posts" className="ml-auto" >
+                            <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
+                        </Link>
                     </div>
                     <div className="d-flex justify-content-center customContainer">
                         <img
