@@ -54,7 +54,7 @@ class Posts extends Component {
             if (this.props.userId)
                 this.setState({ redirect: true })
             else
-                window.flash("Debe iniciar sesion para publicar una alerta", "error")
+                window.flash("Debe iniciar sesión para publicar una alerta", "error")
         }
         if (this.state.redirect)
             return <Redirect to="/new-post" />
@@ -66,7 +66,7 @@ class Posts extends Component {
             return <Spinner />
         return (
             <div>
-                <TopHeader title="Alertas" smallTitle="Ultimas alertas recibidas" />
+                <TopHeader title="Alertas" smallTitle="Últimas alertas recibidas" />
                 {/* {toast} */}
                 <Link className="ml-auto mr-5" type="button" to="/new-post" onClick={(e) => newPostHandler(e)}>
                     <img className="PostsAddButton" src="./add_button.png" alt=""></img>

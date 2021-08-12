@@ -53,12 +53,12 @@ class MyPosts extends Component {
             return <Spinner />
         return (
             <div>
-                <TopHeader title="Mis Alertas" smallTitle="Ultimas alertas publicadas" goHome={true} />
+                <TopHeader title="Mis Alertas" smallTitle="Últimas alertas publicadas" goHome={true} />
                 <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
                 {
                     posts.length > 0 ?
                         posts :
-                        <div style={{ fontStyle: "italic" }}>No ha publicado alertas</div>
+                        <div style={{ fontStyle: "italic" }}>No ha publicado alertas.</div>
                 }
             </div>
         );

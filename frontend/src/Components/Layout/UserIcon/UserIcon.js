@@ -22,7 +22,7 @@ function UserIcon({ userName, logOutHandler }) {
                             <Dropdown.Item style={{ color: "#e27e22" }}>Hola {userName}</Dropdown.Item>
                             <Dropdown.Item onClick={logOutHandler}>
                                 <IoLogOut style={{ color: "#e27e22", verticalAlign: "top" }} size="20" />
-                                <b style={{ verticalAlign: "bottom", color: "#464646" }}>Cerrar sesion</b>
+                                <b style={{ verticalAlign: "bottom", color: "#464646" }}>Cerrar sesión</b>
                             </Dropdown.Item>
                         </div>
                         :
@@ -30,7 +30,7 @@ function UserIcon({ userName, logOutHandler }) {
                             <Dropdown.Item className="mt-2 d-flex align-content-end"  >
                                 <Link to="/log-in">
                                     <IoLogIn size="20" style={{ color: "#e27e22" }} />
-                                    <b className="ml-2" style={{ color: "#464646" }}>Iniciar sesion</b>
+                                    <b className="ml-2" style={{ color: "#464646" }}>Iniciar sesión</b>
                                 </Link>
                             </Dropdown.Item>
                             <Dropdown.Item className="mt-3 d-flex align-content-end"  >

@@ -40,7 +40,7 @@ function Login() {
                     userEmail: response.email
                 })
                 setRedirect(true)
-                window.flash("Ha iniciado sesion correctamente", "success")
+                window.flash("Ha iniciado sesión correctamente", "success")
             })
             .catch(error => window.flash("Nombre de usuario o email incorrectos", "error"))
     }
@@ -55,12 +55,12 @@ function Login() {
                         <Form.Control as="input" placeholder="Nombre de usuario" onChange={(event) => setName(event.target.value)} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control required as="input" type="email" placeholder="Correo Electronico" onChange={(event) => setEmail(event.target.value)} />
+                        <Form.Control required as="input" type="email" placeholder="Correo Electrónico" onChange={(event) => setEmail(event.target.value)} />
                         <Form.Control.Feedback type="invalid">Ingrese Correo Electronico</Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
                         <Link to="/"><Button type="button" variant="secondary" className="mr-1">Cancelar</Button></Link>
-                        <Button type="submit" variant="warning" >Iniciar Sesion</Button>
+                        <Button type="submit" variant="warning" >Iniciar Sesión</Button>
 
                     </div>
                 </Form>

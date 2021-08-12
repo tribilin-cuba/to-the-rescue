@@ -47,7 +47,7 @@ class PostDetails extends Component {
                 .then(data => {
                     console.log(data)
                     this.setState({ redirect: true })
-                    window.flash("Alerta borrada con exito", "success")
+                    window.flash("Alerta borrada con éxito", "success")
                 })
                 .catch(error => {
                     this.setState({
@@ -69,7 +69,7 @@ class PostDetails extends Component {
             "Perro": "Perrito ",
             "Gato": "Gatico "
         }
-        const linkText = linkAnimal[post.animal] + linkStatus[post.alert_type] + "en el municipio " + post.municipality + ". Toca el link para mas detalles \n"
+        const linkText = linkAnimal[post.animal] + linkStatus[post.alert_type] + "en el municipio " + post.municipality + ". Toca el link para más detalles \n"
 
 
 
@@ -133,7 +133,7 @@ class PostDetails extends Component {
                     }
                     {post.address &&
                         <div className="mt-2" style={{ textAlign: "start", overflowX: "scroll" }}>
-                            <b>Direccion</b>: {post.address}
+                            <b>Dirección</b>: {post.address}
                         </div>
                     }
                     <div className="d-flex mt-2">
@@ -141,7 +141,7 @@ class PostDetails extends Component {
                     </div >
                     {post.phone &&
                         <div className="d-flex mt-2">
-                            <b>Telefono</b>:{post.phone}
+                            <b>Teléfono</b>:{post.phone}
                             <div className="ml-auto">
                                 <a href={`tel:${post.phone}`}><IoCall size="20" color="gray" /></a>
                                 <a href={`sms:${post.phone}`}><MdMessage size="20" color="gray" className="ml-2" /></a>
@@ -150,7 +150,7 @@ class PostDetails extends Component {
 
                     }
                     <div className="mr-auto mt-2">
-                        <small>Publicado el dia: {date.toLocaleDateString("es-ES")}</small>
+                        <small>Publicado el día: {date.toLocaleDateString("es-ES")}</small>
                     </div>
                     <div className="mr-auto mt-2">
                         <a
@@ -193,7 +193,7 @@ class PostDetails extends Component {
                     <Modal.Body>
                         <div className="d-flex flex-column">
                             <div>
-                                <b style={{ color: "#e27e22" }}>Esta seguro que desea borrar esta alerta?</b>
+                                <b style={{ color: "#e27e22" }}>Está seguro que desea borrar esta alerta?</b>
                             </div>
                             <div className="d-flex justify-content-center mt-3">
                                 <Button style={{ backgroundColor: "#e34c3c", borderColor: "white" }} onClick={deleteHandler}>Borrar</Button>

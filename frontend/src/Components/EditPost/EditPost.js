@@ -104,7 +104,7 @@ class EditPost extends Component {
                     <div className="d-flex flex-column">
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }} value={this.state.postForm.alert_type}>
-                                <option value="" disabled selected>Condicion del animal</option>
+                                <option value="" disabled selected>Condición del animal</option>
                                 <option value="Perdido">Perdido</option>
                                 <option value="Abandonado">Abandonado</option>
                                 <option value="Adopción">Adopción</option>
@@ -141,22 +141,21 @@ class EditPost extends Component {
                         {/* ############################### */}
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }} value={this.state.postForm.province}>
-                                <option value="" disabled selected>Provincia</option>
-                                <option value="Pinar del rio">Pinar del rio</option>
+                            <option value="Pinar del río">Pinar del río</option>
                                 <option value="Artemisa">Artemisa</option>
                                 <option value="La Habana">La Habana</option>
                                 <option value="Mayabeque">Mayabeque</option>
                                 <option value="Matanzas">Matanzas</option>
                                 <option value="Cienfuegos">Cienfuegos</option>
                                 <option value="Villa Clara">Villa Clara</option>
-                                <option value="Sancti Spiritus">Sancti Spiritus</option>
-                                <option value="Ciego de Avila">Ciego de Avila</option>
-                                <option value="Camaguey">Camaguey</option>
+                                <option value="Sancti Spíritus">Sancti Spíritus</option>
+                                <option value="Ciego de Ávila">Ciego de Ávila</option>
+                                <option value="Camagüey">Camagüey</option>
                                 <option value="Las Tunas">Las Tunas</option>
                                 <option value="Granma">Granma</option>
-                                <option value="Holguin">Holguin</option>
+                                <option value="Holguín">Holguín</option>
                                 <option value="Santiago de Cuba">Santiago de Cuba</option>
-                                <option value="Guantanamo">Guantanamo</option>
+                                <option value="Guantánamo">Guantánamo</option>
                                 <option value="Isla de la Juventud">Isla de la Juventud</option>
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
@@ -175,7 +174,7 @@ class EditPost extends Component {
                         <div>
 
                             <Form.Group>
-                                <Form.Control placeholder="Telefono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} value={this.state.postForm.phone} />
+                                <Form.Control placeholder="Teléfono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} value={this.state.postForm.phone} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Control placeholder="Correo electrónico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} value={this.state.postForm.email} />
