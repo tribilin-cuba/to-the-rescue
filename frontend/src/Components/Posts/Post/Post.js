@@ -26,7 +26,6 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
             fetch(imgUrl, { headers: { "X-Api-Key": "b05adlw0_WSQqvBzkzp6x7XbJ6nQKA3Tx3C7nQQ6k"} })
                 .then(response => response.text())
                 .then(text => {
-                    console.log("IMG:", text)
                     const pict = "data:image/png;base64," + text
                     setImg(pict)
                 })
