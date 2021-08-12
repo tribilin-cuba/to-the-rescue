@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css"
 import { Date } from "core-js";
-import { Card } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import { DETA_URL, TOY_DETA_ID } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
 
@@ -29,6 +29,8 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                     const pict = "data:image/png;base64," + text
                     setImg(pict)
                 })
+        else
+            setImg(imgUrl)
     }, [imgUrl])
 
     return (
@@ -43,16 +45,20 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                     }}
                 >
                     <div>
-                        <img
-                            src={img || "/default.png"}
-                            className="img-fluid"
-                            alt=""
-                            style={{
-                                height: "75px",
-                                width: "105px",
-                                borderRadius: "10px 0px 0px 10px"
-                            }}
-                        />
+                        {
+                            !img ?
+                            <Spinner variant="dark" animation="border" className="m-2" /> :
+                            <img
+                                src={img}
+                                className="img-fluid"
+                                alt=""
+                                style={{
+                                    height: "75px",
+                                    width: "105px",
+                                    borderRadius: "10px 0px 0px 10px"
+                                }}
+                            />
+                        }
                     </div>
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">
                         <div className='d-flex justify-content-between PostWidth'>
