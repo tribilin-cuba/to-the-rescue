@@ -3,7 +3,8 @@ import Repository from "../repositories/repository.js";
 import Manager from "./manager.js";
 import randomToken from "random-token";
 import moment from "moment";
-import { Deta } from "deta";
+import detaPackage from "deta";
+const { Deta } = detaPackage;
 import { TOY_DETA_KEY } from "../config/constant.js";
 
 class AlertManager extends Manager{
@@ -12,7 +13,7 @@ class AlertManager extends Manager{
         super(new Repository(AlertModel))
     }
 
-    insert(alert) {
+    async insert(alert) {
         
         if(!alert.imgString)
             return Manager.prototype.insert.call(this, alert)
@@ -35,7 +36,8 @@ class AlertManager extends Manager{
 
         const photos = deta.Drive(process.env.PHOTOS_DRIVE_NAME || 'photos')
 
-        photos.put(picName, { data: imageToStore })
+        await photos.put(picName, { data: imageToStore })
+        
         
         return Manager.prototype.insert.call(this, alertToStore)
     }

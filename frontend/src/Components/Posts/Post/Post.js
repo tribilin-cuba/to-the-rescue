@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Post.css"
 import { Date } from "core-js";
 import { Card } from "react-bootstrap";
-import { SERVER_URL } from "../../../Constants/constants";
+import { DETA_URL, TOY_DETA_ID } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
 
 function Post({ id, animal, alert_type, municipality, date, description, fromHome, picture_path }) {
@@ -12,7 +12,25 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
     let d = new Date(date)
     const formattedDate = d.toLocaleDateString("es-ES")
     const preview = description.substring(0, 35) + "..."
-    const imgUrl = picture_path === "" ? "/default.png" : SERVER_URL + picture_path
+    const detaDriveName = process.env.PHOTOS_DETA_DRIVE || 'photos'
+    const projectId = process.env.PROJECT_ID || TOY_DETA_ID
+    const urlSuffix = `files/download?name=${picture_path}`
+    
+    const imgUrl = picture_path === "" ? "/default.png" : `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`
+
+    const [img, setImg] = useState(null)
+
+    // Fetch the image using the imgUrl and set the state. Add authotization headers
+    useEffect(() => {
+        if(imgUrl !== "/default.png")
+            fetch(imgUrl, { headers: { "X-Api-Key": "b05adlw0_WSQqvBzkzp6x7XbJ6nQKA3Tx3C7nQQ6k"} })
+                .then(response => response.text())
+                .then(text => {
+                    console.log("IMG:", text)
+                    const pict = "data:image/png;base64," + text
+                    setImg(pict)
+                })
+    }, [imgUrl])
 
     return (
         <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
@@ -27,7 +45,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                 >
                     <div>
                         <img
-                            src={imgUrl}
+                            src={img || "/default.png"}
                             className="img-fluid"
                             alt=""
                             style={{
