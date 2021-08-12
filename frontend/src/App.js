@@ -8,11 +8,18 @@ import Register from './Components/Authentication/Register';
 import Login from './Components/Authentication/Login';
 import MyPosts from './Components/MyPosts/MyPosts';
 import EditPost from './Components/EditPost/EditPost';
+import Flash from './Components/Flash/Flash';
+import Bus from './Utils/Bus';
+import AboutUs from './Components/AboutUs/AboutUs';
 
 class App extends Component {
+
   render() {
+    window.flash = (message, type = "success") => Bus.emit('flash', ({ message, type }))
+
     return (
       <div className="App" >
+        <Flash />
         <Route path="/" exact component={Posts} />
         <Route path="/my-posts" component={MyPosts} />
         <Route path="/log-in" component={Login} />
@@ -20,6 +27,7 @@ class App extends Component {
         <Route path="/new-post" component={NewPost} />
         <Route path="/edit-post/:id" component={EditPost} />
         <Route path="/post-details/:id/:fromHome" component={PostDetails} />
+        <Route path="/about-us" component={AboutUs} />
       </div>
     );
   }

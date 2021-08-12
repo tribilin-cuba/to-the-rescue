@@ -2,22 +2,40 @@ import React from "react";
 import "./Post.css"
 import { Date } from "core-js";
 import { Card } from "react-bootstrap";
+import { SERVER_URL } from "../../../Constants/constants";
+import { Link } from "react-router-dom";
 
-function Post({ id, animal, alert_type, municipality, date, description, fromHome }) {
+function Post({ id, animal, alert_type, municipality, date, description, fromHome, picture_path }) {
     if (description === "")
         description = `${animal}:${alert_type}`
 
     let d = new Date(date)
-    const formattedDate = `${d.getDay()}/${d.getMonth()}/${d.getFullYear()}`
+    const formattedDate = d.toLocaleDateString("es-ES")
     const preview = description.substring(0, 35) + "..."
-
+    const imgUrl = picture_path === "" ? "/default.png" : SERVER_URL + picture_path
 
     return (
         <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
             <Card.Body style={{ padding: "0px" }}>
-                <a className="Post d-flex" href={`/post-details/${id}/${fromHome}`} style={{ color: "#464646", textDecoration: "none", boxShadow: "1 1 1 1 blue" }}>
+                <Link className="Post d-flex"
+                    to={`/post-details/${id}/${fromHome}`}
+                    style={{
+                        color: "#464646",
+                        textDecoration: "none",
+                        boxShadow: "1 1 1 1 blue"
+                    }}
+                >
                     <div>
-                        <img src="/default.png" className="img-fluid" alt="" style={{ height: "80px", width: "105px" }} />
+                        <img
+                            src={imgUrl}
+                            className="img-fluid"
+                            alt=""
+                            style={{
+                                height: "75px",
+                                width: "105px",
+                                borderRadius: "10px 0px 0px 10px"
+                            }}
+                        />
                     </div>
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">
                         <div className='d-flex justify-content-between PostWidth'>
@@ -27,7 +45,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                         <div className="PostSmall PostBold">{preview}</div>
                         <div className="PostSmall justify-self-end">{formattedDate}</div>
                     </div>
-                </a>
+                </Link>
             </Card.Body>
         </Card >
     );

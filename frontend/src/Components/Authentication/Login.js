@@ -4,6 +4,7 @@ import { SERVER_URL } from "../../Constants/constants"
 import { Redirect } from "react-router"
 import { useDispatch } from "react-redux"
 import { SET_USER_ID } from "../../store/actions"
+import { Link } from "react-router-dom"
 
 function Login() {
     const [firstName, setName] = useState("")
@@ -22,22 +23,26 @@ function Login() {
             return
         }
         const request = {
-            method: "GET",
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                firstName: firstName,
-                email: email
+                email: email,
+                firstName: firstName
             })
         }
-        fetch(SERVER_URL + "user", request)
-            .then(response => response.json())``
+        fetch(SERVER_URL + "user-login", request)
+            .then(response => response.json())
             .then(response => {
-                dispatch({ type: SET_USER_ID, userId: response._id, userName: response.firstName, userEmail: response.email })
+                dispatch({
+                    type: SET_USER_ID,
+                    userId: response._id,
+                    userName: response.firstName,
+                    userEmail: response.email
+                })
                 setRedirect(true)
+                window.flash("Ha iniciado sesion correctamente", "success")
             })
-            .catch(error => console.log(error))
-
-
+            .catch(error => window.flash("Nombre de usuario o email incorrectos", "error"))
     }
     if (redirect)
         return <Redirect to="/" />
@@ -54,8 +59,9 @@ function Login() {
                         <Form.Control.Feedback type="invalid">Ingrese Correo Electronico</Form.Control.Feedback>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        <Button type="submit" variant="warning" className="mr-1">Registrar</Button>
-                        <Button type="button" variant="secondary" href="/">Cancelar</Button>
+                        <Link to="/"><Button type="button" variant="secondary" className="mr-1">Cancelar</Button></Link>
+                        <Button type="submit" variant="warning" >Iniciar Sesion</Button>
+
                     </div>
                 </Form>
             </Card.Body>
