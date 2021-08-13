@@ -41,6 +41,10 @@ This also asumes you have a MongoDB server in your local environment and that it
 
 With both frontend and backend running you'll have the website running in your local environment!
 
+### Running tests
+
+The backend project is provided with unit tests. To see those test results you can run ```yarn test``` in the ```backend``` directory.
+
 ## Contributing
 
 We encourage all developers to contribute with this project. Any help will be very welcome. Just make sure to read the ```CONTRIBUTING.md``` document where we give the instructions to make organized and fruitful contributions.
