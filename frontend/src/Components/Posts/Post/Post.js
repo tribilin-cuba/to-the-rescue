@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Post.css"
 import { Date } from "core-js";
 import { Card, Spinner } from "react-bootstrap";
-import { DETA_URL, TOY_DETA_ID } from "../../../Constants/constants";
+import { DETA_URL, TOY_DETA_ID, TOY_DETA_KEY } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
 
 function Post({ id, animal, alert_type, municipality, date, description, fromHome, picture_path }) {
@@ -13,7 +13,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
     const formattedDate = d.toLocaleDateString("es-ES")
     const preview = description.substring(0, 35) + "..."
     const detaDriveName = process.env.PHOTOS_DETA_DRIVE || 'photos'
-    const projectId = process.env.PROJECT_ID || TOY_DETA_ID
+    const projectId = process.env.DETA_PROJECT_ID || TOY_DETA_ID
     const urlSuffix = `files/download?name=${picture_path}`
     
     const imgUrl = picture_path === "" ? "/default.png" : `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`
@@ -23,7 +23,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
     // Fetch the image using the imgUrl and set the state. Add authotization headers
     useEffect(() => {
         if(imgUrl !== "/default.png")
-            fetch(imgUrl, { headers: { "X-Api-Key": "b05adlw0_WSQqvBzkzp6x7XbJ6nQKA3Tx3C7nQQ6k"} })
+            fetch(imgUrl, { headers: { "X-Api-Key": process.env.DETA_API_KEY || TOY_DETA_KEY} })
                 .then(response => response.text())
                 .then(text => {
                     const pict = "data:image/png;base64," + text
