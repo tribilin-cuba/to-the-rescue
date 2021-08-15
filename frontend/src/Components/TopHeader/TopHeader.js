@@ -6,7 +6,7 @@ import UserIcon from "../Layout/UserIcon/UserIcon";
 import MenuIcon from "../Layout/MenuIcon/MenuIcon";
 import { useHistory } from "react-router";
 
-function TopHeader({ title, smallTitle, goHome }) {
+function TopHeader({ title, smallTitle, goHome, showAll }) {
     const dispatch = useDispatch()
     const userName = useSelector((state) => state.userName)
     const history = useHistory()
@@ -20,7 +20,7 @@ function TopHeader({ title, smallTitle, goHome }) {
                         history.push("/")
                         window.flash("Ha cerrado sesión correctamente", "success")
                     }} />
-                    <MenuIcon authenticated={userName !== null} goHome={goHome} />
+                    <MenuIcon authenticated={userName !== null} goHome={goHome} showAll={showAll} />
                 </div>
             </div>
 

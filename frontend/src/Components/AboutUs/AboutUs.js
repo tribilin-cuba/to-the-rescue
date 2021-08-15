@@ -8,7 +8,7 @@ import { HiOutlineMail } from "react-icons/hi"
 function AboutUs() {
     return (
         <Fragment>
-            <TopHeader title="Sobre nosotros" smallTitle="" goHome={true} />
+            <TopHeader title="Sobre nosotros" smallTitle="" goHome={true} showAll={true} />
             <div className="mt-3">
                 <div style={{ textAlign: "initial" }}>
                     <p>
