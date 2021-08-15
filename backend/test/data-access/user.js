@@ -46,6 +46,7 @@ context('Testing Data access for Users', () => {
 
             userManager.insert({
                 ...dummyUser,
+                lastName: 'Wall',
                 secondLastName: 'WithToken',
                 token: 'qwerty'
             })

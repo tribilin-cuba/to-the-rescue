@@ -8,40 +8,40 @@ import { HiOutlineMail } from "react-icons/hi"
 function AboutUs() {
     return (
         <Fragment>
-            <TopHeader title="Sobre nosotros" smallTitle="" goHome={true} />
+            <TopHeader title="Sobre nosotros" smallTitle="" goHome={true} showAll={true} />
             <div className="mt-3">
                 <div style={{ textAlign: "initial" }}>
                     <p>
                         Bienvenido a Tribilin, sitio web para publicar sobre mascotas vulnerables en Cuba.
                     </p>
                     <p>
-                        Nuestra intencion es concentrar toda la informacion dispersa en las redes
-                        sobre mascotas en adopcion, abandonadas, perdidas o en estado critico, para que sea mas facil
+                        Nuestra intención es concentrar toda la información dispersa en las redes
+                        sobre mascotas en adopción, abandonadas, perdidas o en estado crítico, para que sea más fácil
                         encontrarles un hogar.
                     </p>
                     <p>
                         Somos un quipo de tres, conformado por estudiantes y egresados de la Universidad de La Habana
-                        en las carreras de Disenno y Ciencias de la Computacion.
+                        en las carreras de Diseño y Ciencias de la Computación.
                     </p>
                 </div>
             </div>
             <div className="mt-3">
                 <div className="about-us-div">
-                    <h5>Por que el nombre Tribilin?</h5>
+                    <h5>¿Por qué el nombre Tribilin?</h5>
                 </div>
                 <div style={{ textAlign: "initial" }}>
                     <p>
-                        Tribilin es un perrito callejero que hace 7 annos fue adoptado por la familia de una de nuestras desarrolladoras.
-                        Es por animalitos como el que decidimos comenzar el proyecto, entonces que mejor nombre que el suyo.
+                        Tribilin es un perrito callejero que hace 7 años fue adoptado por la familia de una de nuestras desarrolladoras.
+                        Es por animalitos como él que decidimos comenzar el proyecto, entonces qué mejor nombre que el suyo.
                     </p>
                 </div>
             </div>
             <div className="mt-3">
                 <div className="about-us-div">
-                    <h5>Como Colaborar</h5>
+                    <h5>Cómo Colaborar</h5>
                 </div>
                 <div style={{ textAlign: "initial" }}>
-                    <p>Tribilin es un proyecto open source. Tu tambien puedes colaborar! Visita nuestro{" "}
+                    <p>Tribilin es un proyecto open source. Tú también puedes colaborar! Visita nuestro{" "}
                         <a rel="noreferrer" target="_blank" href="https://github.com/josejorgers/to-the-rescue">repositorio en GitHub. </a>
                         Todo aporte es bienvenido!
                 </p>
@@ -49,12 +49,12 @@ function AboutUs() {
             </div>
             <div className="mt-3">
                 <div className="about-us-div">
-                    <h5>Contactanos</h5>
+                    <h5>Contáctanos</h5>
                 </div>
                 <div style={{ textAlign: "initial" }}>
                     <p>
-                        Siguenos en nuestras redes sociales y cuentanos que crees de Tribilin.
-                        Tu opinion es importante para nosotros.
+                        Síguenos en nuestras redes sociales y cuéntanos qué crees de Tribilin.
+                        Tu opinión es importante para nosotros.
                     </p>
                     <div>
                         <GrInstagram size="20" />{" "}

@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "events": "^3.3.0",
+    "deta": "^1.0.0",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",

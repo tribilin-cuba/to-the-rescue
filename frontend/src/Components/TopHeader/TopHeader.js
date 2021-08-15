@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT } from "../../store/actions";
 import UserIcon from "../Layout/UserIcon/UserIcon";
 import MenuIcon from "../Layout/MenuIcon/MenuIcon";
+import { useHistory } from "react-router";
 
-function TopHeader({ title, smallTitle, goHome }) {
+function TopHeader({ title, smallTitle, goHome, showAll }) {
     const dispatch = useDispatch()
     const userName = useSelector((state) => state.userName)
-
+    const history = useHistory()
     return (
         <div className='d-flex flex-column TopHeader align-items-start'>
             <div className="d-flex justify-content-between TopHeaderDiv">
@@ -16,9 +17,10 @@ function TopHeader({ title, smallTitle, goHome }) {
                 <div className="d-flex ">
                     <UserIcon userName={userName} logOutHandler={() => {
                         dispatch({ type: LOG_OUT })
-                        window.flash("Ha cerrado sesion correctamente", "success")
+                        history.push("/")
+                        window.flash("Ha cerrado sesión correctamente", "success")
                     }} />
-                    <MenuIcon authenticated={userName !== null} goHome={goHome} />
+                    <MenuIcon authenticated={userName !== null} goHome={goHome} showAll={showAll} />
                 </div>
             </div>
 

@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import { SERVER_URL } from "../../Constants/constants"
 import Error from "../Layout/Error/Error"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
-// import Card from "../Layout/Card/Card"
 
 class EditPost extends Component {
     state = {
@@ -83,9 +82,9 @@ class EditPost extends Component {
             return <Error message={this.state.errorLog} />
 
         return (
-            <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
+            <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated} className="mt-3">
                 <Form.Group>
-                    <div className="d-flex">
+                    {/* <div className="d-flex">
                         <Link to="/my-posts" className="ml-auto" >
                             <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
                         </Link>
@@ -100,11 +99,11 @@ class EditPost extends Component {
                             <img src="/camera.png" style={{ width: "50px" }} alt="add" />
                             <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />
                         </label>
-                    </div>
+                    </div> */}
                     <div className="d-flex flex-column">
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }} value={this.state.postForm.alert_type}>
-                                <option value="" disabled selected>Condicion del animal</option>
+                                <option value="" disabled selected>Condición del animal</option>
                                 <option value="Perdido">Perdido</option>
                                 <option value="Abandonado">Abandonado</option>
                                 <option value="Adopción">Adopción</option>
@@ -138,25 +137,23 @@ class EditPost extends Component {
                         <Form.Group>
                             <Form.Control placeholder="Edad" onChange={(event) => { this.inputChangedHandler(event, "age") }} value={this.state.postForm.age} />
                         </Form.Group>
-                        {/* ############################### */}
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }} value={this.state.postForm.province}>
-                                <option value="" disabled selected>Provincia</option>
-                                <option value="Pinar del rio">Pinar del rio</option>
+                                <option value="Pinar del río">Pinar del río</option>
                                 <option value="Artemisa">Artemisa</option>
                                 <option value="La Habana">La Habana</option>
                                 <option value="Mayabeque">Mayabeque</option>
                                 <option value="Matanzas">Matanzas</option>
                                 <option value="Cienfuegos">Cienfuegos</option>
                                 <option value="Villa Clara">Villa Clara</option>
-                                <option value="Sancti Spiritus">Sancti Spiritus</option>
-                                <option value="Ciego de Avila">Ciego de Avila</option>
-                                <option value="Camaguey">Camaguey</option>
+                                <option value="Sancti Spíritus">Sancti Spíritus</option>
+                                <option value="Ciego de Ávila">Ciego de Ávila</option>
+                                <option value="Camagüey">Camagüey</option>
                                 <option value="Las Tunas">Las Tunas</option>
                                 <option value="Granma">Granma</option>
-                                <option value="Holguin">Holguin</option>
+                                <option value="Holguín">Holguín</option>
                                 <option value="Santiago de Cuba">Santiago de Cuba</option>
-                                <option value="Guantanamo">Guantanamo</option>
+                                <option value="Guantánamo">Guantánamo</option>
                                 <option value="Isla de la Juventud">Isla de la Juventud</option>
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">
@@ -175,7 +172,7 @@ class EditPost extends Component {
                         <div>
 
                             <Form.Group>
-                                <Form.Control placeholder="Telefono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} value={this.state.postForm.phone} />
+                                <Form.Control placeholder="Teléfono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} value={this.state.postForm.phone} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Control placeholder="Correo electrónico (opcional)" onChange={(event) => { this.inputChangedHandler(event, "email") }} value={this.state.postForm.email} />
@@ -184,9 +181,14 @@ class EditPost extends Component {
                                 <Form.Control placeholder="Descripción" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} value={this.state.postForm.description} />
                             </Form.Group>
                         </div>
-                        <Form.Group>
-                            <Button type="submit" variant="warning">Guardar</Button>
-                        </Form.Group>
+                        <div className="d-flex justify-content-center">
+                            <Link to="/my-posts" className="mr-2" >
+                                <Button variant="secondary">Cancelar</Button>
+                            </Link>
+                            <Form.Group>
+                                <Button type="submit" variant="warning">Guardar</Button>
+                            </Form.Group>
+                        </div>
                     </div>
                 </Form.Group>
             </Form>

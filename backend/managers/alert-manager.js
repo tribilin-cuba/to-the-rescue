@@ -3,9 +3,9 @@ import Repository from "../repositories/repository.js";
 import Manager from "./manager.js";
 import randomToken from "random-token";
 import moment from "moment";
-import path from "path"
-import fs from "fs"
-import { PICTURES_DIR } from "../config/constant.js";
+import detaPackage from "deta";
+const { Deta } = detaPackage;
+import { TOY_DETA_KEY } from "../config/constant.js";
 
 class AlertManager extends Manager{
     
@@ -13,7 +13,7 @@ class AlertManager extends Manager{
         super(new Repository(AlertModel))
     }
 
-    insert(alert) {
+    async insert(alert) {
         
         if(!alert.imgString)
             return Manager.prototype.insert.call(this, alert)
@@ -25,16 +25,19 @@ class AlertManager extends Manager{
 
         const picName = date + middle + random + extension
 
-        const picPath = path.join("static","pictures", picName)
-
         const alertToStore = {
             ...alert,
-            picture_path: picPath
+            picture_path: picName
         }
 
         const imageToStore = alert.imgString.split(';base64,').pop()
 
-        fs.writeFileSync(picPath, imageToStore, {encoding: "base64"})
+        const deta = Deta(process.env.DETA_KEY || TOY_DETA_KEY)
+
+        const photos = deta.Drive(process.env.PHOTOS_DRIVE_NAME || 'photos')
+
+        await photos.put(picName, { data: imageToStore })
+        
         
         return Manager.prototype.insert.call(this, alertToStore)
     }
