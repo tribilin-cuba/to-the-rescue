@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import { SERVER_URL } from "../../Constants/constants"
 import Error from "../Layout/Error/Error"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
-// import Card from "../Layout/Card/Card"
 
 class EditPost extends Component {
     state = {
@@ -83,9 +82,9 @@ class EditPost extends Component {
             return <Error message={this.state.errorLog} />
 
         return (
-            <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
+            <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated} className="mt-3">
                 <Form.Group>
-                    <div className="d-flex">
+                    {/* <div className="d-flex">
                         <Link to="/my-posts" className="ml-auto" >
                             <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
                         </Link>
@@ -100,7 +99,7 @@ class EditPost extends Component {
                             <img src="/camera.png" style={{ width: "50px" }} alt="add" />
                             <input type="file" onChange={this.changeImageHandler} className="fileInput" style={{ visibility: "hidden", width: "0px" }} />
                         </label>
-                    </div>
+                    </div> */}
                     <div className="d-flex flex-column">
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "alert_type") }} value={this.state.postForm.alert_type}>
@@ -138,10 +137,9 @@ class EditPost extends Component {
                         <Form.Group>
                             <Form.Control placeholder="Edad" onChange={(event) => { this.inputChangedHandler(event, "age") }} value={this.state.postForm.age} />
                         </Form.Group>
-                        {/* ############################### */}
                         <Form.Group>
                             <Form.Control required as="select" onChange={(event) => { this.inputChangedHandler(event, "province") }} value={this.state.postForm.province}>
-                            <option value="Pinar del río">Pinar del río</option>
+                                <option value="Pinar del río">Pinar del río</option>
                                 <option value="Artemisa">Artemisa</option>
                                 <option value="La Habana">La Habana</option>
                                 <option value="Mayabeque">Mayabeque</option>
@@ -183,9 +181,14 @@ class EditPost extends Component {
                                 <Form.Control placeholder="Descripción" as="textarea" onChange={(event) => { this.inputChangedHandler(event, "description") }} value={this.state.postForm.description} />
                             </Form.Group>
                         </div>
-                        <Form.Group>
-                            <Button type="submit" variant="warning">Guardar</Button>
-                        </Form.Group>
+                        <div className="d-flex justify-content-center">
+                            <Link to="/my-posts" className="mr-2" >
+                                <Button variant="secondary">Cancelar</Button>
+                            </Link>
+                            <Form.Group>
+                                <Button type="submit" variant="warning">Guardar</Button>
+                            </Form.Group>
+                        </div>
                     </div>
                 </Form.Group>
             </Form>

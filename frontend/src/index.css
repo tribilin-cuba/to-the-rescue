@@ -1,6 +1,11 @@
 body {
-  /* background-image: url("/src/background.png"); */
-  /* background-attachment: fixed; */
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("/src/TEXTURA\ 3-01.png");
+  background-attachment: fixed;
+  background-size: cover;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",

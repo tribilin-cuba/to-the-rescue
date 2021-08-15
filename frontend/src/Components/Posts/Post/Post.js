@@ -15,26 +15,29 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
     const detaDriveName = process.env.PHOTOS_DETA_DRIVE || 'photos'
     const projectId = process.env.DETA_PROJECT_ID || TOY_DETA_ID
     const urlSuffix = `files/download?name=${picture_path}`
-    
+
     const imgUrl = picture_path === "" ? "/default.png" : `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`
 
     const [img, setImg] = useState(null)
 
     // Fetch the image using the imgUrl and set the state. Add authotization headers
     useEffect(() => {
-        if(imgUrl !== "/default.png")
-            fetch(imgUrl, { headers: { "X-Api-Key": process.env.DETA_API_KEY || TOY_DETA_KEY} })
+
+        if (imgUrl !== "/default.png") {
+            console.log(imgUrl)
+            fetch(imgUrl, { headers: { "X-Api-Key": process.env.DETA_API_KEY || TOY_DETA_KEY } })
                 .then(response => response.text())
                 .then(text => {
                     const pict = "data:image/png;base64," + text
                     setImg(pict)
                 })
+        }
         else
             setImg(imgUrl)
     }, [imgUrl])
 
     return (
-        <Card style={{ borderRadius: "10px 10px 0px 10px" }} className="mt-2">
+        <Card className="PostCard mt-2">
             <Card.Body style={{ padding: "0px" }}>
                 <Link className="Post d-flex"
                     to={`/post-details/${id}/${fromHome}`}
@@ -47,17 +50,17 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
                     <div>
                         {
                             !img ?
-                            <Spinner variant="dark" animation="border" className="m-2" /> :
-                            <img
-                                src={img}
-                                className="img-fluid"
-                                alt=""
-                                style={{
-                                    height: "75px",
-                                    width: "105px",
-                                    borderRadius: "10px 0px 0px 10px"
-                                }}
-                            />
+                                <Spinner variant="dark" animation="border" className="m-2" /> :
+                                <img
+                                    src={img}
+                                    className="img-fluid"
+                                    alt=""
+                                    style={{
+                                        height: "76px",
+                                        width: "105px",
+                                        borderRadius: "10px 0px 0px 10px"
+                                    }}
+                                />
                         }
                     </div>
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">

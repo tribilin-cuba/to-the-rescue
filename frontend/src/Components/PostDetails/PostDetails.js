@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
-import { Badge, Card, Modal, Button } from 'react-bootstrap'
+import { Badge, Card, Modal, Button, Spinner } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
-import { SERVER_URL } from '../../Constants/constants'
-import Spinner from '../Layout/Spinner/Spinner'
+import { SERVER_URL, TOY_DETA_KEY, DETA_URL, TOY_DETA_ID } from '../../Constants/constants'
+import CustomSpinner from '../Layout/Spinner/Spinner'
 import Error from '../Layout/Error/Error'
 import "./PostDetails.css"
 import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
+
 class PostDetails extends Component {
     state = {
         loading: true,
@@ -18,7 +19,8 @@ class PostDetails extends Component {
         redirect: false,
         show: false,
         editRedirect: false,
-        fromHome: "true"
+        fromHome: "true",
+        imgUrl: null
     }
 
     componentDidMount() {
@@ -26,9 +28,29 @@ class PostDetails extends Component {
         fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                let picture_path = data.picture_path
                 this.props.populateSelectedPost(data)
                 this.setState({ loading: false, fromHome: fromHome })
+
+                const projectId = process.env.DETA_PROJECT_ID || TOY_DETA_ID
+                const detaDriveName = process.env.PHOTOS_DETA_DRIVE || 'photos'
+                const urlSuffix = `files/download?name=${picture_path}`
+
+                console.log(picture_path)
+                const imgUrl = picture_path === "" ?
+                    "/default.png" :
+                    `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`
+
+                console.log(imgUrl)
+                if (imgUrl !== "/default.png")
+                    fetch(imgUrl, { headers: { "X-Api-Key": process.env.DETA_API_KEY || TOY_DETA_KEY } })
+                        .then(response => response.text())
+                        .then(text => {
+                            const pict = "data:image/png;base64," + text
+                            this.setState({ imgUrl: pict })
+                        })
+                else
+                    this.setState({ imgUrl: imgUrl })
             })
             .catch(error => {
                 this.setState({
@@ -36,6 +58,7 @@ class PostDetails extends Component {
                     errorLog: error.message
                 })
             })
+
     }
 
 
@@ -82,7 +105,7 @@ class PostDetails extends Component {
             return <Redirect to={`/edit-post/${this.props.post._id}`} />
 
         if (this.state.loading)
-            return <Spinner />
+            return <CustomSpinner />
 
         return (
             <Fragment>
@@ -97,13 +120,17 @@ class PostDetails extends Component {
                 <div className="d-flex flex-column align-content-center">
                     <h3 className={post.alert_type}>{post.alert_type}</h3>
                     <div>
-                        <img src={post.picture_path === "" ? "/default.png" : SERVER_URL + post.picture_path}
-                            alt="post"
-                            style={{
-                                width: "200px",
-                                borderRadius: "10px 10px 10px 10px"
-                            }}
-                        />
+                        {
+                            this.state.imgUrl !== null ?
+                                <img src={this.state.imgUrl}
+                                    alt="post"
+                                    style={{
+                                        width: "200px",
+                                        borderRadius: "10px 10px 10px 10px"
+                                    }}
+                                /> :
+                                <Spinner variant="dark" animation="border" />
+                        }
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
                         <div>{post.municipality}, {post.province}</div>
