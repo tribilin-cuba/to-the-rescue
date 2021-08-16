@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express()
 
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors({ origin: 'https://tribilin-staging.netlify.app' }))
 app.use('/static', express.static(__dirname + "/static"))
 
 const connector = new MongooseConnection()
