@@ -5,6 +5,7 @@ import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
 import Error from "../Layout/Error/Error"
 import { connect } from "react-redux"
+import lzjs from 'lzjs'
 
 class NewPost extends Component {
     state = {
@@ -68,7 +69,7 @@ class NewPost extends Component {
             reader.onload = () => {
                 this.setState({
                     imgUrl: URL.createObjectURL(event.target.files[0]),
-                    postForm: { ...this.state.postForm, imgString: reader.result }
+                    postForm: { ...this.state.postForm, imgString: lzjs.compress(reader.result) }
                 });
                 console.log(reader.result)
             }

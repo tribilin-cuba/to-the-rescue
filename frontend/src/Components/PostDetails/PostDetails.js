@@ -10,6 +10,7 @@ import "./PostDetails.css"
 import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
+import lzjs from 'lzjs'
 
 class PostDetails extends Component {
     state = {
@@ -46,7 +47,7 @@ class PostDetails extends Component {
                     fetch(imgUrl, { headers: { "X-Api-Key": process.env.DETA_API_KEY || TOY_DETA_KEY } })
                         .then(response => response.text())
                         .then(text => {
-                            const pict = "data:image/png;base64," + text
+                            const pict = "data:image/png;base64," + lzjs.decompress(text)
                             this.setState({ imgUrl: pict })
                         })
                 else
