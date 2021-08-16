@@ -48,5 +48,13 @@
     <script src="/js/bootstrap.min.js"></script>
 
     <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      console.log('Installing service worker')
+      navigator.serviceWorker
+              .register('/firebase-messaging-sw.js', {scope: '/'})
+              .then((registration) => console.log('SW Registered:', registration))
+              .catch(console.error);
+    </script>
   </body>
 </html>
