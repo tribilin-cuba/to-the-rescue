@@ -26,7 +26,7 @@ function AboutUs() {
                 </div>
             </div>
             <div>
-                <img className="img-fluid" alt="ilustration" src="/animales.jpg" />
+                <img className="img-fluid" alt="ilustration" src="/animales.png" />
             </div>
             <div className="mt-3">
                 <div className="about-us-div">
