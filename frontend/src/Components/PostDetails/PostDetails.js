@@ -11,6 +11,8 @@ import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
 import lzjs from 'lzjs'
+import { DETA_PROJECT_ID } from '../../Constants/constants'
+import { DETA_API_KEY } from '../../Constants/constants'
 
 class PostDetails extends Component {
     state = {
@@ -33,8 +35,8 @@ class PostDetails extends Component {
                 this.props.populateSelectedPost(data)
                 this.setState({ loading: false, fromHome: fromHome })
 
-                const projectId = process.env.DETA_PROJECT_ID || TOY_DETA_ID
-                const detaDriveName = process.env.PHOTOS_DETA_DRIVE || 'photos'
+                const projectId = DETA_PROJECT_ID || TOY_DETA_ID
+                const detaDriveName = 'photos'
                 const urlSuffix = `files/download?name=${picture_path}`
 
                 console.log(picture_path)
@@ -44,7 +46,7 @@ class PostDetails extends Component {
 
                 console.log(imgUrl)
                 if (imgUrl !== "/default.png")
-                    fetch(imgUrl, { headers: { "X-Api-Key": process.env.DETA_API_KEY || TOY_DETA_KEY } })
+                    fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY } })
                         .then(response => response.text())
                         .then(text => {
                             const pict = "data:image/png;base64," + lzjs.decompress(text)
