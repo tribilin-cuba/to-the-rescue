@@ -4,7 +4,6 @@ import { Date } from "core-js";
 import { Card, Spinner } from "react-bootstrap";
 import { DETA_API_KEY, DETA_PROJECT_ID, DETA_URL, TOY_DETA_ID, TOY_DETA_KEY } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
-import lzjs from "lzjs"
 
 function Post({ id, animal, alert_type, municipality, date, description, fromHome, picture_path }) {
     if (description === "")
@@ -29,7 +28,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
             fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY } })
                 .then(response => response.text())
                 .then(text => {
-                    const pict = "data:image/png;base64," + lzjs.decompress(text)
+                    const pict = "data:image/png;base64," + text
                     setImg(pict)
                 })
         }

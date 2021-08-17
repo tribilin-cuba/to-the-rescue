@@ -49,10 +49,7 @@ class EditPost extends Component {
                 this.props.populatePosts(this.state.postForm)
             })
             .catch(error => {
-                this.setState({
-                    error: true,
-                    errorLog: error.message
-                })
+                window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
             })
 
     }

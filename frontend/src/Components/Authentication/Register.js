@@ -42,7 +42,7 @@ function Register() {
                 setRedirect(true)
                 window.flash("Se ha registrado correctamente", "success")
             })
-            .catch(error => console.log(error))
+            .catch(error => window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error"))
 
 
     }

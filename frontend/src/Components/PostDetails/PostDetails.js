@@ -10,7 +10,6 @@ import "./PostDetails.css"
 import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
-import lzjs from 'lzjs'
 import { DETA_PROJECT_ID } from '../../Constants/constants'
 import { DETA_API_KEY } from '../../Constants/constants'
 
@@ -46,20 +45,17 @@ class PostDetails extends Component {
 
                 console.log(imgUrl)
                 if (imgUrl !== "/default.png")
-                    fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY } })
+                    fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY, "Cache-Control": "public,  max-age=604800, immutable" } })
                         .then(response => response.text())
                         .then(text => {
-                            const pict = "data:image/png;base64," + lzjs.decompress(text)
+                            const pict = "data:image/png;base64," + text
                             this.setState({ imgUrl: pict })
                         })
                 else
                     this.setState({ imgUrl: imgUrl })
             })
             .catch(error => {
-                this.setState({
-                    error: true,
-                    errorLog: error.message
-                })
+                window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
             })
 
     }
@@ -76,10 +72,7 @@ class PostDetails extends Component {
                     window.flash("Alerta borrada con éxito", "success")
                 })
                 .catch(error => {
-                    this.setState({
-                        error: true,
-                        errorLog: error.message
-                    })
+                    window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
                 })
         }
 
@@ -222,8 +215,8 @@ class PostDetails extends Component {
                 <Modal show={this.state.show} onHide={() => this.setState({ show: false })} centered>
                     <Modal.Body>
                         <div className="d-flex flex-column">
-                            <div>
-                                <b style={{ color: "#e27e22" }}>Está seguro que desea borrar esta alerta?</b>
+                            <div className="justify-content-center">
+                                <b style={{ color: "#e27e22" }}>¿Está seguro que desea borrar esta alerta?</b>
                             </div>
                             <div className="d-flex justify-content-center mt-3">
                                 <Button style={{ backgroundColor: "#e34c3c", borderColor: "white" }} onClick={deleteHandler}>Borrar</Button>

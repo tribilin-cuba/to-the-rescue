@@ -25,6 +25,9 @@ function AboutUs() {
                     </p>
                 </div>
             </div>
+            <div>
+                <img className="img-fluid" alt="ilustration" src="/animales.jpg" />
+            </div>
             <div className="mt-3">
                 <div className="about-us-div">
                     <h5>¿Por qué el nombre Tribilin?</h5>

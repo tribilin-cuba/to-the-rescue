@@ -8,13 +8,13 @@ importScripts('https://www.gstatic.com/firebasejs/8.4.2/firebase-messaging.js');
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 firebase.initializeApp({
-    apiKey: "AIzaSyCOl76atKnpcjHsrK6MknUXRBekDK_dJl8",
-    authDomain: "to-the-rescue-4c250.firebaseapp.com",
-    projectId: "to-the-rescue-4c250",
-    storageBucket: "to-the-rescue-4c250.appspot.com",
-    messagingSenderId: "88808042476",
-    appId: "1:88808042476:web:b3d36e2fff4b43c5c05ac9",
-    measurementId: "G-SE04L5SX65"
+  apiKey: "AIzaSyCOl76atKnpcjHsrK6MknUXRBekDK_dJl8",
+  authDomain: "to-the-rescue-4c250.firebaseapp.com",
+  projectId: "to-the-rescue-4c250",
+  storageBucket: "to-the-rescue-4c250.appspot.com",
+  messagingSenderId: "88808042476",
+  appId: "1:88808042476:web:b3d36e2fff4b43c5c05ac9",
+  measurementId: "G-SE04L5SX65"
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
@@ -23,17 +23,17 @@ const messaging = firebase.messaging();
 
 
 messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    // Customize notification here
-    const notificationTitle = payload.notification.title;
-    const notificationOptions = {
-      body: payload.notification.body,
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  // Customize notification here
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
     //   icon: '/firebase-logo.png'
-    };
-  
-    self.registration.showNotification(notificationTitle,
-      notificationOptions);
-  });
+  };
+
+  self.registration.showNotification(notificationTitle,
+    notificationOptions);
+});
 
 // ** CACHING **
 
@@ -77,7 +77,7 @@ self.addEventListener('activate', event => {
 // from the network before returning it to the page.
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests, like those for Google Analytics.
-  if (event.request.url.startsWith(self.location.origin)) {
+  if (event.request.url.startsWith(self.location.origin) || event.request.url.startsWith("https://drive.deta.sh/v1/")) {
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         if (cachedResponse) {

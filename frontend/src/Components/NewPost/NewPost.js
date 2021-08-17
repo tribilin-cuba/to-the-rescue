@@ -5,7 +5,6 @@ import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
 import Error from "../Layout/Error/Error"
 import { connect } from "react-redux"
-import lzjs from 'lzjs'
 
 class NewPost extends Component {
     state = {
@@ -49,10 +48,7 @@ class NewPost extends Component {
                 this.props.history.push('/')
             })
             .catch(error => {
-                this.setState({
-                    error: true,
-                    errorLog: error.message
-                })
+                window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
             })
 
     }
@@ -69,7 +65,7 @@ class NewPost extends Component {
             reader.onload = () => {
                 this.setState({
                     imgUrl: URL.createObjectURL(event.target.files[0]),
-                    postForm: { ...this.state.postForm, imgString: lzjs.compress(reader.result) }
+                    postForm: { ...this.state.postForm, imgString: reader.result }
                 });
                 console.log(reader.result)
             }

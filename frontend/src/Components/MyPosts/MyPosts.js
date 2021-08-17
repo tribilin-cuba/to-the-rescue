@@ -23,12 +23,8 @@ class MyPosts extends Component {
                 this.setState({ loading: false })
             })
             .catch(error => {
-                // this.setState({
-                //     error: true,
-                //     errorLog: error.message
-                // })
-                console.log(error)
                 this.setState({ loading: false })
+                window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
             })
     }
 

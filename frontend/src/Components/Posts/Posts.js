@@ -22,15 +22,16 @@ class Posts extends Component {
         fetch(SERVER_URL + "alert/all")
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 this.props.populatePosts(data);
                 this.setState({ loading: false })
             })
             .catch(error => {
-                this.setState({
-                    error: true,
-                    errorLog: error.message
-                })
+                if (error.message === "Failed to fetch")
+                    window.flash("Sin conexión a Internet. Inténtelo de nuevo más tarde.", "error")
+                else
+                    window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
+
+                this.setState({ loading: false })
             })
     }
 
@@ -67,11 +68,15 @@ class Posts extends Component {
         return (
             <div>
                 <TopHeader title="Alertas" smallTitle="Últimas alertas recibidas" />
-                {/* {toast} */}
                 <Link className="ml-auto mr-5" type="button" to="/new-post" onClick={(e) => newPostHandler(e)}>
                     <img className="PostsAddButton" src="./add_button.png" alt=""></img>
                 </Link>
-                {posts}
+                {posts !== [] ?
+                    posts :
+                    <div style={{ fontStyle: "italic", color: "#464646" }}>
+                        No hay alertas publicadas recientemente.
+                </div>
+                }
             </div>
         );
     }
