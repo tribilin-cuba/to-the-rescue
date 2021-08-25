@@ -104,9 +104,9 @@ app.delete('/user/:id', async (req, res) => {
 // * ALERTS
 app.get('/alert/all', async (req, res) => {
 
-    var alerts = await alertManager.find({}).sort({date: -1})
+    var alerts = await alertManager.find({})
 
-    res.json(alerts)
+    res.json(alerts.sort((a, b) => b.date - a.date))
 })
 
 app.get('/alert/:id', async (req, res) => {
@@ -120,9 +120,9 @@ app.get('/alert/:id', async (req, res) => {
 app.get('/alert-by-user/:id', async (req, res) => {
 
     const id = req.params.id
-    const alerts = await alertManager.find({ author_id: id }).sort({date: -1})
+    const alerts = await alertManager.find({ author_id: id })
 
-    res.json(alerts)
+    res.json(alerts.sort((a, b) => b.date - a.date))
 })
 
 app.post('/alert', async (req, res) => {
