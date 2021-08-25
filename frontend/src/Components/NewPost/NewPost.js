@@ -37,6 +37,8 @@ class NewPost extends Component {
             return
         }
 
+        const submitButton = document.getElementById("submit-post")
+        submitButton.disabled = true
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -49,6 +51,7 @@ class NewPost extends Component {
             })
             .catch(error => {
                 window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
+                submitButton.disabled = false
             })
 
     }
@@ -166,7 +169,6 @@ class NewPost extends Component {
                             <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
                         </Form.Group>
                         <div>
-
                             <Form.Group>
                                 <Form.Control placeholder="Teléfono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} />
                             </Form.Group>
@@ -178,7 +180,7 @@ class NewPost extends Component {
                             </Form.Group>
                         </div>
                         <Form.Group>
-                            <Button type="submit" variant="warning">Publicar</Button>
+                            <Button id="submit-post" type="submit" variant="warning">Publicar</Button>
                         </Form.Group>
                     </div>
                 </Form.Group>
