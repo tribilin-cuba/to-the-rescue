@@ -27,7 +27,12 @@ class NewPost extends Component {
         imgUrl: "/default.png",
         validated: false,
         error: false,
-        errorLog: ""
+        errorLog: "",
+        from: "home",
+    }
+    componentDidMount() {
+        const from = this.props.match.params.from
+        this.setState({ from: from })
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -37,6 +42,8 @@ class NewPost extends Component {
             return
         }
 
+        const submitButton = document.getElementById("submit-post")
+        submitButton.disabled = true
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,10 +52,11 @@ class NewPost extends Component {
         fetch(SERVER_URL + "alert", request)
             .then(response => {
                 window.flash("Alerta publicada con éxito", "success")
-                this.props.history.push('/')
+                this.props.history.push("/" + this.state.from)
             })
             .catch(error => {
                 window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
+                submitButton.disabled = false
             })
 
     }
@@ -78,7 +86,7 @@ class NewPost extends Component {
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex">
-                        <Link to="/" className="ml-auto" >
+                        <Link to={"/" + this.state.from} className="ml-auto" >
                             <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
                         </Link>
                     </div>
@@ -166,7 +174,6 @@ class NewPost extends Component {
                             <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
                         </Form.Group>
                         <div>
-
                             <Form.Group>
                                 <Form.Control placeholder="Teléfono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} />
                             </Form.Group>
@@ -178,7 +185,7 @@ class NewPost extends Component {
                             </Form.Group>
                         </div>
                         <Form.Group>
-                            <Button type="submit" variant="warning">Publicar</Button>
+                            <Button id="submit-post" type="submit" variant="warning">Publicar</Button>
                         </Form.Group>
                     </div>
                 </Form.Group>

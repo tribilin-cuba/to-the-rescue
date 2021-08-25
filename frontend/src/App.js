@@ -21,12 +21,13 @@ class App extends Component {
       <div className="App" >
         <Flash />
         <Route path="/" exact component={Posts} />
+        <Route path="/home" exact component={Posts} />
         <Route path="/my-posts" component={MyPosts} />
         <Route path="/log-in" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/new-post" component={NewPost} />
-        <Route path="/edit-post/:id" component={EditPost} />
-        <Route path="/post-details/:id/:fromHome" component={PostDetails} />
+        <Route path="/new-post/:from" component={NewPost} />
+        <Route path="/edit-post/:id/:from" component={EditPost} />
+        <Route path="/post-details/:id/:from" component={PostDetails} />
         <Route path="/about-us" component={AboutUs} />
       </div>
     );
