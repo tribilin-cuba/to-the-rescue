@@ -45,7 +45,7 @@ class Posts extends Component {
                 municipality={post.municipality}
                 date={post.date}
                 description={post.description}
-                fromHome={true}
+                from="home"
                 picture_path={post.picture_path}
             />
             )
@@ -58,7 +58,7 @@ class Posts extends Component {
                 window.flash("Debe iniciar sesión para publicar una alerta", "error")
         }
         if (this.state.redirect)
-            return <Redirect to="/new-post" />
+            return <Redirect to="/new-post/home" />
 
         if (this.state.error)
             return <Error message={this.state.errorLog} />
@@ -68,7 +68,7 @@ class Posts extends Component {
         return (
             <div>
                 <TopHeader title="Alertas" smallTitle="Últimas alertas recibidas" />
-                <Link className="ml-auto mr-5" type="button" to="/new-post" onClick={(e) => newPostHandler(e)}>
+                <Link className="ml-auto mr-5" type="button" to="/new-post/home" onClick={(e) => newPostHandler(e)}>
                     <img className="PostsAddButton" src="./add_button.png" alt=""></img>
                 </Link>
                 {posts !== [] ?

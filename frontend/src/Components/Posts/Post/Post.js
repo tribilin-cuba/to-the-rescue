@@ -5,7 +5,7 @@ import { Card, Spinner } from "react-bootstrap";
 import { DETA_API_KEY, DETA_PROJECT_ID, DETA_URL, TOY_DETA_ID, TOY_DETA_KEY } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
 
-function Post({ id, animal, alert_type, municipality, date, description, fromHome, picture_path }) {
+function Post({ id, animal, alert_type, municipality, date, description, from, picture_path }) {
     if (description === "")
         description = `${animal}:${alert_type}`
 
@@ -40,7 +40,7 @@ function Post({ id, animal, alert_type, municipality, date, description, fromHom
         <Card className="PostCard mt-2">
             <Card.Body style={{ padding: "0px" }}>
                 <Link className="Post d-flex"
-                    to={`/post-details/${id}/${fromHome}`}
+                    to={`/post-details/${id}/${from}`}
                     style={{
                         color: "#464646",
                         textDecoration: "none",

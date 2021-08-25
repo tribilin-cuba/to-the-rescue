@@ -27,7 +27,12 @@ class EditPost extends Component {
         imgUrl: "/default.png",
         validated: false,
         error: false,
-        errorLog: ""
+        errorLog: "",
+        from: "home",
+    }
+    componentDidMount() {
+        const from = this.props.match.params.from
+        this.setState({ from: from })
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -45,7 +50,7 @@ class EditPost extends Component {
         fetch(SERVER_URL + "alert/" + this.props.post._id, request)
             .then(response => {
                 console.log(response)
-                this.props.history.push(`/post-details/${this.props.post._id}/false`)
+                this.props.history.push(`/post-details/${this.props.post._id}/${this.state.from}`)
                 this.props.populatePosts(this.state.postForm)
             })
             .catch(error => {
@@ -179,7 +184,7 @@ class EditPost extends Component {
                             </Form.Group>
                         </div>
                         <div className="d-flex justify-content-center">
-                            <Link to="/my-posts" className="mr-2" >
+                            <Link to={`/post-details/${this.props.post._id}/${this.state.from}`} className="mr-2" >
                                 <Button variant="secondary">Cancelar</Button>
                             </Link>
                             <Form.Group>
