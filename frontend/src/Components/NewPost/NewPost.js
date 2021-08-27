@@ -3,8 +3,8 @@ import "./NewPost.css"
 import { Form, Button } from "react-bootstrap"
 import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
-import Error from "../Layout/Error/Error"
 import { connect } from "react-redux"
+import imageCompression from 'browser-image-compression'
 
 class NewPost extends Component {
     state = {
@@ -26,8 +26,6 @@ class NewPost extends Component {
         },
         imgUrl: "/default.png",
         validated: false,
-        error: false,
-        errorLog: ""
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -39,6 +37,7 @@ class NewPost extends Component {
 
         const submitButton = document.getElementById("submit-post")
         submitButton.disabled = true
+
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -53,8 +52,8 @@ class NewPost extends Component {
                 window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
                 submitButton.disabled = false
             })
-
     }
+
     inputChangedHandler = (event, inputId) => {
         const updatedPostForm = { ...this.state.postForm }
         updatedPostForm[inputId] = event.target.value
@@ -63,20 +62,37 @@ class NewPost extends Component {
     }
     changeImageHandler = (event) => {
         if (event.target.files[0]) {
-            let reader = new FileReader()
-            reader.readAsDataURL(event.target.files[0])
-            reader.onload = () => {
-                this.setState({
-                    imgUrl: URL.createObjectURL(event.target.files[0]),
-                    postForm: { ...this.state.postForm, imgString: reader.result }
-                });
-                console.log(reader.result)
+            var imageFile = event.target.files[0];
+            console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+            console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+            var options = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true
             }
+            imageCompression(imageFile, options)
+                .then(compressedFile => {
+                    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+                    let reader = new FileReader()
+
+                    reader.readAsDataURL(compressedFile)
+                    reader.onload = () => {
+                        this.setState({
+                            imgUrl: URL.createObjectURL(compressedFile),
+                            postForm: { ...this.state.postForm, imgString: reader.result }
+                        });
+                        console.log(reader.result)
+                    }
+                })
+                .catch(() =>
+                    window.flash("Ha ocurrido un error al cargar la imagen", "error")
+                );
         }
     }
     render() {
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
         return (
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>

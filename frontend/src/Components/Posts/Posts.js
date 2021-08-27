@@ -7,16 +7,11 @@ import TopHeader from "../TopHeader/TopHeader"
 import "./Posts.css"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
-import Error from "../Layout/Error/Error"
-// import { Toast } from "react-bootstrap"
 
 class Posts extends Component {
     state = {
         loading: true,
-        error: false,
-        errorLog: "",
         redirect: false,
-        // showToast: false
     }
     componentDidMount() {
         fetch(SERVER_URL + "alert/all")
@@ -59,9 +54,6 @@ class Posts extends Component {
         }
         if (this.state.redirect)
             return <Redirect to="/new-post" />
-
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
 
         if (this.state.loading)
             return <Spinner />

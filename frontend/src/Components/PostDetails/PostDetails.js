@@ -5,7 +5,6 @@ import { Badge, Card, Modal, Button, Spinner } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
 import { SERVER_URL, TOY_DETA_KEY, DETA_URL, TOY_DETA_ID } from '../../Constants/constants'
 import CustomSpinner from '../Layout/Spinner/Spinner'
-import Error from '../Layout/Error/Error'
 import "./PostDetails.css"
 import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
@@ -16,8 +15,6 @@ import { DETA_API_KEY } from '../../Constants/constants'
 class PostDetails extends Component {
     state = {
         loading: true,
-        error: false,
-        errorLog: "",
         redirect: false,
         show: false,
         editRedirect: false,
@@ -91,9 +88,6 @@ class PostDetails extends Component {
         const linkText = linkAnimal[post.animal] + linkStatus[post.alert_type] + "en el municipio " + post.municipality + ". Toca el link para más detalles \n"
 
 
-
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
 
         if (this.state.redirect)
             return <Redirect to="/my-posts" />

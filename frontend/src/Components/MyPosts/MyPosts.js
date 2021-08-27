@@ -5,14 +5,11 @@ import { POPULATE_POSTS } from "../../store/actions"
 import TopHeader from "../TopHeader/TopHeader"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
-import Error from "../Layout/Error/Error"
 import Post from "../Posts/Post/Post"
 
 class MyPosts extends Component {
     state = {
         loading: true,
-        error: false,
-        errorLog: ""
     }
     componentDidMount() {
         fetch(SERVER_URL + "alert-by-user/" + this.props.userId)
@@ -42,8 +39,6 @@ class MyPosts extends Component {
                 picture_path={post.picture_path}
             />
             )
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
 
         if (this.state.loading)
             return <Spinner />
