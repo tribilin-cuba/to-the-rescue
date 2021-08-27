@@ -26,6 +26,11 @@ class NewPost extends Component {
         },
         imgUrl: "/default.png",
         validated: false,
+        from: "home",
+    }
+    componentDidMount() {
+        const from = this.props.match.params.from
+        this.setState({ from: from })
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -46,7 +51,7 @@ class NewPost extends Component {
         fetch(SERVER_URL + "alert", request)
             .then(response => {
                 window.flash("Alerta publicada con éxito", "success")
-                this.props.history.push('/')
+                this.props.history.push("/" + this.state.from)
             })
             .catch(error => {
                 window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
@@ -97,7 +102,7 @@ class NewPost extends Component {
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex">
-                        <Link to="/" className="ml-auto" >
+                        <Link to={"/" + this.state.from} className="ml-auto" >
                             <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
                         </Link>
                     </div>

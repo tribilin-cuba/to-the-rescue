@@ -18,18 +18,18 @@ class PostDetails extends Component {
         redirect: false,
         show: false,
         editRedirect: false,
-        fromHome: "true",
+        from: "home",
         imgUrl: null
     }
 
     componentDidMount() {
-        const fromHome = this.props.match.params.fromHome
+        const from = this.props.match.params.from
         fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
             .then(data => {
                 let picture_path = data.picture_path
                 this.props.populateSelectedPost(data)
-                this.setState({ loading: false, fromHome: fromHome })
+                this.setState({ loading: false, from: from })
 
                 const projectId = DETA_PROJECT_ID || TOY_DETA_ID
                 const detaDriveName = 'photos'
@@ -92,7 +92,7 @@ class PostDetails extends Component {
         if (this.state.redirect)
             return <Redirect to="/my-posts" />
         if (this.state.editRedirect)
-            return <Redirect to={`/edit-post/${this.props.post._id}`} />
+            return <Redirect to={`/edit-post/${this.props.post._id}/${this.state.from}`} />
 
         if (this.state.loading)
             return <CustomSpinner />
@@ -101,7 +101,7 @@ class PostDetails extends Component {
             <Fragment>
                 <div className="d-flex">
                     <Link
-                        to={this.state.fromHome === "true" ? "/" : "/my-posts"}
+                        to={"/" + this.state.from}
                         className="ml-auto"
                     >
                         <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
@@ -194,7 +194,7 @@ class PostDetails extends Component {
 
 
                 </div>
-                {this.state.userId !== null && this.state.fromHome === "false" ?
+                {this.props.userId !== null && post.author_id === this.props.userId ?
                     <div className="d-flex flex-column posts-details-actions-div">
                         <div className="posts-details-edit-button" onClick={() => this.setState({ editRedirect: true })}>
                             <MdEdit color="white" style={{ width: "30px", height: "30px" }} />
