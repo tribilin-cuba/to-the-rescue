@@ -104,7 +104,7 @@ app.delete('/user/:id', async (req, res) => {
 // * ALERTS
 app.get('/alert/all', async (req, res) => {
 
-    var alerts = await alertManager.find({})
+    var alerts = await alertManager.find(req.query)
 
     res.json(alerts.sort((a, b) => b.date - a.date))
 })
