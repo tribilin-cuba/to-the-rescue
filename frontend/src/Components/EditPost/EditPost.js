@@ -3,7 +3,6 @@ import { Form, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { SERVER_URL } from "../../Constants/constants"
-import Error from "../Layout/Error/Error"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
 
 class EditPost extends Component {
@@ -26,8 +25,6 @@ class EditPost extends Component {
         },
         imgUrl: "/default.png",
         validated: false,
-        error: false,
-        errorLog: "",
         from: "home",
     }
     componentDidMount() {
@@ -80,9 +77,6 @@ class EditPost extends Component {
         }
     }
     render() {
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
-
         return (
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated} className="mt-3">
                 <Form.Group>
