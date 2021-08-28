@@ -3,7 +3,6 @@ import { Form, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { SERVER_URL } from "../../Constants/constants"
-import Error from "../Layout/Error/Error"
 import { POPULATE_SELECTED_POST } from "../../store/actions"
 
 class EditPost extends Component {
@@ -26,8 +25,11 @@ class EditPost extends Component {
         },
         imgUrl: "/default.png",
         validated: false,
-        error: false,
-        errorLog: ""
+        from: "home",
+    }
+    componentDidMount() {
+        const from = this.props.match.params.from
+        this.setState({ from: from })
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -45,7 +47,7 @@ class EditPost extends Component {
         fetch(SERVER_URL + "alert/" + this.props.post._id, request)
             .then(response => {
                 console.log(response)
-                this.props.history.push(`/post-details/${this.props.post._id}/false`)
+                this.props.history.push(`/post-details/${this.props.post._id}/${this.state.from}`)
                 this.props.populatePosts(this.state.postForm)
             })
             .catch(error => {
@@ -75,9 +77,6 @@ class EditPost extends Component {
         }
     }
     render() {
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
-
         return (
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated} className="mt-3">
                 <Form.Group>
@@ -179,7 +178,7 @@ class EditPost extends Component {
                             </Form.Group>
                         </div>
                         <div className="d-flex justify-content-center">
-                            <Link to="/my-posts" className="mr-2" >
+                            <Link to={`/post-details/${this.props.post._id}/${this.state.from}`} className="mr-2" >
                                 <Button variant="secondary">Cancelar</Button>
                             </Link>
                             <Form.Group>

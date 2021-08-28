@@ -5,14 +5,11 @@ import { POPULATE_POSTS } from "../../store/actions"
 import TopHeader from "../TopHeader/TopHeader"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
-import Error from "../Layout/Error/Error"
 import Post from "../Posts/Post/Post"
 
 class MyPosts extends Component {
     state = {
         loading: true,
-        error: false,
-        errorLog: ""
     }
     componentDidMount() {
         fetch(SERVER_URL + "alert-by-user/" + this.props.userId)
@@ -38,19 +35,17 @@ class MyPosts extends Component {
                 municipality={post.municipality}
                 date={post.date}
                 description={post.description}
-                fromHome={false}
+                from="my-posts"
                 picture_path={post.picture_path}
             />
             )
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
 
         if (this.state.loading)
             return <Spinner />
         return (
             <div>
                 <TopHeader title="Mis Alertas" smallTitle="Últimas alertas publicadas" goHome={true} />
-                <Link className="ml-auto mr-5" type="button" to="/new-post"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
+                <Link className="ml-auto mr-5" type="button" to="/new-post/my-posts"><img className="PostsAddButton" src="./add_button.png" alt=""></img></Link>
                 {
                     posts.length > 0 ?
                         posts :

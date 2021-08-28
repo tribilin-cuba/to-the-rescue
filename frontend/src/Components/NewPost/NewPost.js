@@ -3,8 +3,8 @@ import "./NewPost.css"
 import { Form, Button } from "react-bootstrap"
 import { SERVER_URL } from "../../Constants/constants"
 import { Link } from "react-router-dom"
-import Error from "../Layout/Error/Error"
 import { connect } from "react-redux"
+import imageCompression from 'browser-image-compression'
 
 class NewPost extends Component {
     state = {
@@ -26,8 +26,11 @@ class NewPost extends Component {
         },
         imgUrl: "/default.png",
         validated: false,
-        error: false,
-        errorLog: ""
+        from: "home",
+    }
+    componentDidMount() {
+        const from = this.props.match.params.from
+        this.setState({ from: from })
     }
     submitHandler = (event) => {
         event.preventDefault();
@@ -37,6 +40,9 @@ class NewPost extends Component {
             return
         }
 
+        const submitButton = document.getElementById("submit-post")
+        submitButton.disabled = true
+
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,13 +51,14 @@ class NewPost extends Component {
         fetch(SERVER_URL + "alert", request)
             .then(response => {
                 window.flash("Alerta publicada con éxito", "success")
-                this.props.history.push('/')
+                this.props.history.push("/" + this.state.from)
             })
             .catch(error => {
                 window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
+                submitButton.disabled = false
             })
-
     }
+
     inputChangedHandler = (event, inputId) => {
         const updatedPostForm = { ...this.state.postForm }
         updatedPostForm[inputId] = event.target.value
@@ -60,25 +67,42 @@ class NewPost extends Component {
     }
     changeImageHandler = (event) => {
         if (event.target.files[0]) {
-            let reader = new FileReader()
-            reader.readAsDataURL(event.target.files[0])
-            reader.onload = () => {
-                this.setState({
-                    imgUrl: URL.createObjectURL(event.target.files[0]),
-                    postForm: { ...this.state.postForm, imgString: reader.result }
-                });
-                console.log(reader.result)
+            var imageFile = event.target.files[0];
+            console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+            console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+            var options = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true
             }
+            imageCompression(imageFile, options)
+                .then(compressedFile => {
+                    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+                    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+                    let reader = new FileReader()
+
+                    reader.readAsDataURL(compressedFile)
+                    reader.onload = () => {
+                        this.setState({
+                            imgUrl: URL.createObjectURL(compressedFile),
+                            postForm: { ...this.state.postForm, imgString: reader.result }
+                        });
+                        console.log(reader.result)
+                    }
+                })
+                .catch(() =>
+                    window.flash("Ha ocurrido un error al cargar la imagen", "error")
+                );
         }
     }
     render() {
-        if (this.state.error)
-            return <Error message={this.state.errorLog} />
         return (
             <Form onSubmit={this.submitHandler} noValidate validated={this.state.validated}>
                 <Form.Group>
                     <div className="d-flex">
-                        <Link to="/" className="ml-auto" >
+                        <Link to={"/" + this.state.from} className="ml-auto" >
                             <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
                         </Link>
                     </div>
@@ -166,7 +190,6 @@ class NewPost extends Component {
                             <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />
                         </Form.Group>
                         <div>
-
                             <Form.Group>
                                 <Form.Control placeholder="Teléfono (opcional)" onChange={(event) => { this.inputChangedHandler(event, "phone") }} />
                             </Form.Group>
@@ -178,7 +201,7 @@ class NewPost extends Component {
                             </Form.Group>
                         </div>
                         <Form.Group>
-                            <Button type="submit" variant="warning">Publicar</Button>
+                            <Button id="submit-post" type="submit" variant="warning">Publicar</Button>
                         </Form.Group>
                     </div>
                 </Form.Group>

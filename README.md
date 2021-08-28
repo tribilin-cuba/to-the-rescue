@@ -49,4 +49,4 @@ The backend project is provided with unit tests. To see those test results you c
 
 We encourage all developers to contribute with this project. Any help will be very welcome. Just make sure to read the ```CONTRIBUTING.md``` document where we give the instructions to make organized and fruitful contributions.
 
-If you are not a developer but want to help with promotion or anything else, please reach us through our social media pages that you can find in the [about us page](https://tribilin-staging.netlify.app/about-us) in **Tribilin**
+If you are not a developer but want to help with promotion or anything else, please reach us through our social media pages that you can find in the [about us page](https://tribilin.netlify.app/about-us) in **Tribilin**
