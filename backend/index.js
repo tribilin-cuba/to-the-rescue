@@ -120,7 +120,10 @@ app.get('/alert/:id', async (req, res) => {
 app.get('/alert-by-user/:id', async (req, res) => {
 
     const id = req.params.id
-    const alerts = await alertManager.find(Object.assign({}, { author_id: id }, req.query)  )
+    const alerts = await alertManager.find({
+        ...req.query,
+        author_id: id
+    })
 
     res.json(alerts.sort((a, b) => b.date - a.date))
 })
