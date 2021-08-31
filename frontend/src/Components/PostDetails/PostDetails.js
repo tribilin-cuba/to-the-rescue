@@ -90,7 +90,7 @@ class PostDetails extends Component {
 
 
         if (this.state.redirect)
-            return <Redirect to="/my-posts" />
+            return <Redirect to={"/" + this.state.from} />
         if (this.state.editRedirect)
             return <Redirect to={`/edit-post/${this.props.post._id}/${this.state.from}`} />
 
