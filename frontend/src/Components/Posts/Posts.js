@@ -12,15 +12,18 @@ import { IoPaw } from "react-icons/io5"
 import { FaHandHoldingHeart, FaHouseDamage } from "react-icons/fa"
 import { SiOpenstreetmap } from "react-icons/si"
 import { BsExclamationTriangleFill } from "react-icons/bs"
+import PostsTabs from "../Layout/PostsTabs/PostsTabs"
 // import { MdSettings } from "react-icons/md"
 
 class Posts extends Component {
     state = {
         loading: true,
         redirect: false,
+        filter: ""
     }
+
     componentDidMount() {
-        fetch(SERVER_URL + "alert/all")
+        fetch(SERVER_URL + "alert/all" + this.props.location.search)
             .then(response => response.json())
             .then(data => {
                 this.props.populatePosts(data);
@@ -34,6 +37,21 @@ class Posts extends Component {
 
                 this.setState({ loading: false })
             })
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.location.search !== this.props.location.search)
+            fetch(SERVER_URL + "alert/all" + this.props.location.search)
+                .then(response => response.json())
+                .then(data => {
+                    this.props.populatePosts(data);
+                })
+                .catch(error => {
+                    if (error.message === "Failed to fetch")
+                        window.flash("Sin conexión a Internet. Inténtelo de nuevo más tarde.", "error")
+                    else
+                        window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
+
+                })
     }
 
     render() {
@@ -58,6 +76,11 @@ class Posts extends Component {
             else
                 window.flash("Debe iniciar sesión para publicar una alerta", "error")
         }
+        let body = posts !== [] ?
+            posts :
+            <div style={{ fontStyle: "italic", color: "#464646" }}>
+                No hay alertas publicadas recientemente.
+        </div>
         if (this.state.redirect)
             return <Redirect to="/new-post/home" />
 
@@ -66,51 +89,17 @@ class Posts extends Component {
         return (
             <div>
                 <TopHeader title="Alertas" smallTitle="Últimas alertas recibidas" />
-                <Link className="ml-auto mr-5" type="button" to="/new-post/home" onClick={(e) => newPostHandler(e)}>
+                <Link
+                    className="ml-auto mr-5"
+                    type="button"
+                    to="/new-post/home"
+                    onClick={(e) => newPostHandler(e)}
+                >
                     <img className="PostsAddButton" src="./add_button.png" alt=""></img>
                 </Link>
-                <Tabs className="d-flex justify-content-between" >
-                    <Tab eventKey="all" title={<IoPaw className="post-tabs" size="25" />} >
-                        {posts !== [] ?
-                            posts :
-                            <div style={{ fontStyle: "italic", color: "#464646" }}>
-                                No hay alertas publicadas recientemente.
-                            </div>
-                        }
-                    </Tab>
-                    <Tab eventKey="adoption" title={<FaHandHoldingHeart className="post-tabs" size="25" />}>
-                        <div style={{ fontStyle: "italic", color: "#464646" }}>
-                            No hay alertas publicadas recientemente.
-                         </div>
-                    </Tab>
-                    <Tab eventKey="lost" title={<SiOpenstreetmap className="post-tabs" size="25" />}>
-                        <div style={{ fontStyle: "italic", color: "#464646" }}>
-                            No hay alertas publicadas recientemente.
-                         </div>
-                    </Tab>
-                    <Tab eventKey="abandoned" title={<FaHouseDamage className="post-tabs" size="25" />}>
-                        <div style={{ fontStyle: "italic", color: "#464646" }}>
-                            No hay alertas publicadas recientemente.
-                         </div>
-                    </Tab>
-                    <Tab eventKey="critical" title={<BsExclamationTriangleFill className="post-tabs" size="25" />}>
-                        <div style={{ fontStyle: "italic", color: "#464646" }}>
-                            No hay alertas publicadas recientemente.
-                         </div>
-                    </Tab>
-                    {/* <Tab eventKey="settings" title={<MdSettings className="post-tabs" size="25" />}>
-                        <div style={{ fontStyle: "italic", color: "#464646" }}>
-                            No hay alertas publicadas recientemente.
-                         </div>
-                    </Tab> */}
-                </Tabs>
-                {/* {posts !== [] ?
-                    posts :
-                    <div style={{ fontStyle: "italic", color: "#464646" }}>
-                        No hay alertas publicadas recientemente.
-                </div>
-                } */}
-            </div>
+                <PostsTabs body={body} />
+
+            </div >
         );
     }
 }

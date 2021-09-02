@@ -22,6 +22,7 @@ class App extends Component {
         <Flash />
         <Route path="/" exact component={Posts} />
         <Route path="/home" exact component={Posts} />
+        <Route path="/alert/all" component={Posts} />
         <Route path="/my-posts" component={MyPosts} />
         <Route path="/log-in" component={Login} />
         <Route path="/register" component={Register} />
