@@ -11,6 +11,7 @@ import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
 import { DETA_PROJECT_ID } from '../../Constants/constants'
 import { DETA_API_KEY } from '../../Constants/constants'
+import PictureModal from '../Layout/PictureModal/PictureModal'
 
 class PostDetails extends Component {
     state = {
@@ -19,7 +20,8 @@ class PostDetails extends Component {
         show: false,
         editRedirect: false,
         from: "home",
-        imgUrl: null
+        imgUrl: null,
+        showImg: false
     }
 
     componentDidMount() {
@@ -73,6 +75,10 @@ class PostDetails extends Component {
                 })
         }
 
+        const showPictureHandler = () => {
+            if (this.state.imgUrl !== "/default.png")
+                this.setState({ showImg: true })
+        }
         const post = { ...this.props.post }
         const date = new Date(`${post.date}`)
         const linkStatus = {
@@ -114,6 +120,7 @@ class PostDetails extends Component {
                             this.state.imgUrl !== null ?
                                 <img src={this.state.imgUrl}
                                     alt="post"
+                                    onClick={showPictureHandler}
                                     style={{
                                         width: "200px",
                                         borderRadius: "10px 10px 10px 10px"
@@ -219,6 +226,11 @@ class PostDetails extends Component {
                         </div>
                     </Modal.Body>
                 </Modal>
+                <PictureModal
+                    show={this.state.showImg}
+                    handleClose={() => this.setState({ showImg: false })}
+                    imgSrc={this.state.imgUrl}
+                />
             </Fragment >
         )
     }
