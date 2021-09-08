@@ -7,22 +7,26 @@ import TopHeader from "../TopHeader/TopHeader"
 import "./Posts.css"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
-import { Tabs, Tab } from "react-bootstrap"
-import { IoPaw } from "react-icons/io5"
-import { FaHandHoldingHeart, FaHouseDamage } from "react-icons/fa"
-import { SiOpenstreetmap } from "react-icons/si"
-import { BsExclamationTriangleFill } from "react-icons/bs"
 import PostsTabs from "../Layout/PostsTabs/PostsTabs"
-// import { MdSettings } from "react-icons/md"
+import { Button } from "react-bootstrap"
+import { FaFilter } from "react-icons/fa"
+import FilterModal from "../Layout/FilterModal/FilterModal"
 
 class Posts extends Component {
     state = {
         loading: true,
         redirect: false,
-        filter: ""
+        showFilterModal: false,
+        activeKey: "all"
     }
 
     componentDidMount() {
+        const search = new URLSearchParams(this.props.location.search)
+        if (search.has("alert_type"))
+            this.setState({ activeKey: search.get("alert_type") })
+        else
+            this.setState({ activeKey: "all" })
+
         fetch(SERVER_URL + "alert/all" + this.props.location.search)
             .then(response => response.json())
             .then(data => {
@@ -39,7 +43,12 @@ class Posts extends Component {
             })
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.location.search !== this.props.location.search)
+
+        if (prevProps.location.search !== this.props.location.search) {
+            const search = new URLSearchParams(this.props.location.search)
+            if (!search.has("alert_type"))
+                this.setState({ activeKey: "all" })
+
             fetch(SERVER_URL + "alert/all" + this.props.location.search)
                 .then(response => response.json())
                 .then(data => {
@@ -52,6 +61,7 @@ class Posts extends Component {
                         window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
 
                 })
+        }
     }
 
     render() {
@@ -78,9 +88,9 @@ class Posts extends Component {
         }
         let body = posts !== [] ?
             posts :
-            <div style={{ fontStyle: "italic", color: "#464646" }}>
+            <div className="no-alerts">
                 No hay alertas publicadas recientemente.
-        </div>
+             </div>
         if (this.state.redirect)
             return <Redirect to="/new-post/home" />
 
@@ -89,16 +99,28 @@ class Posts extends Component {
         return (
             <div>
                 <TopHeader title="Alertas" smallTitle="Últimas alertas recibidas" />
+                <div className="d-flex justify-content-end">
+                    <Button
+                        className="posts-filter-button"
+                        onClick={() => { this.setState({ showFilterModal: true }) }}
+                        disabled={false}
+                    >
+                        <FaFilter /> Filtrar
+                    </Button>
+                </div>
+                <PostsTabs body={body} activeKey={this.state.activeKey} />
                 <Link
                     className="ml-auto mr-5"
                     type="button"
                     to="/new-post/home"
                     onClick={(e) => newPostHandler(e)}
                 >
-                    <img className="PostsAddButton" src="./add_button.png" alt=""></img>
+                    <img className="PostsAddButton" src="/add_button.png" alt="" />
                 </Link>
-                <PostsTabs body={body} />
-
+                <FilterModal
+                    show={this.state.showFilterModal}
+                    onHide={() => this.setState({ showFilterModal: false })}
+                />
             </div >
         );
     }

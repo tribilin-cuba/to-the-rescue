@@ -5,6 +5,23 @@
   right: 20px;
   z-index: 10;
 }
+.posts-filter-button {
+  background-color: #e27e22;
+  border-color: #e27e22;
+  font-weight: bold;
+  margin-bottom: 10px;
+  height: 30px;
+}
+.posts-filter-button:hover {
+  background-color: #e27e22;
+  border-color: #e27e22;
+}
 .post-tabs {
   color: #e27e22;
+}
+
+.no-alerts {
+  font-style: italic;
+  color: #464646;
+  margin-top: 10px;
 }

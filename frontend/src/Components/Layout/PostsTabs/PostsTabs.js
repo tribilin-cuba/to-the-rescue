@@ -1,27 +1,38 @@
 import { Tabs, Tab } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { IoPaw } from "react-icons/io5";
 import { FaHandHoldingHeart, FaHouseDamage } from "react-icons/fa";
 import { SiOpenstreetmap } from "react-icons/si";
 import { BsExclamationTriangleFill } from "react-icons/bs";
+import { useRef, useEffect } from "react";
 
-function PostsTabs({ body }) {
+function PostsTabs({ body, activeKey }) {
+    const location = useLocation()
+    const searchParams = useRef("")
+
+
+    useEffect(() => {
+        searchParams.current = new URLSearchParams(location.search)
+        if (searchParams.current.has("alert_type"))
+            searchParams.current.delete("alert_type")
+    })
     return (
         <Tabs
             className="d-flex justify-content-between"
             unmountOnExit={true}
+            defaultActiveKey={activeKey}
         >
             <Tab eventKey="all" title={
-                <Link to="/alert/all">
+                <Link to={"/alert/all/?" + searchParams.current.toString()}>
                     <IoPaw className="post-tabs" size="25" />
                 </Link>
             } >
                 {body}
             </Tab>
             <Tab
-                eventKey="adoption"
+                eventKey="Adopción"
                 title={
-                    <Link to="/alert/all?alert_type=Adopción">
+                    <Link to={"/alert/all?alert_type=Adopción&" + searchParams.current.toString()}>
                         <FaHandHoldingHeart className="post-tabs" size="25" />
                     </Link>
                 }
@@ -29,38 +40,33 @@ function PostsTabs({ body }) {
                 {body}
             </Tab>
             <Tab
-                eventKey="lost"
+                eventKey="Perdido"
                 title={
-                    <Link to="/alert/all?alert_type=Perdido">
+                    <Link to={"/alert/all?alert_type=Perdido&" + searchParams.current.toString()}>
                         <SiOpenstreetmap className="post-tabs" size="25" />
                     </Link>
                 }>
                 {body}
             </Tab>
             <Tab
-                eventKey="abandoned"
+                eventKey="Abandonado"
                 title={
-                    <Link to="/alert/all?alert_type=Abandonado">
+                    <Link to={"/alert/all?alert_type=Abandonado&" + searchParams.current.toString()}>
                         <FaHouseDamage className="post-tabs" size="25" />
                     </Link>
                 }>
                 {body}
             </Tab>
             <Tab
-                eventKey="critical"
+                eventKey="Crítico"
                 title={
-                    <Link to="/alert/all?alert_type=Crítico">
+                    <Link to={"/alert/all?alert_type=Crítico&" + searchParams.current.toString()}>
                         <BsExclamationTriangleFill className="post-tabs" size="25" />
                     </Link>
                 }>
                 {body}
             </Tab>
-            {/* <Tab eventKey="settings" title={<MdSettings className="post-tabs" size="25" />}>
-                        <div style={{ fontStyle: "italic", color: "#464646" }}>
-                            No hay alertas publicadas recientemente.
-                         </div>
-                    </Tab> */}
-        </Tabs>
+        </Tabs >
     )
 }
 export default PostsTabs
