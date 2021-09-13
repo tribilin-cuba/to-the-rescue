@@ -8,9 +8,9 @@ import "./Posts.css"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
 import PostsTabs from "../Layout/PostsTabs/PostsTabs"
-import { Button } from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
 import { FaFilter } from "react-icons/fa"
-import FilterModal from "../Layout/FilterModal/FilterModal"
+import FilterForm from "../Layout/FilterForm/FilterForm"
 
 class Posts extends Component {
     state = {
@@ -43,7 +43,6 @@ class Posts extends Component {
             })
     }
     componentDidUpdate(prevProps) {
-
         if (prevProps.location.search !== this.props.location.search) {
             const search = new URLSearchParams(this.props.location.search)
             if (!search.has("alert_type"))
@@ -52,6 +51,7 @@ class Posts extends Component {
             fetch(SERVER_URL + "alert/all" + this.props.location.search)
                 .then(response => response.json())
                 .then(data => {
+                    console.log("DATA", data)
                     this.props.populatePosts(data);
                 })
                 .catch(error => {
@@ -102,7 +102,7 @@ class Posts extends Component {
                 <div className="d-flex justify-content-end">
                     <Button
                         className="posts-filter-button"
-                        onClick={() => { this.setState({ showFilterModal: true }) }}
+                        onClick={() => { console.log("BEFORE CLICK", this.state.showFilterModal); this.setState({ showFilterModal: true }) }}
                         disabled={false}
                     >
                         <FaFilter /> Filtrar
@@ -117,10 +117,14 @@ class Posts extends Component {
                 >
                     <img className="PostsAddButton" src="/add_button.png" alt="" />
                 </Link>
-                <FilterModal
-                    show={this.state.showFilterModal}
-                    onHide={() => this.setState({ showFilterModal: false })}
-                />
+                <Modal centered show={this.state.showFilterModal} onHide={() => { console.log("BEFORE CLOSE", this.state.showFilterModal); this.setState({ showFilterModal: false }) }}>
+                    <Modal.Body>
+                        <FilterForm
+                            onHide={() => { console.log("BEFORE CLOSE", this.state.showFilterModal); this.setState({ showFilterModal: false }) }}
+                        />
+                    </Modal.Body>
+                </Modal>
+
             </div >
         );
     }
