@@ -68,8 +68,6 @@ class NewPost extends Component {
     changeImageHandler = (event) => {
         if (event.target.files[0]) {
             var imageFile = event.target.files[0];
-            console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-            console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
             var options = {
                 maxSizeMB: 1,
@@ -78,9 +76,6 @@ class NewPost extends Component {
             }
             imageCompression(imageFile, options)
                 .then(compressedFile => {
-                    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-                    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
-
                     let reader = new FileReader()
 
                     reader.readAsDataURL(compressedFile)
@@ -89,7 +84,6 @@ class NewPost extends Component {
                             imgUrl: URL.createObjectURL(compressedFile),
                             postForm: { ...this.state.postForm, imgString: reader.result }
                         });
-                        console.log(reader.result)
                     }
                 })
                 .catch(() =>
@@ -181,10 +175,7 @@ class NewPost extends Component {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control required placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }} />
-                            <Form.Control.Feedback type="invalid">
-                                Ingrese municipio
-                            </Form.Control.Feedback>
+                            <Form.Control placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} />

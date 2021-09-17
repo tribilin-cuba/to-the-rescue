@@ -82,6 +82,7 @@ class Posts extends Component {
                 description={post.description}
                 from={"home" + this.props.location.search}
                 picture_path={post.picture_path}
+                province={post.province}
             />
             )
 

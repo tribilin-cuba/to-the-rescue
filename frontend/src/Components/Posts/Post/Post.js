@@ -5,7 +5,7 @@ import { Card, Spinner } from "react-bootstrap";
 import { DETA_API_KEY, DETA_PROJECT_ID, DETA_URL, TOY_DETA_ID, TOY_DETA_KEY } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
 
-function Post({ id, animal, alert_type, municipality, date, description, from, picture_path }) {
+function Post({ id, animal, alert_type, municipality, date, description, from, picture_path, province }) {
     if (description === "")
         description = `${animal}:${alert_type}`
 
@@ -55,7 +55,7 @@ function Post({ id, animal, alert_type, municipality, date, description, from, p
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">
                         <div className='d-flex justify-content-between PostWidth'>
                             <h6 className={alert_type}>{alert_type}</h6>
-                            <div className="PostXSmall">{municipality}</div>
+                            <div className="PostXSmall">{municipality || province}</div>
                         </div>
                         <div className="PostSmall PostBold">{preview}</div>
                         <div className="PostSmall justify-self-end">{formattedDate}</div>
