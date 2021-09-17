@@ -5,7 +5,7 @@ import { Card, Spinner } from "react-bootstrap";
 import { DETA_API_KEY, DETA_PROJECT_ID, DETA_URL, TOY_DETA_ID, TOY_DETA_KEY } from "../../../Constants/constants";
 import { Link } from "react-router-dom";
 
-function Post({ id, animal, alert_type, municipality, date, description, from, picture_path }) {
+function Post({ id, animal, alert_type, municipality, date, description, from, picture_path, province }) {
     if (description === "")
         description = `${animal}:${alert_type}`
 
@@ -22,9 +22,7 @@ function Post({ id, animal, alert_type, municipality, date, description, from, p
 
     // Fetch the image using the imgUrl and set the state. Add authotization headers
     useEffect(() => {
-
         if (imgUrl !== "/default.png") {
-            console.log(imgUrl)
             fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY } })
                 .then(response => response.text())
                 .then(text => {
@@ -39,13 +37,9 @@ function Post({ id, animal, alert_type, municipality, date, description, from, p
     return (
         <Card className="PostCard mt-2">
             <Card.Body style={{ padding: "0px" }}>
-                <Link className="Post d-flex"
+                <Link className="Post d-flex post-link"
                     to={`/post-details/${id}/${from}`}
-                    style={{
-                        color: "#464646",
-                        textDecoration: "none",
-                        boxShadow: "1 1 1 1 blue"
-                    }}
+
                 >
                     <div>
                         {
@@ -53,20 +47,15 @@ function Post({ id, animal, alert_type, municipality, date, description, from, p
                                 <Spinner variant="dark" animation="border" className="m-2" /> :
                                 <img
                                     src={img}
-                                    className="img-fluid"
-                                    alt=""
-                                    style={{
-                                        height: "76px",
-                                        width: "105px",
-                                        borderRadius: "10px 0px 0px 10px"
-                                    }}
+                                    className="img-fluid post-image-preview"
+                                    alt="preview"
                                 />
                         }
                     </div>
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">
                         <div className='d-flex justify-content-between PostWidth'>
                             <h6 className={alert_type}>{alert_type}</h6>
-                            <div className="PostXSmall">{municipality}</div>
+                            <div className="PostXSmall">{municipality || province}</div>
                         </div>
                         <div className="PostSmall PostBold">{preview}</div>
                         <div className="PostSmall justify-self-end">{formattedDate}</div>

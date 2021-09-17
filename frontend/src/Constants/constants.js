@@ -8,4 +8,23 @@ export const DETA_URL = 'https://drive.deta.sh/v1/'
 
 export const DETA_PROJECT_ID = 'b0wqn80v'
 
-export const DETA_API_KEY = 'b0wqn80v_ZPdnTMkEomVC6j99yJbX8Gnfn9prhumN'
+export const DETA_API_KEY = process.env.DETA_API_KEY
+
+export const PROVINCES = [
+    "Pinar del río",
+    "Artemisa",
+    "La Habana",
+    "Mayabeque",
+    "Matanzas",
+    "Cienfuegos",
+    "Villa Clara",
+    "Sancti Spíritus",
+    "Ciego de Ávila",
+    "Camagüey",
+    "Las Tunas",
+    "Granma",
+    "Holguín",
+    "Santiago de Cuba",
+    "Guantánamo",
+    "Isla de la Juventud"
+]

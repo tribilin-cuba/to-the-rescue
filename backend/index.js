@@ -104,7 +104,7 @@ app.delete('/user/:id', async (req, res) => {
 // * ALERTS
 app.get('/alert/all', async (req, res) => {
 
-    var alerts = await alertManager.find({})
+    var alerts = await alertManager.find(req.query)
 
     res.json(alerts.sort((a, b) => b.date - a.date))
 })
@@ -120,7 +120,10 @@ app.get('/alert/:id', async (req, res) => {
 app.get('/alert-by-user/:id', async (req, res) => {
 
     const id = req.params.id
-    const alerts = await alertManager.find({ author_id: id })
+    const alerts = await alertManager.find({
+        ...req.query,
+        author_id: id
+    })
 
     res.json(alerts.sort((a, b) => b.date - a.date))
 })
@@ -159,6 +162,26 @@ app.delete('/alert', async (req, res) => {
     const filter = req.body
 
     const user = await alertManager.delete(filter)
+
+    res.json(user)
+})
+
+app.delete('/alert-expired', async (req, res) => {
+
+    const { time } = req.body
+    const now = Date.now()
+
+    const alerts = await alertManager.find()
+
+    let eraseList = []
+
+    for (const alert of alerts){
+        const timeDiff = (now - alert.date) / 1000
+        if (timeDiff >= time)
+            eraseList.push(alert._id)
+    }
+
+    const user = await alertManager.delete({ _id: {$in: eraseList}})
 
     res.json(user)
 })

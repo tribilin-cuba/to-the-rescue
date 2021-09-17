@@ -36,7 +36,6 @@ var AlertSchema = new mongoose.Schema({
 
     municipality: {
         type: String,
-        required: true
     },
 
     address: {

@@ -51,3 +51,14 @@
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.post-image-preview {
+  height: 76px !important;
+  width: 105px !important;
+  border-radius: 10px 0px 0px 10px !important ;
+}
+
+.post-link {
+  color: #464646 !important;
+  text-decoration: none !important;
+}

@@ -11,6 +11,7 @@ import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
 import { DETA_PROJECT_ID } from '../../Constants/constants'
 import { DETA_API_KEY } from '../../Constants/constants'
+import PictureModal from '../Layout/PictureModal/PictureModal'
 
 class PostDetails extends Component {
     state = {
@@ -19,11 +20,12 @@ class PostDetails extends Component {
         show: false,
         editRedirect: false,
         from: "home",
-        imgUrl: null
+        imgUrl: null,
+        showImg: false
     }
 
     componentDidMount() {
-        const from = this.props.match.params.from
+        const from = this.props.match.params.from + this.props.location.search
         fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
             .then(data => {
@@ -35,12 +37,10 @@ class PostDetails extends Component {
                 const detaDriveName = 'photos'
                 const urlSuffix = `files/download?name=${picture_path}`
 
-                console.log(picture_path)
                 const imgUrl = picture_path === "" ?
                     "/default.png" :
                     `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`
 
-                console.log(imgUrl)
                 if (imgUrl !== "/default.png")
                     fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY, "Cache-Control": "public,  max-age=604800, immutable" } })
                         .then(response => response.text())
@@ -64,7 +64,6 @@ class PostDetails extends Component {
             fetch(SERVER_URL + "alert/" + postId, { method: "DELETE" })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     this.setState({ redirect: true })
                     window.flash("Alerta borrada con éxito", "success")
                 })
@@ -73,6 +72,10 @@ class PostDetails extends Component {
                 })
         }
 
+        const showPictureHandler = () => {
+            if (this.state.imgUrl !== "/default.png")
+                this.setState({ showImg: true })
+        }
         const post = { ...this.props.post }
         const date = new Date(`${post.date}`)
         const linkStatus = {
@@ -90,7 +93,7 @@ class PostDetails extends Component {
 
 
         if (this.state.redirect)
-            return <Redirect to="/my-posts" />
+            return <Redirect to={"/" + this.state.from} />
         if (this.state.editRedirect)
             return <Redirect to={`/edit-post/${this.props.post._id}/${this.state.from}`} />
 
@@ -114,6 +117,7 @@ class PostDetails extends Component {
                             this.state.imgUrl !== null ?
                                 <img src={this.state.imgUrl}
                                     alt="post"
+                                    onClick={showPictureHandler}
                                     style={{
                                         width: "200px",
                                         borderRadius: "10px 10px 10px 10px"
@@ -123,7 +127,7 @@ class PostDetails extends Component {
                         }
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
-                        <div>{post.municipality}, {post.province}</div>
+                        <div>{post.municipality ? `${post.municipality},` : null} {post.province}</div>
                     </div>
                     <Badge pill variant="warning"> </Badge>
                 </div>
@@ -219,6 +223,11 @@ class PostDetails extends Component {
                         </div>
                     </Modal.Body>
                 </Modal>
+                <PictureModal
+                    show={this.state.showImg}
+                    handleClose={() => this.setState({ showImg: false })}
+                    imgSrc={this.state.imgUrl}
+                />
             </Fragment >
         )
     }
