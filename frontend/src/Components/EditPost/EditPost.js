@@ -157,10 +157,7 @@ class EditPost extends Component {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control required placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }} value={this.state.postForm.municipality} />
-                            <Form.Control.Feedback type="invalid">
-                                Ingrese municipio
-                            </Form.Control.Feedback>
+                            <Form.Control placeholder="Municipio" onChange={(event) => { this.inputChangedHandler(event, "municipality") }} value={this.state.postForm.municipality} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Control as="textarea" placeholder="Dirección" onChange={(event) => { this.inputChangedHandler(event, "address") }} value={this.state.postForm.address} />

@@ -37,6 +37,7 @@ class MyPosts extends Component {
                 description={post.description}
                 from="my-posts"
                 picture_path={post.picture_path}
+                province={post.province}
             />
             )
 

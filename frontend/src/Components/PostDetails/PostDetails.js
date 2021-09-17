@@ -127,7 +127,7 @@ class PostDetails extends Component {
                         }
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
-                        <div>{post.municipality}, {post.province}</div>
+                        <div>{post.municipality ? `${post.municipality},` : null} {post.province}</div>
                     </div>
                     <Badge pill variant="warning"> </Badge>
                 </div>
