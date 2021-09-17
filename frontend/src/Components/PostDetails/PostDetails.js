@@ -25,7 +25,7 @@ class PostDetails extends Component {
     }
 
     componentDidMount() {
-        const from = this.props.match.params.from
+        const from = this.props.match.params.from + this.props.location.search
         fetch(SERVER_URL + "alert/" + this.props.match.params.id)
             .then(response => response.json())
             .then(data => {
@@ -37,12 +37,10 @@ class PostDetails extends Component {
                 const detaDriveName = 'photos'
                 const urlSuffix = `files/download?name=${picture_path}`
 
-                console.log(picture_path)
                 const imgUrl = picture_path === "" ?
                     "/default.png" :
                     `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`
 
-                console.log(imgUrl)
                 if (imgUrl !== "/default.png")
                     fetch(imgUrl, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY, "Cache-Control": "public,  max-age=604800, immutable" } })
                         .then(response => response.text())
@@ -66,7 +64,6 @@ class PostDetails extends Component {
             fetch(SERVER_URL + "alert/" + postId, { method: "DELETE" })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     this.setState({ redirect: true })
                     window.flash("Alerta borrada con éxito", "success")
                 })
@@ -130,7 +127,7 @@ class PostDetails extends Component {
                         }
                     </div>
                     <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
-                        <div>{post.municipality}, {post.province}</div>
+                        <div>{post.municipality ? `${post.municipality},` : null} {post.province}</div>
                     </div>
                     <Badge pill variant="warning"> </Badge>
                 </div>

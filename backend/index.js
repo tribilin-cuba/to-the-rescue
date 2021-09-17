@@ -166,6 +166,26 @@ app.delete('/alert', async (req, res) => {
     res.json(user)
 })
 
+app.delete('/alert-expired', async (req, res) => {
+
+    const { time } = req.body
+    const now = Date.now()
+
+    const alerts = await alertManager.find()
+
+    let eraseList = []
+
+    for (const alert of alerts){
+        const timeDiff = (now - alert.date) / 1000
+        if (timeDiff >= time)
+            eraseList.push(alert._id)
+    }
+
+    const user = await alertManager.delete({ _id: {$in: eraseList}})
+
+    res.json(user)
+})
+
 // * TOKENS
 
 app.post('/token', async (req, res) => {

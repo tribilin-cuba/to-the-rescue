@@ -5,3 +5,26 @@
   right: 20px;
   z-index: 10;
 }
+.posts-filter-button {
+  background-color: #e27e22 !important;
+  border-color: #e27e22 !important;
+  font-weight: bold;
+  margin-bottom: 10px;
+  height: 30px;
+}
+.posts-filter-button:focus {
+  box-shadow: rgba(226, 126, 34, 0.5) 0px 0px 0px 3.2px !important;
+}
+.posts-filter-button:hover {
+  background-color: #e27e22;
+  border-color: #e27e22;
+}
+.post-tabs {
+  color: #e27e22;
+}
+
+.no-alerts {
+  font-style: italic;
+  color: #464646;
+  margin-top: 10px;
+}
