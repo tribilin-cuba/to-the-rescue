@@ -29,7 +29,7 @@ class NewPost extends Component {
         from: "home",
     }
     componentDidMount() {
-        const from = this.props.match.params.from
+        const from = this.props.match.params.from + this.props.location.search
         this.setState({ from: from })
     }
     submitHandler = (event) => {

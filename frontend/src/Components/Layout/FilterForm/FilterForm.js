@@ -1,19 +1,45 @@
 import { Form, Button, AccordionCollapse, AccordionToggle } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import "./FilterForm.css"
-import { Redirect } from "react-router";
-import { useState } from "react";
+import { Redirect, useLocation } from "react-router";
+import { useState, useEffect } from "react";
 import { PROVINCES } from "../../../Constants/constants";
 import { RiArrowDownSLine } from "react-icons/ri";
+import { BsArrowClockwise } from "react-icons/bs";
 
 function FilterForm({ onHide }) {
-    const [animal, setAnimal] = useState(null)
-    const [gender, setGender] = useState(null)
-    const [province, setProvince] = useState([])
-    const [municipality, setMunicipality] = useState(null)
+    const location = useLocation()
+    const activeFilters = new URLSearchParams(location.search)
+
+    const [animal, setAnimal] = useState(activeFilters.get("animal"))
+    const [gender, setGender] = useState(activeFilters.get("gender"))
+    const [province, setProvince] = useState(activeFilters.getAll("province") || [])
+    const [municipality, setMunicipality] = useState(activeFilters.get("municipality"))
     const [redirect, setRedirect] = useState(null)
+
+    const checkElementById = (elementId) => {
+        document.getElementById(elementId).checked = true
+    }
+    useEffect(() => {
+
+        animal && checkElementById(`animal-${animal}`)
+
+        gender && checkElementById(`gender-${gender}`)
+
+        province.forEach(p => checkElementById(`province-${p}`))
+
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
+    const resetValues = () => {
+        document.getElementById("filter-form").reset()
+        setAnimal(null)
+        setGender(null)
+        setMunicipality(null)
+        setProvince([])
+    }
     const provinces = PROVINCES.map(p => {
         return <Form.Check
+            id={"province-" + p}
             key={p}
             type="checkbox"
             name="province"
@@ -29,7 +55,6 @@ function FilterForm({ onHide }) {
     })
 
     const submitHandler = (event) => {
-        console.log("HERE5")
         event.preventDefault()
         onHide()
         let search = new URLSearchParams()
@@ -46,12 +71,20 @@ function FilterForm({ onHide }) {
         return <Redirect to={redirect} />
 
     return (
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler} id="filter-form">
+            <div className="d-flex justify-content-end">
+                <h5>
+                    <Button variant="light" onClick={resetValues}>
+                        <BsArrowClockwise /> Restaurar
+                    </Button>
+                </h5>
+            </div>
             <Form.Group>
                 <div className="d-flex flex-column">
                     <h4 className="filter-header">Animal</h4>
                     <div className="ml-4 mt-2 mb-2">
                         <Form.Check
+                            id="animal-Perro"
                             type="radio"
                             label="Perro"
                             name="animal"
@@ -59,6 +92,7 @@ function FilterForm({ onHide }) {
                             onChange={(e) => setAnimal(e.target.value)}
                         />
                         <Form.Check
+                            id="animal-Gato"
                             type="radio"
                             label="Gato"
                             name="animal"
@@ -69,6 +103,7 @@ function FilterForm({ onHide }) {
                     <h4 className="filter-header">Sexo</h4>
                     <div className="ml-4 mt-2 mb-2">
                         <Form.Check
+                            id="gender-Hembra"
                             type="radio"
                             label="Hembra"
                             name="gender"
@@ -76,6 +111,7 @@ function FilterForm({ onHide }) {
                             onChange={(e) => setGender(e.target.value)}
                         />
                         <Form.Check
+                            id="gender-Macho"
                             type="radio"
                             label="Macho"
                             name="gender"
@@ -87,6 +123,7 @@ function FilterForm({ onHide }) {
                         <h4 className="filter-header" style={{ borderBottom: "none" }}>Municipio</h4>
                         <Form.Group>
                             <Form.Control
+                                value={municipality}
                                 onChange={(e) => { setMunicipality(e.target.value) }}
                             />
                         </Form.Group>
@@ -103,8 +140,20 @@ function FilterForm({ onHide }) {
                     </Accordion>
 
                     <Form.Group className="d-flex justify-content-center mt-5">
-                        <Button type="button" variant="secondary" onClick={() => { setRedirect("/"); onHide() }}>Cancelar</Button>
-                        <Button className="ml-2" type="submit" variant="warning">Aplicar</Button>
+                        <Button
+                            type="button"
+                            variant="secondary"
+                            onClick={onHide}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            className="ml-2"
+                            type="submit"
+                            variant="warning"
+                        >
+                            Aplicar
+                        </Button>
                     </Form.Group>
                 </div>
             </Form.Group>

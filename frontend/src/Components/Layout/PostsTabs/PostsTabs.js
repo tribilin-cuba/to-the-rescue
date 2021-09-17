@@ -6,7 +6,7 @@ import { SiOpenstreetmap } from "react-icons/si";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import { useRef, useEffect } from "react";
 
-function PostsTabs({ body, activeKey }) {
+function PostsTabs({ body, activeKey, search }) {
     const location = useLocation()
     const searchParams = useRef("")
 
@@ -15,6 +15,8 @@ function PostsTabs({ body, activeKey }) {
         searchParams.current = new URLSearchParams(location.search)
         if (searchParams.current.has("alert_type"))
             searchParams.current.delete("alert_type")
+
+
     })
     return (
         <Tabs
@@ -23,7 +25,7 @@ function PostsTabs({ body, activeKey }) {
             defaultActiveKey={activeKey}
         >
             <Tab eventKey="all" title={
-                <Link to={"/alert/all/?" + searchParams.current.toString()}>
+                <Link to={"/alert/all?" + search}>
                     <IoPaw className="post-tabs" size="25" />
                 </Link>
             } >
@@ -32,7 +34,7 @@ function PostsTabs({ body, activeKey }) {
             <Tab
                 eventKey="Adopción"
                 title={
-                    <Link to={"/alert/all?alert_type=Adopción&" + searchParams.current.toString()}>
+                    <Link to={"/alert/all?alert_type=Adopción&" + search}>
                         <FaHandHoldingHeart className="post-tabs" size="25" />
                     </Link>
                 }
@@ -42,7 +44,7 @@ function PostsTabs({ body, activeKey }) {
             <Tab
                 eventKey="Perdido"
                 title={
-                    <Link to={"/alert/all?alert_type=Perdido&" + searchParams.current.toString()}>
+                    <Link to={"/alert/all?alert_type=Perdido&" + search}>
                         <SiOpenstreetmap className="post-tabs" size="25" />
                     </Link>
                 }>
@@ -51,7 +53,7 @@ function PostsTabs({ body, activeKey }) {
             <Tab
                 eventKey="Abandonado"
                 title={
-                    <Link to={"/alert/all?alert_type=Abandonado&" + searchParams.current.toString()}>
+                    <Link to={"/alert/all?alert_type=Abandonado&" + search}>
                         <FaHouseDamage className="post-tabs" size="25" />
                     </Link>
                 }>
@@ -60,7 +62,7 @@ function PostsTabs({ body, activeKey }) {
             <Tab
                 eventKey="Crítico"
                 title={
-                    <Link to={"/alert/all?alert_type=Crítico&" + searchParams.current.toString()}>
+                    <Link to={"/alert/all?alert_type=Crítico&" + search}>
                         <BsExclamationTriangleFill className="post-tabs" size="25" />
                     </Link>
                 }>

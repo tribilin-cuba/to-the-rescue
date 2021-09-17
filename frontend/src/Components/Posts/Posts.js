@@ -17,13 +17,17 @@ class Posts extends Component {
         loading: true,
         redirect: false,
         showFilterModal: false,
-        activeKey: "all"
+        activeKey: "all",
+        search: "",
     }
 
     componentDidMount() {
         const search = new URLSearchParams(this.props.location.search)
-        if (search.has("alert_type"))
+        if (search.has("alert_type")) {
             this.setState({ activeKey: search.get("alert_type") })
+            search.delete("alert_type")
+            this.setState({ search: search.toString() })
+        }
         else
             this.setState({ activeKey: "all" })
 
@@ -47,11 +51,13 @@ class Posts extends Component {
             const search = new URLSearchParams(this.props.location.search)
             if (!search.has("alert_type"))
                 this.setState({ activeKey: "all" })
+            else
+                search.delete("alert_type")
+            this.setState({ search: search.toString() })
 
             fetch(SERVER_URL + "alert/all" + this.props.location.search)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("DATA", data)
                     this.props.populatePosts(data);
                 })
                 .catch(error => {
@@ -74,7 +80,7 @@ class Posts extends Component {
                 municipality={post.municipality}
                 date={post.date}
                 description={post.description}
-                from="home"
+                from={"home" + this.props.location.search}
                 picture_path={post.picture_path}
             />
             )
@@ -88,11 +94,11 @@ class Posts extends Component {
         }
         let body = posts !== [] ?
             posts :
-            <div className="no-alerts">
+            (<div className="no-alerts">
                 No hay alertas publicadas recientemente.
-             </div>
+             </div>)
         if (this.state.redirect)
-            return <Redirect to="/new-post/home" />
+            return <Redirect to={"/new-post/home" + this.props.location.search} />
 
         if (this.state.loading)
             return <Spinner />
@@ -102,13 +108,16 @@ class Posts extends Component {
                 <div className="d-flex justify-content-end">
                     <Button
                         className="posts-filter-button"
-                        onClick={() => { console.log("BEFORE CLICK", this.state.showFilterModal); this.setState({ showFilterModal: true }) }}
-                        disabled={false}
+                        onClick={() => { this.setState({ showFilterModal: true }) }}
                     >
                         <FaFilter /> Filtrar
                     </Button>
                 </div>
-                <PostsTabs body={body} activeKey={this.state.activeKey} />
+                <PostsTabs
+                    body={body}
+                    activeKey={this.state.activeKey}
+                    search={this.state.search}
+                />
                 <Link
                     className="ml-auto mr-5"
                     type="button"
@@ -117,10 +126,10 @@ class Posts extends Component {
                 >
                     <img className="PostsAddButton" src="/add_button.png" alt="" />
                 </Link>
-                <Modal centered show={this.state.showFilterModal} onHide={() => { console.log("BEFORE CLOSE", this.state.showFilterModal); this.setState({ showFilterModal: false }) }}>
+                <Modal centered show={this.state.showFilterModal} onHide={() => { this.setState({ showFilterModal: false }) }}>
                     <Modal.Body>
                         <FilterForm
-                            onHide={() => { console.log("BEFORE CLOSE", this.state.showFilterModal); this.setState({ showFilterModal: false }) }}
+                            onHide={() => { this.setState({ showFilterModal: false }) }}
                         />
                     </Modal.Body>
                 </Modal>
