@@ -1,0 +1,18 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(255,250,238);
+}
+
+.footer a {
+    color: #e27e22;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+.footer a:hover {
+    color: rgb(44, 43, 43);;
+}
+
