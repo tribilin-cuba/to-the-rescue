@@ -6,6 +6,7 @@ import TopHeader from "../TopHeader/TopHeader"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
 import Post from "../Posts/Post/Post"
+import Footer from "../Footer/Footer"
 
 class MyPosts extends Component {
     state = {
@@ -52,6 +53,8 @@ class MyPosts extends Component {
                         posts :
                         <div style={{ fontStyle: "italic" }}>No ha publicado alertas.</div>
                 }
+                <Footer />
+
             </div>
         );
     }
