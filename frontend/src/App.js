@@ -1,24 +1,24 @@
-import './App.css';
-import React, { Component } from "react"
-import Posts from "./Components/Posts/Posts"
-import NewPost from "./Components/NewPost/NewPost"
-import PostDetails from "./Components/PostDetails/PostDetails"
-import { Route } from "react-router-dom"
-import Register from './Components/Authentication/Register';
-import Login from './Components/Authentication/Login';
-import MyPosts from './Components/MyPosts/MyPosts';
-import EditPost from './Components/EditPost/EditPost';
-import Flash from './Components/Flash/Flash';
-import Bus from './Utils/Bus';
-import AboutUs from './Components/AboutUs/AboutUs';
+import "./App.css";
+import React, { Component } from "react";
+import Posts from "./Components/Posts/Posts";
+import NewPost from "./Components/NewPost/NewPost";
+import PostDetails from "./Components/PostDetails/PostDetails";
+import { Route } from "react-router-dom";
+import Register from "./Components/Authentication/Register";
+import Login from "./Components/Authentication/Login";
+import MyPosts from "./Components/MyPosts/MyPosts";
+import EditPost from "./Components/EditPost/EditPost";
+import Flash from "./Components/Flash/Flash";
+import Bus from "./Utils/Bus";
+import AboutUs from "./Components/AboutUs/AboutUs";
 
 class App extends Component {
-
   render() {
-    window.flash = (message, type = "success") => Bus.emit('flash', ({ message, type }))
+    window.flash = (message, type = "success") =>
+      Bus.emit("flash", { message, type });
 
     return (
-      <div className="App" >
+      <div className="App">
         <Flash />
         <Route path="/" exact component={Posts} />
         <Route path="/home" component={Posts} />

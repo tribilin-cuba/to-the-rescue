@@ -11,6 +11,7 @@ import PostsTabs from "../Layout/PostsTabs/PostsTabs"
 import { Button, Modal } from "react-bootstrap"
 import { FaFilter } from "react-icons/fa"
 import FilterForm from "../Layout/FilterForm/FilterForm"
+import Footer from "../Footer/Footer"
 
 class Posts extends Component {
     state = {
@@ -105,8 +106,8 @@ class Posts extends Component {
             return <Spinner />
         return (
             <div>
-                <TopHeader title="Alertas" smallTitle="Últimas alertas recibidas" />
-                <div className="d-flex justify-content-end">
+                <TopHeader title="Alertas" smallTitle="" />
+                <div className="d-flex justify-content-start mt-2 mb-2">
                     <Button
                         className="posts-filter-button"
                         onClick={() => { this.setState({ showFilterModal: true }) }}
@@ -127,6 +128,8 @@ class Posts extends Component {
                 >
                     <img className="PostsAddButton" src="/add_button.png" alt="" />
                 </Link>
+                <Footer />
+
                 <Modal centered show={this.state.showFilterModal} onHide={() => { this.setState({ showFilterModal: false }) }}>
                     <Modal.Body>
                         <FilterForm

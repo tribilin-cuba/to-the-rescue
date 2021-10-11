@@ -32,7 +32,12 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.section {
+  min-height: calc(100vh - 18rem);
 }

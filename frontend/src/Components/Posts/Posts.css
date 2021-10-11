@@ -1,7 +1,7 @@
 .PostsAddButton {
   width: 60px;
   position: fixed;
-  bottom: 20px;
+  bottom: 60px;
   right: 20px;
   z-index: 10;
 }
