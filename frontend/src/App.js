@@ -11,7 +11,6 @@ import EditPost from "./Components/EditPost/EditPost";
 import Flash from "./Components/Flash/Flash";
 import Bus from "./Utils/Bus";
 import AboutUs from "./Components/AboutUs/AboutUs";
-import Footer from "./Components/Footer/Footer";
 
 class App extends Component {
   render() {
@@ -20,20 +19,17 @@ class App extends Component {
 
     return (
       <div className="App">
-        <section className="section">
-          <Flash />
-          <Route path="/" exact component={Posts} />
-          <Route path="/home" component={Posts} />
-          <Route path="/alert/all" component={Posts} />
-          <Route path="/my-posts" component={MyPosts} />
-          <Route path="/log-in" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/new-post/:from" component={NewPost} />
-          <Route path="/edit-post/:id/:from" component={EditPost} />
-          <Route path="/post-details/:id/:from" component={PostDetails} />
-          <Route path="/about-us" component={AboutUs} />
-        </section>
-        <Footer />
+        <Flash />
+        <Route path="/" exact component={Posts} />
+        <Route path="/home" component={Posts} />
+        <Route path="/alert/all" component={Posts} />
+        <Route path="/my-posts" component={MyPosts} />
+        <Route path="/log-in" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/new-post/:from" component={NewPost} />
+        <Route path="/edit-post/:id/:from" component={EditPost} />
+        <Route path="/post-details/:id/:from" component={PostDetails} />
+        <Route path="/about-us" component={AboutUs} />
       </div>
     );
   }
