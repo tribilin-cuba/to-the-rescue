@@ -1,15 +1,10 @@
 .NavigationItems {
   margin: 0;
-  padding: 0;
+  padding: 0 20px;
   list-style: none;
   display: flex;
-  align-items: center;
-  flex-flow: column;
-  height: 100%;
+  flex-direction: column;
+  gap: 4px;
 }
 
-@media (min-width: 500px) {
-  .NavigationItems {
-    flex-flow: row;
-  }
-}
+/* Remove horizontal layout for sidebar - always keep vertical */

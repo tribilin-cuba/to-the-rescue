@@ -33,6 +33,16 @@ const reducer = (state = initialState, action) => {
                 userEmail: action.userEmail,
                 userName: action.userName
             }
+        case actionTypes.OPEN_SIDE_DRAWER:
+            return {
+                ...state,
+                showSideDrawer: true
+            }
+        case actionTypes.CLOSE_SIDE_DRAWER:
+            return {
+                ...state,
+                showSideDrawer: false
+            }
         case actionTypes.LOG_OUT:
             return {
                 ...state,
