@@ -1,23 +1,23 @@
 import React from "react"
 import "./TopHeader.css"
 import { useDispatch, useSelector } from "react-redux";
-import { LOG_OUT } from "../../store/actions";
+import { logOut } from "../../App/store";
 import UserIcon from "../Layout/UserIcon/UserIcon";
 import MenuIcon from "../Layout/MenuIcon/MenuIcon";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 function TopHeader({ title, smallTitle, goHome, showAll }) {
     const dispatch = useDispatch()
-    const userName = useSelector((state) => state.userName)
-    const history = useHistory()
+    const userName = useSelector((state) => state.app.userName)
+    const navigate = useNavigate()
     return (
         <div className='d-flex flex-column TopHeader align-items-start'>
             <div className="d-flex justify-content-between TopHeaderDiv">
                 <h4 className="TopHeaderText">{title}</h4>
                 <div className="d-flex ">
                     <UserIcon userName={userName} logOutHandler={() => {
-                        dispatch({ type: LOG_OUT })
-                        history.push("/")
+                        dispatch(logOut())
+                        navigate("/")
                         window.flash("Ha cerrado sesión correctamente", "success")
                     }} />
                     <MenuIcon authenticated={userName !== null} goHome={goHome} showAll={showAll} />

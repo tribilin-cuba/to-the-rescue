@@ -1,9 +1,9 @@
 import "./App.css";
-import React, { Component } from "react";
+import React from "react";
 import Posts from "./Components/Posts/Posts";
 import NewPost from "./Components/NewPost/NewPost";
 import PostDetails from "./Components/PostDetails/PostDetails";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Register from "./Components/Authentication/Register";
 import Login from "./Components/Authentication/Login";
 import MyPosts from "./Components/MyPosts/MyPosts";
@@ -12,27 +12,27 @@ import Flash from "./Components/Flash/Flash";
 import Bus from "./Utils/Bus";
 import AboutUs from "./Components/AboutUs/AboutUs";
 
-class App extends Component {
-  render() {
+function App() {
     window.flash = (message, type = "success") =>
       Bus.emit("flash", { message, type });
 
     return (
       <div className="App">
         <Flash />
-        <Route path="/" exact component={Posts} />
-        <Route path="/home" component={Posts} />
-        <Route path="/alert/all" component={Posts} />
-        <Route path="/my-posts" component={MyPosts} />
-        <Route path="/log-in" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/new-post/:from" component={NewPost} />
-        <Route path="/edit-post/:id/:from" component={EditPost} />
-        <Route path="/post-details/:id/:from" component={PostDetails} />
-        <Route path="/about-us" component={AboutUs} />
+        <Routes>
+          <Route path="/" element={<Posts />} />
+          <Route path="/home" element={<Posts />} />
+          <Route path="/alert/all" element={<Posts />} />
+          <Route path="/my-posts" element={<MyPosts />} />
+          <Route path="/log-in" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/new-post/:from" element={<NewPost />} />
+          <Route path="/edit-post/:id/:from" element={<EditPost />} />
+          <Route path="/post-details/:id/:from" element={<PostDetails />} />
+          <Route path="/about-us" element={<AboutUs />} />
+        </Routes>
       </div>
     );
-  }
 }
 
 export default App;

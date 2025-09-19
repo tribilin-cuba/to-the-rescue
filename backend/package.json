@@ -37,6 +37,6 @@
     "experimentalDecorators": true
   },
   "engines": {
-    "node": "14.x"
+    "node": ">=14.x"
   }
 }

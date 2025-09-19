@@ -1,9 +1,9 @@
 import { Card, Form, Button } from "react-bootstrap"
 import { useState } from "react"
 import { SERVER_URL } from "../../Constants/constants"
-import { Redirect } from "react-router"
+import { Navigate } from "react-router"
 import { useDispatch } from "react-redux"
-import { SET_USER_ID } from "../../store/actions"
+import { setUserId } from "../../App/store"
 import { Link } from "react-router-dom"
 
 function Login() {
@@ -33,19 +33,18 @@ function Login() {
         fetch(SERVER_URL + "user-login", request)
             .then(response => response.json())
             .then(response => {
-                dispatch({
-                    type: SET_USER_ID,
+                dispatch(setUserId({
                     userId: response._id,
                     userName: response.firstName,
                     userEmail: response.email
-                })
+                }))
                 setRedirect(true)
                 window.flash("Ha iniciado sesión correctamente", "success")
             })
             .catch(error => window.flash("Nombre de usuario o email incorrectos", "error"))
     }
     if (redirect)
-        return <Redirect to="/" />
+        return <Navigate to="/" />
 
     return (
         <Card>

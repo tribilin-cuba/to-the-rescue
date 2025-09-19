@@ -1,10 +1,10 @@
-import { Form, Button, AccordionCollapse, AccordionToggle } from "react-bootstrap";
-import Accordion from "react-bootstrap/Accordion";
+import { Form, Button } from "react-bootstrap";
+// import Accordion from "react-bootstrap/Accordion";
 import "./FilterForm.css"
-import { Redirect, useLocation } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import { useState, useEffect } from "react";
-import { PROVINCES } from "../../../Constants/constants";
-import { RiArrowDownSLine } from "react-icons/ri";
+// import { PROVINCES } from "../../../Constants/constants";
+// import { RiArrowDownSLine } from "react-icons/ri";
 import { BsArrowClockwise } from "react-icons/bs";
 
 function FilterForm({ onHide }) {
@@ -37,22 +37,22 @@ function FilterForm({ onHide }) {
         setMunicipality(null)
         setProvince([])
     }
-    const provinces = PROVINCES.map(p => {
-        return <Form.Check
-            id={"province-" + p}
-            key={p}
-            type="checkbox"
-            name="province"
-            label={p}
-            value={p}
-            onChange={(e) => {
-                if (e.target.checked)
-                    setProvince([...province, e.target.value])
-                else
-                    setProvince(province.filter(pr => pr !== e.target.value))
-            }}
-        />
-    })
+    // const provinces = PROVINCES.map(p => {
+    //     return <Form.Check
+    //         id={"province-" + p}
+    //         key={p}
+    //         type="checkbox"
+    //         name="province"
+    //         label={p}
+    //         value={p}
+    //         onChange={(e) => {
+    //             if (e.target.checked)
+    //                 setProvince([...province, e.target.value])
+    //             else
+    //                 setProvince(province.filter(pr => pr !== e.target.value))
+    //         }}
+    //     />
+    // })
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -68,7 +68,7 @@ function FilterForm({ onHide }) {
     }
 
     if (redirect)
-        return <Redirect to={redirect} />
+        return <Navigate to={redirect} />
 
     return (
         <Form onSubmit={submitHandler} id="filter-form">
@@ -128,7 +128,7 @@ function FilterForm({ onHide }) {
                             />
                         </Form.Group>
                     </div>
-
+{/* 
                     <Accordion>
                         <AccordionToggle as="h4" eventKey="0" className="d-flex filter-header mt-2">
                             Provincia <RiArrowDownSLine color="black" className="ml-auto" />
@@ -137,7 +137,7 @@ function FilterForm({ onHide }) {
                             <div className="ml-4 mt-2">{provinces}</div>
 
                         </AccordionCollapse>
-                    </Accordion>
+                    </Accordion> */}
 
                     <Form.Group className="d-flex justify-content-center mt-5">
                         <Button

@@ -1,9 +1,9 @@
 import { Card, Form, Button } from "react-bootstrap"
 import { useState } from "react"
 import { SERVER_URL } from "../../Constants/constants"
-import { Redirect } from "react-router"
+import { Navigate } from "react-router"
 import { useDispatch } from "react-redux"
-import { SET_USER_ID } from "../../store/actions"
+import { setUserId } from "../../App/store"
 import { Link } from "react-router-dom"
 
 function Register() {
@@ -38,7 +38,7 @@ function Register() {
                     return
                 }
 
-                dispatch({ type: SET_USER_ID, userId: response._id, userName: response.firstName, userEmail: response.email })
+                dispatch(setUserId({ userId: response._id, userName: response.firstName, userEmail: response.email }))
                 setRedirect(true)
                 window.flash("Se ha registrado correctamente", "success")
             })
@@ -47,7 +47,7 @@ function Register() {
 
     }
     if (redirect)
-        return <Redirect to="/" />
+        return <Navigate to="/" />
 
     return (
         <Card>
