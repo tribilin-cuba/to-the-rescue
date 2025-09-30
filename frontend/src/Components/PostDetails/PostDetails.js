@@ -9,8 +9,8 @@ import "./PostDetails.css"
 import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
-import { DETA_PROJECT_ID } from '../../Constants/constants'
-import { DETA_API_KEY } from '../../Constants/constants'
+// import { DETA_PROJECT_ID } from '../../Constants/constants'
+// import { DETA_API_KEY } from '../../Constants/constants'
 import PictureModal from '../Layout/PictureModal/PictureModal'
 
 function PostDetails() {
@@ -39,22 +39,20 @@ function PostDetails() {
                 dispatch(populateSelectedPost(data));
                 setLoading(false);
 
-                const projectId = DETA_PROJECT_ID || TOY_DETA_ID;
-                const detaDriveName = 'photos';
-                const urlSuffix = `files/download?name=${picture_path}`;
+                // const projectId = DETA_PROJECT_ID || TOY_DETA_ID;
+                // const detaDriveName = 'photos';
+                // const urlSuffix = `files/download?name=${picture_path}`;
 
-                const imgUrlPath = picture_path === "" ?
-                    "/default.png" :
-                    `${DETA_URL}${projectId}/${detaDriveName}/${urlSuffix}`;
+                const imgUrlPath = "/default.png";
 
-                if (imgUrlPath !== "/default.png")
-                    fetch(imgUrlPath, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY, "Cache-Control": "public,  max-age=604800, immutable" } })
-                        .then(response => response.text())
-                        .then(text => {
-                            const pict = "data:image/png;base64," + text;
-                            setImgUrl(pict);
-                        })
-                else
+                // if (imgUrlPath !== "/default.png")
+                //     fetch(imgUrlPath, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY, "Cache-Control": "public,  max-age=604800, immutable" } })
+                //         .then(response => response.text())
+                //         .then(text => {
+                //             const pict = "data:image/png;base64," + text;
+                //             setImgUrl(pict);
+                //         })
+                // else
                     setImgUrl(imgUrlPath);
             })
             .catch(error => {

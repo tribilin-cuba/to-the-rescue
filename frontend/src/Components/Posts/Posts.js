@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link, Navigate, useLocation } from "react-router-dom"
-import Post from "./Post/Post"
+import Post from "./Post/Post.tsx"
 import { useSelector, useDispatch } from "react-redux"
 import { populatePosts } from "../../App/store"
 import TopHeader from "../TopHeader/TopHeader"

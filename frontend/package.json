@@ -32,7 +32,6 @@
     "react-router-dom": "^7.9.1",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
-    "redux-persist": "^6.0.0",
     "typescript": "^5.9.2",
     "web-vitals": "^5.1.0"
   },

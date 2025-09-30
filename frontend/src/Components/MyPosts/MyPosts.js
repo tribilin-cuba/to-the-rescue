@@ -5,7 +5,7 @@ import { populatePosts } from "../../App/store"
 import TopHeader from "../TopHeader/TopHeader"
 import { SERVER_URL } from "../../Constants/constants"
 import Spinner from "../Layout/Spinner/Spinner"
-import Post from "../Posts/Post/Post"
+import Post from "../Posts/Post/Post.tsx"
 import Footer from "../Footer/Footer"
 
 function MyPosts() {
