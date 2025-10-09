@@ -1,29 +1,43 @@
 import React, { useState, useEffect } from "react"
 import { Link, Navigate, useLocation } from "react-router-dom"
-import Post from "./Post/Post.tsx"
-import { useSelector, useDispatch } from "react-redux"
-import { populatePosts } from "../../App/store"
-import TopHeader from "../TopHeader/TopHeader"
+import Post, { PostProps } from "./Post/Post.js"
+import { populatePosts } from "../../App/store.js"
+import TopHeader from "../TopHeader/TopHeader.js"
 import "./Posts.css"
-import { SERVER_URL } from "../../Constants/constants"
-import Spinner from "../Layout/Spinner/Spinner"
-import PostsTabs from "../Layout/PostsTabs/PostsTabs"
+import Spinner from "../Layout/Spinner/Spinner.js"
+import PostsTabs from "../Layout/PostsTabs/PostsTabs.js"
 import { Button, Modal } from "react-bootstrap"
 import { FaFilter } from "react-icons/fa"
-import FilterForm from "../Layout/FilterForm/FilterForm"
-import Footer from "../Footer/Footer"
+import FilterForm from "../Layout/FilterForm/FilterForm.js"
+import Footer from "../Footer/Footer.js"
+import usePost from "../../Hooks/Post/UsePost.js"
+import { useAppDispatch, useAppSelector } from "../../Hooks/App/App.js"
 
 function Posts() {
-    const [loading, setLoading] = useState(true);
     const [redirect, setRedirect] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
-    const [activeKey, setActiveKey] = useState("all");
+    const [activeKey, setActiveKey] = useState<string | null>("all");
     const [search, setSearch] = useState("");
     
-    const posts = useSelector(state => state.app.posts);
-    const userId = useSelector(state => state.app.userId);
-    const dispatch = useDispatch();
+    const userId = useAppSelector(state => state.app.userId);
+    const dispatch = useAppDispatch();
     const location = useLocation();
+
+    const {data: posts, isLoading, error} = usePost();
+
+    useEffect(() => {
+        if (!error)
+            return;
+        if (error.message === "Failed to fetch")
+            window.flash("Sin conexión a Internet. Inténtelo de nuevo más tarde.", "error")
+        else
+            window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
+    }, [error])
+    
+    useEffect(() => {
+        if(posts)
+            dispatch(populatePosts(posts));
+    }, [posts, dispatch])
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -34,27 +48,13 @@ function Posts() {
         } else {
             setActiveKey("all");
         }
-
-        fetch(SERVER_URL + "alert/all" + location.search)
-            .then(response => response.json())
-            .then(data => {
-                dispatch(populatePosts(data));
-                setLoading(false);
-            })
-            .catch(error => {
-                if (error.message === "Failed to fetch")
-                    window.flash("Sin conexión a Internet. Inténtelo de nuevo más tarde.", "error")
-                else
-                    window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
-
-                setLoading(false);
-            })
-    }, [location.search, dispatch]);
+      
+    }, [location.search]);
 
     const postElements = posts
-        .map(post => <Post
+        .map((post : PostProps) => <Post
             key={post._id}
-            id={post._id}
+            _id={post._id}
             animal={post.animal}
             alert_type={post.alert_type}
             municipality={post.municipality}
@@ -83,7 +83,7 @@ function Posts() {
     if (redirect)
         return <Navigate to={"/new-post/home" + location.search} />
 
-    if (loading)
+    if (isLoading)
         return <Spinner />
     
     return (

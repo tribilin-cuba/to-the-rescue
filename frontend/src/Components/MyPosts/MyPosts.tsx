@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { populatePosts } from "../../App/store"
-import TopHeader from "../TopHeader/TopHeader"
-import { SERVER_URL } from "../../Constants/constants"
-import Spinner from "../Layout/Spinner/Spinner"
+import { populatePosts } from "../../App/store.ts"
+import TopHeader from "../TopHeader/TopHeader.tsx"
+import { SERVER_URL } from "../../Constants/constants.ts"
+import Spinner from "../Layout/Spinner/Spinner.js"
 import Post from "../Posts/Post/Post.tsx"
-import Footer from "../Footer/Footer"
+import Footer from "../Footer/Footer.js"
 
 function MyPosts() {
     const [loading, setLoading] = useState(true);

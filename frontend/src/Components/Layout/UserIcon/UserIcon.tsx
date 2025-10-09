@@ -4,7 +4,7 @@ import { IoLogOut, IoLogIn, IoPersonAdd } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 
-function UserIcon({ userName, logOutHandler }) {
+function UserIcon({ userName, logOutHandler }: {userName: string, logOutHandler: () => void}) {
     const CustomToggle = React.forwardRef(({ onClick }, ref) => (
         <img alt="user-icon" src="/user.png" style={{ width: "25px" }} ref={ref}
             onClick={(e) => {

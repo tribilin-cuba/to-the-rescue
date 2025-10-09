@@ -6,8 +6,8 @@ type AnimalType =  "Perro"| "Gato" ;
 type AlertType = "Perdido" | "Abandonado" | "Adopción" | "Crítico";
 type ProvinceType = "Pinar del río" | "Artemisa" | "La Habana" | "Mayabeque" | "Matanzas" | "Cienfuegos" | "Villa Clara" | "Sancti Spíritus" | "Ciego de Ávila" | "Camagüey" | "Las Tunas" | "Granma" | "Holguín" | "Santiago de Cuba" | "Guantánamo" | "Isla de la Juventud";
 
-interface PostProps {
-    id: string;
+export interface PostProps {
+    _id: string;
     animal?: AnimalType;
     alert_type: AlertType;
     municipality?: string;
@@ -18,7 +18,7 @@ interface PostProps {
     province: ProvinceType;
 }
 
-export default function Post({ id, animal, alert_type, municipality, date, description, from, picture_path, province }: PostProps) {
+export default function Post({ _id, animal, alert_type, municipality, date, description, from, picture_path, province }: PostProps) {
     if (!description)
         description = `${animal}:${alert_type}`
 
@@ -30,7 +30,7 @@ export default function Post({ id, animal, alert_type, municipality, date, descr
         <Card className="PostCard mt-2">
             <Card.Body style={{ padding: "0px" }}>
                 <Link className="Post d-flex post-link"
-                    to={`/post-details/${id}/${from}`}
+                    to={`/post-details/${_id}/${from}`}
 
                 >
                     <div className="d-flex flex-column align-items-start m-2 PostWidth PostHeight">

@@ -11,6 +11,12 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "allowArbitraryExtensions": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "allowImportingTsExtensions": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node"
     }
 }

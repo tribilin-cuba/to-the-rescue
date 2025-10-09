@@ -1,14 +1,14 @@
 import React from "react"
 import "./TopHeader.css"
-import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../App/store";
 import UserIcon from "../Layout/UserIcon/UserIcon";
 import MenuIcon from "../Layout/MenuIcon/MenuIcon";
 import { useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../Hooks/App/App";
 
-function TopHeader({ title, smallTitle, goHome, showAll }) {
-    const dispatch = useDispatch()
-    const userName = useSelector((state) => state.app.userName)
+function TopHeader({ title, smallTitle, goHome, showAll } : {title: string, smallTitle: string, goHome: boolean, showAll: boolean}) {
+    const dispatch = useAppDispatch()
+    const userName = useAppSelector((state) => state.app.userName)
     const navigate = useNavigate()
     return (
         <div className='d-flex flex-column TopHeader align-items-start'>
