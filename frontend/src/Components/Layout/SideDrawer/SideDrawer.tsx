@@ -4,15 +4,15 @@ import Backdrop from "../Backdrop/Backdrop"
 import Logo from "../Logo/Logo"
 // import NavigationItems from "../NavigationItems/Navigationitems"
 
-const SideDrawer = (props) => {
+export default function SideDrawer ({open, closed}: {open: boolean, closed: () => void}) {
 
     let attachedClasses = ["SideDrawer", "Close"]
-    if (props.open) {
+    if (open) {
         attachedClasses = ["SideDrawer", "Open"]
     }
     return (
         <div>
-            <Backdrop show={props.open} clicked={props.closed} />
+            <Backdrop show={open} clicked={closed} />
             <div className={attachedClasses.join(' ')}>
                 <div className="Logo">
                     <Logo />
@@ -21,4 +21,3 @@ const SideDrawer = (props) => {
         </div>
     )
 }
-export default SideDrawer

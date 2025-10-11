@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
 import { SERVER_URL } from "../../Constants/constants"
 import { populateSelectedPost } from "../../App/store"
+import { useAppDispatch, useAppSelector } from "../../Hooks/App/App"
+import { PostType } from "../../types/Post"
 function EditPost() {
-    const post = useSelector(state => state.app.selectedPost);
-    const dispatch = useDispatch();
+    const post = useAppSelector(state => state.app.selectedPost);
+    const dispatch = useAppDispatch();
     const params = useParams();
-    const [postForm, setPostForm] = useState({
+    const [postForm, setPostForm] = useState<Record<string, string | undefined>>({
         author_id: "",
         animal: "",
         gender: "",
@@ -28,20 +29,21 @@ function EditPost() {
     const [from, setFrom] = useState("home");
 
     useEffect(() => {
-        if (post && Object.keys(post).length > 0) {
+        if (Object.keys(post).length > 0) {
+            const _post = post as PostType;
             setPostForm({
-                author_id: post.author_id || "",
-                animal: post.animal || "",
-                gender: post.gender || "",
-                age: post.age || "",
-                picture_path: post.picture_path || "",
-                province: post.province || "",
-                municipality: post.municipality || "",
-                address: post.address || "",
-                alert_type: post.alert_type || "",
-                email: post.email || "",
-                phone: post.phone || "",
-                description: post.description || "",
+                author_id: _post.author_id || "",
+                animal: _post.animal || "",
+                gender: _post.gender || "",
+                age: _post.age || "",
+                picture_path: _post.picture_path || "",
+                province: _post.province || "",
+                municipality: _post.municipality || "",
+                address: _post.address || "",
+                alert_type: _post.alert_type || "",
+                email: _post.email || "",
+                phone: _post.phone || "",
+                description: _post.description || "",
                 imgString: undefined,
             });
         }
@@ -49,12 +51,14 @@ function EditPost() {
 
     useEffect(() => {
         const fromParam = params.from;
-        setFrom(fromParam);
+        if (fromParam) {
+            setFrom(fromParam);
+        }
     }, [params.from]);
 
-    const submitHandler = (event) => {
+    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const form = event.target;
+        const form = event.target as HTMLFormElement;
         if (form.checkValidity() === false) {
             setValidated(true);
             return;
@@ -65,11 +69,19 @@ function EditPost() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postForm)
         };
-        fetch(SERVER_URL + "alert/" + post._id, request)
-            .then(response => {
-                console.log(response);
-                // Navigate back to post details
-                window.location.href = `/post-details/${post._id}/${from}`;
+        
+        // Check if post has valid data before making the request
+        const postObj = post as PostType;
+        if (!postObj._id) {
+            window.flash("No se pudo encontrar la alerta para editar.", "error");
+            return;
+        }
+        
+        fetch(SERVER_URL + "alert/" + postObj._id, request)
+                .then(response => {
+                    console.log(response);
+                    // Navigate back to post details
+                    window.location.href = `/post-details/${postObj._id}/${from}`;
                 dispatch(populateSelectedPost(postForm));
             })
             .catch(error => {
@@ -77,25 +89,12 @@ function EditPost() {
             });
     };
 
-    const inputChangedHandler = (event, inputId) => {
+    const inputChangedHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, inputId: keyof typeof postForm) => {
         const updatedPostForm = { ...postForm };
         updatedPostForm[inputId] = event.target.value;
         setPostForm(updatedPostForm);
     };
 
-    const changeImageHandler = (event) => {
-        if (event.target.files[0]) {
-            let reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
-            reader.onload = () => {
-                setImgUrl(URL.createObjectURL(event.target.files[0]));
-                setPostForm({
-                    ...postForm,
-                    imgString: reader.result
-                });
-            };
-        }
-    };
     return (
         <Form onSubmit={submitHandler} noValidate validated={validated} className="mt-3">
             <Form.Group>
@@ -177,7 +176,7 @@ function EditPost() {
                         </Form.Group>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <Link to={`/post-details/${post._id}/${from}`} className="mr-2" >
+                        <Link to={`/post-details/${(post as PostType)._id}/${from}`} className="mr-2" >
                             <Button variant="secondary">Cancelar</Button>
                         </Link>
                         <Form.Group>

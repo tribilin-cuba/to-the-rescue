@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import Posts from "./Components/Posts/Posts";
 import NewPost from "./Components/NewPost/NewPost";
 import PostDetails from "./Components/PostDetails/PostDetails";

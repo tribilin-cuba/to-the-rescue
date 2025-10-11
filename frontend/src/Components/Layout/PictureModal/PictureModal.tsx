@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 
-function PictureModal({ show, imgSrc, handleClose }) {
+function PictureModal({ show, imgSrc, handleClose }: { show: boolean, imgSrc: string, handleClose: () => void }) {
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered>
             <Modal.Header closeButton style={{ borderBottom: "none" }} />

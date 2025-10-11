@@ -1,10 +1,9 @@
-import React from "react"
 import "./Card.css"
 
-const card = (props) => (
+const card = ({children}: {children: React.ReactNode}) => (
     <div className="Card">
         <div className="card-body">
-            {props.children}
+            {children}
         </div>
     </div>
 )

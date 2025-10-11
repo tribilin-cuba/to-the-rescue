@@ -4,14 +4,16 @@ import { IoLogOut, IoLogIn, IoPersonAdd } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 
-function UserIcon({ userName, logOutHandler }: {userName: string, logOutHandler: () => void}) {
-    const CustomToggle = React.forwardRef(({ onClick }, ref) => (
-        <img alt="user-icon" src="/user.png" style={{ width: "25px" }} ref={ref}
-            onClick={(e) => {
-                e.preventDefault();
-                onClick(e);
-            }} />
-    ));
+function UserIcon({ userName, logOutHandler }: {userName: string | null, logOutHandler: () => void}) {
+    const CustomToggle = React.forwardRef<HTMLImageElement, { onClick?: (e: React.MouseEvent<HTMLImageElement>) => void }>(
+        ({ onClick }, ref) => (
+            <img alt="user-icon" src="/user.png" style={{ width: "25px" }} ref={ref}
+                onClick={(e) => {
+                    e.preventDefault();
+                    if (onClick) onClick(e);
+                }} />
+        )
+    );
     return (
         <div className="TopHeaderIcon">
             <Dropdown drop="down">

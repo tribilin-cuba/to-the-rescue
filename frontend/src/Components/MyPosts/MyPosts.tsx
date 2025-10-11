@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { populatePosts } from "../../App/store.ts"
-import TopHeader from "../TopHeader/TopHeader.tsx"
-import { SERVER_URL } from "../../Constants/constants.ts"
-import Spinner from "../Layout/Spinner/Spinner.js"
-import Post from "../Posts/Post/Post.tsx"
-import Footer from "../Footer/Footer.js"
+import { useDispatch } from "react-redux"
+import { populatePosts } from "../../App/store"
+import TopHeader from "../TopHeader/TopHeader"
+import { SERVER_URL } from "../../Constants/constants"
+import Spinner from "../Layout/Spinner/Spinner"
+import Post from "../Posts/Post/Post"
+import Footer from "../Footer/Footer"
+import { useAppSelector } from "../../Hooks/App/App"
 
 function MyPosts() {
     const [loading, setLoading] = useState(true);
-    const posts = useSelector(state => state.app.posts);
-    const userId = useSelector(state => state.app.userId);
+    const posts = useAppSelector(state => state.app.posts);
+    const userId = useAppSelector(state => state.app.userId);
     const dispatch = useDispatch();
 
     useEffect(() => {
         fetch(SERVER_URL + "alert-by-user/" + userId)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 dispatch(populatePosts(data));
                 setLoading(false);
             })
@@ -31,7 +31,7 @@ function MyPosts() {
     const postElements = (posts || [])
         .map(post => <Post
             key={post._id}
-            id={post._id}
+            _id={post._id}
             animal={post.animal}
             alert_type={post.alert_type}
             municipality={post.municipality}

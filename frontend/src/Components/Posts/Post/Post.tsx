@@ -1,24 +1,11 @@
 import "./Post.css"
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { PostType } from "../../../types/Post";
 
-type AnimalType =  "Perro"| "Gato" ;
-type AlertType = "Perdido" | "Abandonado" | "Adopción" | "Crítico";
-type ProvinceType = "Pinar del río" | "Artemisa" | "La Habana" | "Mayabeque" | "Matanzas" | "Cienfuegos" | "Villa Clara" | "Sancti Spíritus" | "Ciego de Ávila" | "Camagüey" | "Las Tunas" | "Granma" | "Holguín" | "Santiago de Cuba" | "Guantánamo" | "Isla de la Juventud";
 
-export interface PostProps {
-    _id: string;
-    animal?: AnimalType;
-    alert_type: AlertType;
-    municipality?: string;
-    date: string;
-    description?: string;
-    from?: string;
-    picture_path?: string;
-    province: ProvinceType;
-}
 
-export default function Post({ _id, animal, alert_type, municipality, date, description, from, picture_path, province }: PostProps) {
+export default function Post({ _id, animal, alert_type, municipality, date, description, from, picture_path, province }: PostType) {
     if (!description)
         description = `${animal}:${alert_type}`
 

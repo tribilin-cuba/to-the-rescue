@@ -7,17 +7,21 @@ import Layout from './Components/Layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux"
 import { store } from './App/store';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
           <Layout>
             <App />
           </Layout>
+        </QueryClientProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

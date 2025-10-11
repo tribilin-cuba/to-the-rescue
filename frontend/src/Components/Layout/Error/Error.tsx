@@ -1,6 +1,6 @@
 import { Alert } from "react-bootstrap";
 
-function Error({ message }) {
+function Error({ message }: { message: string }) {
     return (
         <Alert variant="danger">
             <p>Ups algo salio mal: {message} </p>

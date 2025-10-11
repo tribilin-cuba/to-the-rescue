@@ -6,9 +6,9 @@ import { SiOpenstreetmap } from "react-icons/si";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import { useRef, useEffect } from "react";
 
-function PostsTabs({ body, activeKey, search }) {
+function PostsTabs({ body, activeKey, search }: { body: React.ReactNode, activeKey: string, search: string }) {
     const location = useLocation()
-    const searchParams = useRef("")
+    const searchParams = useRef<URLSearchParams>(null)
 
 
     useEffect(() => {

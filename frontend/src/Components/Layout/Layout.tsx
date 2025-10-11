@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "./Layout.css"
 import Toolbar from "./Toolbar/Toolbar"
 
-function Layout({ children }) {
+export default function Layout({ children } : { children: React.ReactNode }) {
     return (
         <Fragment>
             <Toolbar />
@@ -12,5 +12,3 @@ function Layout({ children }) {
         </Fragment>
     );
 }
-
-export default Layout

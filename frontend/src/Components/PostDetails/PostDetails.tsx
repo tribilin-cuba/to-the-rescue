@@ -1,17 +1,22 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { populateSelectedPost } from "../../App/store"
 import { Badge, Card, Modal, Button, Spinner } from 'react-bootstrap'
 import { Link, Navigate, useParams, useLocation } from 'react-router-dom'
-import { SERVER_URL, TOY_DETA_KEY, DETA_URL, TOY_DETA_ID } from '../../Constants/constants'
+import { SERVER_URL} from '../../Constants/constants'
 import CustomSpinner from '../Layout/Spinner/Spinner'
 import "./PostDetails.css"
 import { MdEdit, MdDelete, MdMessage } from "react-icons/md"
 import { ImWhatsapp } from "react-icons/im"
 import { IoCall } from 'react-icons/io5'
-// import { DETA_PROJECT_ID } from '../../Constants/constants'
-// import { DETA_API_KEY } from '../../Constants/constants'
 import PictureModal from '../Layout/PictureModal/PictureModal'
+import { useAppSelector } from '../../Hooks/App/App'
+import { PostType } from '../../types/Post'
+
+// Type guard to check if post is a valid PostType
+function isPostType(post: PostType | {}): post is PostType {
+    return '_id' in post;
+}
 
 function PostDetails() {
     const [loading, setLoading] = useState(true);
@@ -19,11 +24,11 @@ function PostDetails() {
     const [show, setShow] = useState(false);
     const [editRedirect, setEditRedirect] = useState(false);
     const [from, setFrom] = useState("home");
-    const [imgUrl, setImgUrl] = useState(null);
+    const [imgUrl, setImgUrl] = useState("/default.png");
     const [showImg, setShowImg] = useState(false);
     
-    const post = useSelector(state => state.app.selectedPost);
-    const userId = useSelector(state => state.app.userId);
+    const post = useAppSelector(state => state.app.selectedPost);
+    const userId = useAppSelector(state => state.app.userId);
     const dispatch = useDispatch();
     const params = useParams();
     const location = useLocation();
@@ -35,7 +40,7 @@ function PostDetails() {
         fetch(SERVER_URL + "alert/" + params.id)
             .then(response => response.json())
             .then(data => {
-                let picture_path = data.picture_path;
+                // let picture_path = data.picture_path;
                 dispatch(populateSelectedPost(data));
                 setLoading(false);
 
@@ -43,7 +48,7 @@ function PostDetails() {
                 // const detaDriveName = 'photos';
                 // const urlSuffix = `files/download?name=${picture_path}`;
 
-                const imgUrlPath = "/default.png";
+                // const imgUrlPath = "/default.png";
 
                 // if (imgUrlPath !== "/default.png")
                 //     fetch(imgUrlPath, { headers: { "X-Api-Key": DETA_API_KEY || TOY_DETA_KEY, "Cache-Control": "public,  max-age=604800, immutable" } })
@@ -53,7 +58,7 @@ function PostDetails() {
                 //             setImgUrl(pict);
                 //         })
                 // else
-                    setImgUrl(imgUrlPath);
+                    // setImgUrl(imgUrlPath);
             })
             .catch(error => {
                 window.flash("Ha ocurrido un error. Inténtelo de nuevo más tarde.", "error")
@@ -61,6 +66,7 @@ function PostDetails() {
     }, [params.id, params.from, location.search, dispatch]);
 
     const deleteHandler = () => {
+        if (!isPostType(post)) return;
         const postId = post._id;
         fetch(SERVER_URL + "alert/" + postId, { method: "DELETE" })
             .then(response => response.json())
@@ -78,18 +84,23 @@ function PostDetails() {
             setShowImg(true);
     };
 
+    // Type guard check - if post is not loaded yet, show spinner
+    if (!isPostType(post)) {
+        return <CustomSpinner />;
+    }
+
     const date = new Date(`${post.date}`);
-    const linkStatus = {
+    const linkStatus: Record<string, string> = {
         "Perdido": "perdido ",
         "Adopción": "en adopción ",
         "Crítico": "en estado crítico ",
         "Abandonado": "abandonado "
     };
-    const linkAnimal = {
+    const linkAnimal: Record<string, string> = {
         "Perro": "Perrito ",
         "Gato": "Gatico "
     };
-    const linkText = linkAnimal[post.animal] + linkStatus[post.alert_type] + "en el municipio " + post.municipality + ". Toca el link para más detalles \n";
+    const linkText = linkAnimal[post.animal!] + linkStatus[post.alert_type] + "en el municipio " + post.municipality + ". Toca el link para más detalles \n";
 
     if (redirect)
         return <Navigate to={"/" + from} />
@@ -104,7 +115,7 @@ function PostDetails() {
                     to={"/" + from}
                     className="ml-auto"
                 >
-                    <img src="/close.png" alt="close" style={{ width: "15px", heigth: "15px" }} />
+                    <img src="/close.png" alt="close" style={{ width: "15px", height: "15px" }} />
                 </Link>
             </div>
             <div className="d-flex flex-column align-content-center">
@@ -126,7 +137,7 @@ function PostDetails() {
                 <div className="TopHeaderText mt-4" style={{ fontSize: "x-large" }}>
                     <div>{post.municipality ? `${post.municipality},` : null} {post.province}</div>
                 </div>
-                <Badge pill variant="warning"> </Badge>
+                <Badge pill> </Badge>
             </div>
             <div className="d-flex flex-column">
                 {post.description &&

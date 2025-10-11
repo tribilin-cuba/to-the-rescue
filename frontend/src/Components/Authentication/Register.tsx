@@ -13,7 +13,7 @@ function Register() {
     const [redirect, setRedirect] = useState(false)
     const dispatch = useDispatch()
 
-    const submitHandler = (event) => {
+    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const form = event.currentTarget;

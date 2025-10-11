@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 // import { RiArrowDownSLine } from "react-icons/ri";
 import { BsArrowClockwise } from "react-icons/bs";
 
-function FilterForm({ onHide }) {
+function FilterForm({ onHide }: {onHide: () => void}) {
     const location = useLocation()
     const activeFilters = new URLSearchParams(location.search)
 
@@ -15,10 +15,12 @@ function FilterForm({ onHide }) {
     const [gender, setGender] = useState(activeFilters.get("gender"))
     const [province, setProvince] = useState(activeFilters.getAll("province") || [])
     const [municipality, setMunicipality] = useState(activeFilters.get("municipality"))
-    const [redirect, setRedirect] = useState(null)
+    const [redirect, setRedirect] = useState<string | null>(null)
 
-    const checkElementById = (elementId) => {
-        document.getElementById(elementId).checked = true
+    const checkElementById = (elementId: string) => {
+        const element = document.getElementById(elementId) as HTMLInputElement
+        if (element)
+            element.checked = true
     }
     useEffect(() => {
 
@@ -31,7 +33,9 @@ function FilterForm({ onHide }) {
     }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     const resetValues = () => {
-        document.getElementById("filter-form").reset()
+        const formElement = document.getElementById("filter-form") as HTMLFormElement
+        if (formElement)
+            formElement.reset()
         setAnimal(null)
         setGender(null)
         setMunicipality(null)
@@ -54,7 +58,7 @@ function FilterForm({ onHide }) {
     //     />
     // })
 
-    const submitHandler = (event) => {
+    const submitHandler = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         onHide()
         let search = new URLSearchParams()
@@ -123,7 +127,7 @@ function FilterForm({ onHide }) {
                         <h4 className="filter-header" style={{ borderBottom: "none" }}>Municipio</h4>
                         <Form.Group>
                             <Form.Control
-                                value={municipality}
+                                value={municipality as string}
                                 onChange={(e) => { setMunicipality(e.target.value) }}
                             />
                         </Form.Group>

@@ -1,6 +1,6 @@
 import React from "react"
 
-const input = (props) => {
+const input = ({config, label, changed}: {config: any, label: string, changed: (e: React.ChangeEvent<HTMLInputElement>) => void}) => {
     let inputElement = null
     const style = {
         outline: "none",
@@ -12,19 +12,19 @@ const input = (props) => {
         width: "100%"
     }
 
-    switch (props.config.type) {
+    switch (config.type) {
         case ('input'):
-            inputElement = <input style={style} onChange={props.changed} {...props.config} />;
+            inputElement = <input style={style} onChange={changed} {...config} />;
             break;
         case ('textarea'):
-            inputElement = <textarea style={style} onChange={props.changed} {...props.config} />;
+            inputElement = <textarea style={style} onChange={changed} {...config} />;
             break;
         default:
-            inputElement = <input style={style} onChange={props.changed} {...props.config} />
+            inputElement = <input style={style} onChange={changed} {...config} />
     }
     return (
         <div style={{ padding: "10px", width: "100%", boxSizing: "border-box" }}>
-            <label style={{ fontWeight: "bold", display: "block", marginBottom: "8px" }}>{props.label}</label>
+            <label style={{ fontWeight: "bold", display: "block", marginBottom: "8px" }}>{label}</label>
             {inputElement}
         </div>
     )

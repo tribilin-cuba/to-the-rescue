@@ -6,13 +6,14 @@ import { MdFavorite } from "react-icons/md"
 import { GiDogHouse } from "react-icons/gi"
 import { Link } from "react-router-dom";
 
-function MenuIcon({ authenticated, goHome, showAll }) {
-    const CustomToggle = React.forwardRef(({ onClick }, ref) => (
-        <img alt="menu-icon" src="/menu.png" className="ml-3" style={{ width: "25px" }} ref={ref}
-            onClick={(e) => {
-                e.preventDefault();
-                onClick(e);
-            }} />
+function MenuIcon({ authenticated, goHome, showAll } : {authenticated: boolean, goHome?: boolean, showAll?: boolean}) {
+    const CustomToggle = React.forwardRef<HTMLImageElement, { onClick: (e: React.MouseEvent<HTMLImageElement>) => void }>(
+        ({ onClick }, ref) => (
+            <img alt="menu-icon" src="/menu.png" className="ml-3" style={{ width: "25px" }} ref={ref}
+                onClick={(e) => {
+                    e.preventDefault();
+                    onClick(e);
+                }} />
     ));
     return (
         <Fragment>

@@ -1,6 +1,21 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { PostType } from "../types/Post";
 
-const initialState = {
+interface AppState {
+    posts: PostType[];
+    selectedPost: PostType | {};
+    newPost: {
+        id: string;
+        title: string;
+        body: string;
+    };
+    showSideDrawer: boolean;
+    userId: string | null;
+    userEmail: string | null;
+    userName: string | null;
+}
+
+const initialState: AppState = {
     posts: [],
     selectedPost: {},
     newPost: {

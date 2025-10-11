@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react"
 import { Link, Navigate, useLocation } from "react-router-dom"
-import Post, { PostProps } from "./Post/Post.js"
-import { populatePosts } from "../../App/store.js"
-import TopHeader from "../TopHeader/TopHeader.js"
+import Post from "./Post/Post"
+import { populatePosts } from "../../App/store"
+import TopHeader from "../TopHeader/TopHeader"
 import "./Posts.css"
-import Spinner from "../Layout/Spinner/Spinner.js"
-import PostsTabs from "../Layout/PostsTabs/PostsTabs.js"
+import Spinner from "../Layout/Spinner/Spinner"
+import PostsTabs from "../Layout/PostsTabs/PostsTabs"
 import { Button, Modal } from "react-bootstrap"
 import { FaFilter } from "react-icons/fa"
-import FilterForm from "../Layout/FilterForm/FilterForm.js"
-import Footer from "../Footer/Footer.js"
-import usePost from "../../Hooks/Post/UsePost.js"
-import { useAppDispatch, useAppSelector } from "../../Hooks/App/App.js"
+import FilterForm from "../Layout/FilterForm/FilterForm"
+import Footer from "../Footer/Footer"
+import usePost from "../../Hooks/Post/UsePost"
+import { useAppDispatch, useAppSelector } from "../../Hooks/App/App"
+import { PostType } from "../../types/Post"
 
 function Posts() {
     const [redirect, setRedirect] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
-    const [activeKey, setActiveKey] = useState<string | null>("all");
+    const [activeKey, setActiveKey] = useState("all");
     const [search, setSearch] = useState("");
     
     const userId = useAppSelector(state => state.app.userId);
@@ -42,7 +43,7 @@ function Posts() {
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         if (searchParams.has("alert_type")) {
-            setActiveKey(searchParams.get("alert_type"));
+            setActiveKey(searchParams.get("alert_type") || "all");
             searchParams.delete("alert_type");
             setSearch(searchParams.toString());
         } else {
@@ -51,8 +52,8 @@ function Posts() {
       
     }, [location.search]);
 
-    const postElements = posts
-        .map((post : PostProps) => <Post
+    const postElements = (posts || [])
+        .map((post : PostType) => <Post
             key={post._id}
             _id={post._id}
             animal={post.animal}
@@ -66,7 +67,7 @@ function Posts() {
         />
         );
 
-    const newPostHandler = (event) => {
+    const newPostHandler = (event: React.MouseEvent) => {
         event.preventDefault();
         if (userId)
             setRedirect(true);
